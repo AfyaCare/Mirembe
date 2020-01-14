@@ -1,0 +1,50 @@
+<div class="revise-refill-modal-wrapper" aria-labelledby="dialog-label" data-ng-controller="LedgerController">
+    <span class="ngdialog-start"></span>
+
+    <span class="ngdialog-close"></span>
+
+    <div class="adt">
+        <section class="edit-drug-order">
+            <p><strong class="drug-name">New Entry</strong></p>
+            <form name="addForm" bm-form>
+                <div class="clearfix">
+                    <div class="form-field">
+                        <div class="field-value">
+                            <label>Operation Name</label>
+                            <input class="enter-concept"
+                                   type="text"
+                                   ng-model="type.name"
+                                   placeholder="Received From MSD"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="form-field">
+                        <div class="field-value">
+                            <label>Operation Type</label>
+                            <input class="enter-concept"
+                                   type="text"
+                                   ng-model="type.operation"
+                                   placeholder="+ve"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    </br>
+    <div class="dialog-button-group">
+
+        <button id="modal-import-button" class="primary-button" ng-click="closeThisDialog(0)">Close
+        </button>
+
+        <button class="secondary-button" ng-click="saveLedgerType(type)" type="submit">Save
+        </button>
+    </div>
+
+
+    <span class="ngdialog-end"></span>
+</div>
+
+

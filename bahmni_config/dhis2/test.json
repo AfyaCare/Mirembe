@@ -1,0 +1,32 @@
+{
+  "orgUnit": "sEn1fzvOU7m",
+  "dataSet": "Rub1Fx9g6xD",
+  "dataValues": [
+        {
+          "categoryOptionCombo": "acSiErf74cF",
+          "dataElement": "BSE1QfYCdvP",
+          "row": 1,
+          "column": 2
+        },
+        {
+          "categoryOptionCombo": "ArxFSsLLK09",
+          "dataElement": "BSE1QfYCdvP",
+          "row": 1,
+          "column": 3
+        },
+		{
+          "categoryOptionCombo": "acSiErf74cF",
+          "dataElement": "I2esmPRclhf",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "categoryOptionCombo": "ArxFSsLLK09",
+          "dataElement": "I2esmPRclhf",
+          "row": 2,
+          "column": 3
+        }
+        
+      ]
+  
+}

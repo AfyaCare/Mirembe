@@ -1,0 +1,18 @@
+{
+	"bahmniClinicalPatientsSearchRadiologyOrderAllPatients":{
+	 "id": "bahmni.clinical.patients.search.RadiologyOrderAllPatients",
+	 "extensionPointId": "org.bahmni.patient.search",
+	 "type": "config",
+	 "extensionParams": {
+	  "searchHandler": "emrapi.sqlSearch.activeRadiologyPatientOrders",
+	  "display":"Radiology Orders",
+	   "translationKey": "Radiology Orders",
+	  "forwardUrl" : "../orders/#/patient/{{patientUuid}}/fulfillment/Radiology Order",
+	  "forwardButtonTitle" : "View",
+	  "view":"tabular"
+	 },
+	 "label": "Radiology Order",
+	 "order": 1,
+	 "requiredPrivilege": "app:orders"
+	 }
+}

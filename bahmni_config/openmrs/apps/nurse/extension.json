@@ -1,0 +1,111 @@
+{
+	"bahmniClinicalPatientsSearchAllNursePatients":{
+	 "id": "bahmni.clinical.patients.search.NurseAllPatients",
+	 "extensionPointId": "org.bahmni.patient.search",
+	 "type": "config",
+	 "extensionParams": {
+	  "searchHandler": "emrapi.sqlSearch.activeNursePatients",
+       "display":"Active Patients",
+	   "translationKey": "MODULE_LABEL_ACTIVE_PATIENT_NURSE_KEY",
+	  "forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All Nurse Obervations",
+	  "forwardButtonTitle" : "View",
+      "view":"tabular"
+	 },
+	 "label": "Active Patient",
+	 "order": 1,
+	 "requiredPrivilege": "app:nurse"
+	 },
+	"bahmniClinicalPatientsSearchAllDoctorPatients":{
+		"id": "bahmni.clinical.patients.search.DoctorAllPatients",
+		"extensionPointId": "org.bahmni.patient.search",
+		"type": "config",
+		"extensionParams": {
+			"searchHandler": "emrapi.sqlSearch.activePatients",
+			"display":"Active Patients",
+			"translationKey": "MODULE_LABEL_ACTIVE_PATIENT_SOCIAL_WORKER_KEY",
+			"forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All Social Worker Observation",
+			"forwardButtonTitle" : "View"
+		},
+		"label": "Active Patient",
+		"order": 1,
+		"requiredPrivilege": "app:socialWorker"
+	},
+	"bahmniClinicalPatientsSearchAllVCTPatients":{
+		"id": "bahmni.clinical.patients.search.VCTAllPatients",
+		"extensionPointId": "org.bahmni.patient.search",
+		"type": "config",
+		"extensionParams": {
+			"searchHandler": "emrapi.sqlSearch.activePatients",
+			"display":"Active Patients",
+			"translationKey": "MODULE_LABEL_ACTIVE_PATIENT_VCT_KEY",
+			"forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All VCT Observation",
+			"forwardButtonTitle" : "View"
+		},
+		"label": "Active Patient",
+		"order": 1,
+		"requiredPrivilege": "app:vct"
+	},
+
+         "bahmniClinicalPatientsSearchAllMATPatients":{
+                "id": "bahmni.clinical.patients.search.MATAllPatients",
+                "extensionPointId": "org.bahmni.patient.search",
+                "type": "config",
+                "extensionParams": {
+                        "searchHandler": "emrapi.sqlSearch.activePatients",
+                        "display":"Active Patients",
+                        "translationKey": "MODULE_LABEL_ACTIVE_PATIENT_MAT_KEY",
+                        "forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All Nurse MAT Observation",
+                        "forwardButtonTitle" : "View"
+                },
+                "label": "Active Patient",
+                "order": 1,
+                "requiredPrivilege": "app:MATNurse"
+        },
+  "bahmniClinicalPatientsSearchAllMATSocialPatients":{
+                "id": "bahmni.clinical.patients.search.MATSocialAllPatients",
+                "extensionPointId": "org.bahmni.patient.search",
+                "type": "config",
+                "extensionParams": {
+                        "searchHandler": "emrapi.sqlSearch.activePatients",
+                        "display":"Active Patients",
+                        "translationKey": "MODULE_LABEL_ACTIVE_PATIENT_MATSocial_KEY",
+                        "forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All Counselor MAT Observation",
+                        "forwardButtonTitle" : "View"
+                },
+                "label": "Active Patient",
+                "order": 1,
+                "requiredPrivilege": "app:MATCounselor"
+        },
+
+
+		"bahmniClinicalPatientsSearchAllCounselorPatients":{
+		"id": "bahmni.clinical.patients.search.CounselorAllPatients",
+		"extensionPointId": "org.bahmni.patient.search",
+		"type": "config",
+		"extensionParams": {
+			"searchHandler": "emrapi.sqlSearch.activePatients",
+			"display":"Active Patients",
+			"translationKey": "MODULE_LABEL_ACTIVE_PATIENT_COUNSELOR_KEY",
+			"forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All Counselor Observation",
+			"forwardButtonTitle" : "View"
+		},
+		"label": "Active Patient",
+		"order": 1,
+		"requiredPrivilege": "app:counselor"
+	},
+	"bahmniClinicalPatientsSearchAllTherapyPatients":{
+		"id": "bahmni.clinical.patients.search.therapy",
+		"extensionPointId": "org.bahmni.patient.search",
+		"type": "config",
+		"extensionParams": {
+			"searchHandler": "emrapi.sqlSearch.activePatients",
+			"display":"Active Patients",
+			"translationKey": "MODULE_LABEL_ACTIVE_PATIENT_THERAPY_KEY",
+			"forwardUrl" : "../nurse/#/patient/{{patientUuid}}/fillform/All Therapy Observation",
+			"forwardButtonTitle" : "View"
+		},
+		"label": "Active Patient",
+		"order": 1,
+		"requiredPrivilege": "app:therapy"
+	}
+}

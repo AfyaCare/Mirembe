@@ -1,0 +1,8 @@
+timezone: Africa/Dar_es_Salaam
+bahmni_repo_url: https://dl.bintray.com/bahmni/rpm/
+implementation_name: eFMS
+two_factor_auth: disabled
+selinux_state: disabled
+implementer_interface: disabled
+bahmniapps_url: https://github.com/UCC-SED/openmrs-module-bahmniapps/archive/eFMS-master.zip
+omods: ["file:///tmp/bahmniucc-1.0-SNAPSHOT.omod"]

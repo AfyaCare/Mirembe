@@ -1,0 +1,28 @@
+<div class="revise-refill-modal-wrapper1" aria-labelledby="dialog-label" id="re">
+  <span class="ngdialog-start1"></span>
+
+  <span class="ngdialog-close1"></span>
+
+  <div class="drug-details1">
+    <p><strong class="drug-name1">
+        <h2 ng-if="state == 'fail'" style="text-transform: capitalize; color: red">{{ state }}</h2>
+        <h2 ng-if="state == 'warning'" style="text-transform: capitalize; color: orange">{{ state }}</h2>
+    </p>
+    <hr>
+  </div>
+  <div style="padding: .5em 1em;">
+    <ol style="list-style: ordered;">
+      <li ng-repeat="error in errors.conflicts">
+        {{ error.value }}
+      </li>
+    </ol>
+  </div>
+  <br />
+  <div class="dialog-button-group">
+    <button id="modal-okay-button" class="secondary-button" ng-click="closeThisDialog(0)" ng-focus="toggleTabIndexWithinModal($event)">Close</button>
+
+  </div>
+
+
+  <span class="ngdialog-end"></span>
+</div>

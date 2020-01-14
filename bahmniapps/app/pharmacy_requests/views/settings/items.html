@@ -1,0 +1,178 @@
+<main ng-controller="SettingsController">
+    <section class="sidemenu">
+        <ul ng-include src="'views/menu/settings.html'"></ul>
+    </section>
+    <section class="main">
+        <h1 style="text-align: center; text-transform: capitalize;">Items</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div>
+<!--            create item-->
+            <form ng-show="!edit">
+                <div class="form-field">
+                    <p class="field-value push-right">
+                        <label>Select Category</label>
+                        <select ng-model="dg.categoryUiid" ng-change="getCategorySubCats(dg.categoryUiid)">
+                            <option value="{{ category.uuid }}" ng-repeat="category in allCategories">{{ category.name }}
+                            </option>
+                        </select>
+                    </p>
+                </div>
+
+<!--                genric drugs-->
+                <div class="form-field" ng-show="cat.name.toUpperCase() === 'drugs'.toUpperCase()">
+                    <div class="field-value relative push-right">
+                        <label>Name</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="dg.generic.name"
+                               ng-change="getDrugByName(dg.generic.name)"
+                               placeholder="Enter Item Name"/>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="val in items" ng-click="fillTextBox(val)">
+                                {{val.name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="field-value push-right">
+                        <label>Dosage Form</label>
+                        <select ng-model="dg.dosage">
+                            <option value="{{ dosage.conceptId }}" ng-repeat="dosage in dosageForms">{{ dosage.name }}
+                            </option>
+                        </select>
+                    </p>
+                    <p class="field-value">
+                        <label>Strength</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="dg.strength"
+                               placeholder="Enter Strength"/>
+                    </p>
+
+                </div>
+
+<!--                non-generic drugs-->
+                <div class="clearfix" ng-show="cat.name.toUpperCase() === 'non drugs'.toUpperCase()">
+                    <div class="form-field">
+                        <p class="field-value push-right">
+                            <label>Select Subategory</label>
+                            <select ng-model="dg.subcategoryUiid" ng-change="getSubcategoryAttributes(dg.subcategoryUiid)">
+                                <option value="{{ subcategory.uuid }}" ng-repeat="subcategory in allSubCategories">{{ subcategory.name }}
+                                </option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="form-field" ng-show="attributes != 'empty' ">
+                        <p class="field-value push-right" ng-repeat="attr in attributes">
+                            <label>{{ attr.name }}</label>
+                            <input type="hidden" ng-model="attrs['attributeTypeUuid']" value="{{ attr.uuid }}">
+                            <input type="hidden" ng-model="attrs['attributeTypename']" value="{{ attr.name }}">
+                            <input type="hidden" ng-model="attrs['value']" value="{{ attrs[attr.name] }}">
+                            <input class="enter-concept"
+                                   type="text"
+                                   ng-model="$index"
+                                   ng-blur="setAttrs(attr, $index)"
+                                   placeholder="Enter Attribute Value"/>
+                        </p>
+                    </div>
+                </div>
+
+                <br>
+                <button ng-click="saveItem(dg, attrs)">Save Item</button>
+            </form>
+<!--            end create item-->
+
+            <form ng-show="edit">
+<!--                generic-->
+                <div class="form-field"  ng-show="dg.drug">
+                    <div class="field-value relative push-right">
+                        <label>Name</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="dg.drug.name"
+                               ng-change="getDrugByName(dg.drug.name)"
+                               placeholder="Enter Item Name"/>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="val in items" ng-click="fillTextBox(val)">
+                                {{val.name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="field-value push-right">
+                        <label>Dosage Form</label>
+                        <select ng-model="dg.drug.drugId">
+                            <option value="{{ dosage.conceptId }}" ng-selected="dg.drug.drugId" ng-repeat="dosage in dosageForms">{{ dosage.name }}
+                            </option>
+                        </select>
+                    </p>
+                    <p class="field-value">
+                        <label>Strength</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="dg.drug.strength"
+                               placeholder="Enter Strength"/>
+                    </p>
+
+                </div>
+
+                <!--                non-generic drugs-->
+                <div class="clearfix" ng-show="dg.attributes.length >= 0">
+<!--                    <div class="form-field">-->
+<!--                        <p class="field-value push-right">-->
+<!--                            <label>Select Subategory</label>-->
+<!--                            <select ng-model="dg.subcategoryUiid" ng-change="getSubcategoryAttributes(dg.subcategoryUiid)">-->
+<!--                                <option value="{{ subcategory.uuid }}" ng-repeat="subcategory in allSubCategories">{{ subcategory.name }}-->
+<!--                                </option>-->
+<!--                            </select>-->
+<!--                        </p>-->
+<!--                    </div>-->
+                    <div class="form-field">
+                        <p class="field-value push-right" ng-repeat="attr in dg.attributes">
+                            <label>{{ attr.attributeName }}</label>
+                            <input type="hidden" ng-model="attrs['attributeTypeUuid']" value="{{ attr.uuid }}">
+                            <input type="hidden" ng-model="attrs['attributeTypename']" value="{{ attr.attributeName }}">
+                            <input type="hidden" ng-model="attrs['value']" value="{{ attrs[attr.attributeName] }}">
+                            <input class="enter-concept"
+                                   type="text"
+                                   ng-model="attr.value"
+                                   ng-blur="setAttrs(attr, attr.value)"
+                                   placeholder="Enter Attribute Value"/>
+                        </p>
+                    </div>
+                </div>
+
+                <br>
+                <button ng-show="!edit" ng-click="saveItem(dg, attrs)">Save Item</button>
+                <button ng-show="edit" ng-click="updateItem(dg, attrs)">Update Item</button>
+            </form>
+
+
+        </div>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-show="allItems.length >= 0" ng-repeat="item in allItems">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.itemName }}</td>
+                <td>
+                    <button ng-click="editItem(item)">Edit</button>
+                </td>
+                <td ng-if="!item.retired">
+                    <button ng-click="deleteItem(item)" style="background: red; color: white">Retire</button>
+                </td>
+                <td ng-if="item.retired">
+                    <button ng-click="deleteItem(item)" style="background: green; color: white">Un-Retire</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>

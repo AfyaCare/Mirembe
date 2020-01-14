@@ -1,0 +1,108 @@
+<div>
+  <script>
+    $( function() {
+
+    $( "#product_name" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax( {
+          url: window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/get_item/getDrug",
+          dataType: "json",
+          data: {
+            name: request.term
+          },
+          success: function( data ) {
+
+              if(data == null){
+            data = {label : "Other"};
+              response(data);
+                 }
+                 else{
+             response($.map(data, function (value, key) {
+
+                return {
+                    label: value.name,
+                    value: value.drug_id
+                }
+            }));
+          }
+          }
+        } );
+      },
+      minLength: 2,
+      focus: function(event, ui) {
+					// prevent autocomplete from updating the textbox
+					event.preventDefault();
+					$(this).val(ui.item.label);
+				},
+				select: function(event, ui) {
+					// prevent autocomplete from updating the textbox
+					event.preventDefault();
+					// manually update the textbox and hidden field
+					$(this).val(ui.item.label);
+
+					$("#item_id").val(ui.item.value);
+					 $("#item_id").trigger('change');
+				}
+    });
+  } );
+</script>
+
+</div>
+<div style="60%;padding:30px">
+  <div id="add_product" style="border:1px">
+    <div class="audit-log-filter">
+      <header>
+        <p>Reports</p>
+      </header>
+      <article id="startFrom">
+        <div>
+          <p style="width: 100%; margin: 5px 0;">
+            <input placeholder="Start typing to search" id="searchledger" ng-model="searchName" style="padding: 2px; width: 46%; margin-right: 3em;">
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Period</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <!-- | filter:getDHISProgram -->
+            <tbody ng-repeat="report in DHISReports | filter:searchName | filter:getDHISProgram">
+              <tr ng-if="report.dhis.period == 'daily'">
+                <td>{{ report.name }}</td>
+                <td><input type="date" ng-model="period"></td>
+                <td> <a ng-click="fetchReport(report.name, period, '', report.config.sqlPath, report.dhis.period)">Submit</a></td>
+              </tr>
+
+              <tr ng-if="report.dhis.period == 'monthly'">
+                <td>{{ report.name }}</td>
+                <td><input type="month" ng-model="period"></td>
+                <td> <a ng-click="fetchReport(report.name, period, '', report.config.sqlPath, report.dhis.period)">Submit</a></td>
+              </tr>
+
+              <tr ng-if="report.dhis.period == 'quarterly'">
+                <td>{{ report.name }}</td>
+                <td style="min-width: 300px;">
+                  <select ng-model="period" style="width: 40%; float: left">
+                    <option value="q1">January - March</option>
+                    <option value="q2">April - June</option>
+                    <option value="q3">July - September</option>
+                    <option value="q4">October - December</option>
+                  </select>
+                  <input type="number" ng-model="year" min="1900" max="2099" step="1" placeholder="2019" style="width: 40%; float: right" />
+                <td> <a ng-click="fetchReport(report.name, period, year, report.config.sqlPath, report.dhis.period)">Submit</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+
+</div>
+</div>

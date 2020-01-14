@@ -1,0 +1,52 @@
+{
+  "accounting": {
+    "id": "bahmni.billing.accounting",
+    "extensionPointId": "org.bahmni.billing.dashboard",
+    "type": "link",
+    "translationKey": "Accountant",
+    "url": "#/accounting",
+    "icon": "fa fa-bar-chart",
+    "order": 1,
+    "requiredPrivilege": "app:registration"
+  },
+  "cashier": {
+    "id": "bahmni.billing.cashier",
+    "extensionPointId": "org.bahmni.billing.dashboard",
+    "type": "link",
+    "translationKey": "Cashier",
+    "url": "#/cashier/quotations",
+    "icon": "fa fa-money",
+    "order": 2,
+    "requiredPrivilege": "app:registration"
+  },
+  "socialworker": {
+    "id": "bahmni.billing.socialworker",
+    "extensionPointId": "org.bahmni.billing.dashboard",
+    "type": "link",
+    "translationKey": "Social worker",
+    "url": "#/socialworker/requests",
+    "icon": "fa fa-adjust",
+    "order": 3,
+    "requiredPrivilege": "app:registration"
+  },
+  "settings": {
+  "id": "bahmni.billing.settings",
+  "extensionPointId": "org.bahmni.billing.dashboard",
+  "type": "link",
+  "translationKey": "Settings",
+  "url": "#/settings/types",
+  "icon": "fa-cog",
+  "order": 4,
+  "requiredPrivilege": "app:registration"
+  },
+  "reports": {
+    "id": "bahmni.billing.reports",
+    "extensionPointId": "org.bahmni.billing.dashboard",
+    "type": "link",
+    "translationKey": "Reports",
+    "url": "#/reports",
+    "icon": "fa fa-tachometer",
+    "order": 5,
+    "requiredPrivilege": "app:registration"
+  }
+}

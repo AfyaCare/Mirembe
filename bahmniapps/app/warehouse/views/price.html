@@ -1,0 +1,154 @@
+<div>
+    <script>
+        $(function () {
+
+            $("#product_name").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/get_item/getDrug",
+                        dataType: "json",
+                        data: {
+                            name: request.term
+                        },
+                        success: function (data) {
+
+                            if (data == null) {
+                                data = {label: "Other"};
+                                response(data);
+                            } else {
+                                console.log(data);
+                                response($.map(data, function (value, key) {
+
+                                    return {
+                                        label: value.name,
+                                        labelStrength: "value.strength",
+                                        labelDosage: "value.dosageForm",
+                                        value: value.drug_id
+                                    }
+                                }));
+                            }
+                        }
+                    });
+                },
+                minLength: 2,
+                focus: function (event, ui) {
+                    // prevent autocomplete from updating the textbox
+                    event.preventDefault();
+                    $(this).val(ui.item.label);
+                    // $(this).val(ui.item.label + " " + ui.item.labelStrength + "" + ui.item.labelDosage);
+                },
+                select: function (event, ui) {
+                    // prevent autocomplete from updating the textbox
+                    event.preventDefault();
+                    // manually update the textbox and hidden field
+                    $(this).val(ui.item.label);
+
+                    $("#item_id").val(ui.item.value);
+                    $("#item_id").trigger('change');
+                }
+            });
+        });
+    </script>
+
+</div>
+<div style="padding:30px">
+    <div id="navigation" style="float:left;">
+        <ul class="top-level">
+            <li><a href="../warehouse/#/overview">Pharmacy Overview</a></li>
+            <li><a href="../warehouse/#/products">Add Product</a></li>
+            <li><a href="../warehouse/#/activateProducts">Activate/Retire Product</a></li>
+            <li><a href="../warehouse/#/price">Add Price</a></li>
+            <li><a href="../warehouse/#/physical_invent">Physical Inventory</a></li>
+            <li><a href="../warehouse/#/out_of_stock">Out of Stock</a></li>
+            <li><a href="../warehouse/#/expired_stock">Expired Stock</a></li>
+        </ul>
+    </div>
+    <div id="actvateRetire_product">
+
+        <div class="audit-log-filter">
+            <header>
+                <p>Add Price</p>
+            </header>
+            <article ng-form="form" id="startFrom">
+
+                <div id="salePrice">
+                    <label>Product Name </label>
+                    <p>
+                        <input placeholder="search product" class="disposition-action" id="product_name" type="text"
+                               ng-model="item.name">
+                        <input style="display:none" class="disposition-action" id="item_id" type="text"
+                               ng-model="item.item_id">
+
+                    </p>
+
+                    <label>Price List</label>
+                    <p>
+                        <select class="disposition-action" name="priceList" id="price_list"
+                                ng-options="p.price_list_id as p.name for p in priceLists" ng-model="item.pricelist">
+                            <option value=""></option>
+                        </select>
+                    </p>
+
+                    <label>Buying (Tsh.)</label>
+                    <p>
+                        <input class="disposition-action" id="buying_amount" type="number" ng-model="item.buying_price">
+                    </p>
+
+                    <label>Selling (Tsh.)</label>
+                    <p>
+                        <input class="disposition-action" id="amount" type="number" ng-model="item.amount">
+                    </p>
+
+                    <button ng-if="!item.edit" type="submit" class="run-report confirm" ng-click="save_price()">
+                        Save
+                    </button>
+
+                    <button ng-if="item.edit" class="run-report confirm" ng-click="updatePrice(item)">
+                        Update
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </div>
+    <p>
+        <!--<input placeholder="Search by Name, BatchNo or Invoice No" id="searchledger" type="text" ng-model="searchPrice">-->
+
+        <input placeholder="Search by Name" id="searchledger" type="text"
+               ng-model="searchPrice" ng-keyup="liveSearch(searchPrice)" style="width: 50%">
+
+        <button type="submit" class="run-report confirm" ng-click="search()">
+            Search
+        </button>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Price List</th>
+            <th>Buying Price(Tsh)</th>
+            <th>Selling Price(Tsh)</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody ng-repeat="getPrice in getPrices">
+        <tr>
+            <td>{{getPrice.date_recorded}}</td>
+            <td>{{getPrice.name}}</td>
+            <td>{{getPrice.priceList_name}}</td>
+            <td>{{getPrice.buying_price | currency:"" }}</td>
+            <td>{{getPrice.amount | currency:"" }}</td>
+            <td>
+                <button class="run-report confirm" ng-click="editPrice(getPrice)">
+                    Edit
+                </button>
+            </td>
+        </tr>
+
+        </tbody>
+
+
+    </table>
+</div>

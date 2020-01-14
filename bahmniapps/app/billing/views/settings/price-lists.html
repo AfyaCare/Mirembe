@@ -1,0 +1,99 @@
+<div class="dashboard">
+    <header class="reg-header">
+        <ul class="top-nav fl">
+            <a class="back-btn" accesskey="h" href="../home/#/"><i class="fa fa-home"></i></a>
+        </ul>
+        <ul class="top-nav fl">
+            <a class="back-btn" accesskey="h" href="#/"><i class="fa fa-level-up"></i></a>
+        </ul>
+        <div class="reg-header-right fr">
+            <button class="btn-user-info fr">
+                <i class="fa fa-user-md fa-white small"></i>
+                <i class="fa fa-caret-down fa-white mini"></i>
+            </button>
+            <ul style="z-index:4;">
+                <li ng-show=currentUser.username>
+                    <a class="disabled">
+                        <i class="fa fa-user-md fa-white small"></i>
+                        <span ng-bind="currentUser.username"></span>
+                    </a>
+                </li>
+                <li>
+                    <i class="fa fa-key fa-white small"></i>
+                    <a ng-click="changePassword()"><span>{{'CHANGE_PASSWORD' | translate}}</span></a>
+                </li>
+                <li ng-show=currentUser.currentLocation>
+                    <a class="disabled">
+                        <i class="fa fa-map-marker fa-white small"></i>
+                        <span ng-bind="currentUser.currentLocation"></span>
+                    </a>
+                </li>
+                <li>
+                    <a log-out><i class="fa fa-power-off fa-white small"></i><span class="nav-link">{{'HEADER_LABEL_LOGOUT_KEY' | translate}}</span></a>
+                </li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+
+<div class="adt">
+    <div style="padding: 30px 10px 10px 10px">
+        <div class="box left" style="margin-right:5px;">
+            <div class="side-menu">
+                <div class="sidebar-inner slimscrollleft">
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="menu-title" style="font-weight:500;">Service</li>
+                            <li class="has_sub">
+                                <a href="#/settings/types" class="waves-effect"><span> Types </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/items" class="waves-effect"><span> Items </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">Items' price</li>
+
+                            <li class="has_sub">
+                                <a href="#/settings/periods" class="waves-effect"><span> Financial periods </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/versions" class="waves-effect" style="border-top:0;"><span> List versions </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/lists" class="waves-effect active" style=""><span> Lists </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/templates" class="waves-effect" style=""><span> Templates </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">Discount criteria</li>
+
+                            <li class="has_sub">
+                                <a href="#/settings/criteria" class="waves-effect"><span> Criteria </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">General setting</li>
+
+                            <li class="has_sub">
+                                <a href="#/settings/features" class="waves-effect"><span> Features control </span> </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 14px;">
+            <div class="audit-log-filter" style="margin:0px 0 10px;">
+                <header style="height:15px; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                    <p>Price . Lists</p>
+                </header>
+                <article>
+                    You are viewing <b> {{currentPage}} </b> page.
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

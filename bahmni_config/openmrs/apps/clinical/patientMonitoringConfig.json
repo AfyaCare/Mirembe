@@ -1,0 +1,138 @@
+{
+  "questions": [
+    {
+      "name": "BMI",
+      "concepts": [
+        "Height (cm)",
+        "Weight (kg)"
+],
+      "type": "Obs"
+},
+    {
+      "name": "Delamanid",
+      "concepts": [
+        "Delamanid"
+],
+      "type": "Drug"
+},
+    {
+      "name": "Prison",
+      "concepts": [
+        "Baseline, Prison"
+],
+      "type": "Obs"
+},
+    {
+      "name": "MTBDRsl Fluoroquinolone",
+      "concepts": [
+        "Bacteriology, Fluoroquinolone"
+],
+      "type": "Obs"
+},
+    {
+      "name": "Isoniazid",
+      "concepts": [
+        "Isoniazid"
+],
+      "type": "Drug"
+},
+    {
+      "name": "Hemoglobin g/l",
+      "concepts": [
+        "Lab, Hemoglobin g/dl"
+],
+      "type": "Obs"
+},
+    {
+      "name": "Culture result",
+      "concepts": [
+        "Bacteriology, Culture results"
+],
+      "type": "Obs"
+}
+  ],
+  "milestones": [
+    {
+      "name": "M1",
+      "config": {
+        "min": 0,
+        "max": 30
+},
+      "questions" : [
+        "BMI", "Culture result", "Delamanid", "Prison","MTBDRsl Fluoroquinolone","Isoniazid", "Hemoglobin g/l"
+]
+    },
+    {
+      "name": "M2",
+      "config": {
+        "min": 31,
+        "max": 60
+},
+      "questions": [
+        "BMI", "Culture result", "Delamanid"
+]
+    },
+    {
+      "name": "M3",
+      "config": {
+        "min": 61,
+        "max": 90
+},
+      "questions": [
+        "BMI", "Culture result", "Delamanid", "Prison","MTBDRsl Fluoroquinolone","Isoniazid"
+]
+    },
+    {
+      "name": "M4",
+      "config": {
+        "min": 91,
+        "max": 120
+},
+      "questions": [
+        "BMI", "Culture result", "Delamanid","Isoniazid"
+]
+    },
+    {
+      "name": "M5",
+      "config": {
+        "min": 121,
+        "max": 150
+},
+      "questions": [
+        "BMI", "Culture result", "Delamanid"
+]
+    },
+    {
+      "name": "M6",
+      "config": {
+        "min": 151,
+        "max": 180
+},
+      "questions": [
+        "BMI", "Culture result", "Delamanid"
+]
+    },
+    {
+      "name": "MTx",
+      "config": {
+        "min": -15,
+        "max": 15
+},
+      "handler": "org.bahmni.flowsheet.definition.impl.TreatmentEndDateHandler",
+      "questions": [
+        "BMI", "Culture result", "Delamanid", "Isoniazid"
+]
+    },
+    {
+      "name": "M6M",
+      "config": {
+        "min": -30,
+        "max": 30
+},
+      "handler": "org.bahmni.flowsheet.definition.impl.SixMonthPostTreatmentOutcomeHandler",
+      "questions": [
+        "BMI", "Culture result", "Delamanid", "Isoniazid"
+]
+    }
+  ]
+}

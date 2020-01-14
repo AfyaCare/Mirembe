@@ -1,0 +1,242 @@
+{
+  "IPDDiagnosisPatient": {
+    "name": "IPD Diagnosis",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/test.sql"
+    }
+  },
+  "admittedPatient": {
+    "name": "Admitted Patient",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/admittedPatient.sql"
+    }
+  },
+  "dischargePatient": {
+    "name": "Discharge Patient",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/discharge.sql"
+    }
+  },
+  "referraledOutTest": {
+    "name": "Lab Test Referraled Out",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/referred_out_tests_elis.sql"
+    }
+  },
+  "htcgenericreport": {
+    "name": "VCT Registered Clients",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/htcService.sql"
+    }
+  },
+  "toCTC": {
+    "name": "Clients Sent to CTC",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/sentToCTC.sql"
+    }
+  },
+  "genericLaboratoryServices": {
+    "name": "Laboratory Services",
+    "type": "ElisGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/testCount.sql"
+    }
+  },
+  "OPD/IPDVisitCount": {
+    "name": "OPD/IPD Visit Count",
+    "type": "IpdOpdVisitCount"
+  },
+   "IPD DETAILED":{
+    "name": "IPD DETAILED",
+    "type": "visits",
+    "config": {
+        "forDataAnalysis": true,
+        "patientAttributes": ["caste", "class", "education", "occupation", "primaryContact"],
+        "visitAttributes": ["Visit Status", "Admission Status"],
+        "patientAddresses": ["address3", "city_village"],
+        "applyDateRangeFor": "visitStartDate",
+        "visitTypesToFilter": ["IPD"],
+        "excludeColumns": ["Patient Name", "Patient Id", "Visit Id"],
+        "additionalPatientIdentifiers": ["National Id"]
+	}
+},
+ "ipdStartedVisit": {
+       "name": "IPD VISITS (Started visits Date/Gender)",
+       "type": "aggregation",
+       "config": {
+           "report":{
+               "type": "visits",
+               "config": {
+                   "conceptNamesToFilter":[ "Gender", "Date started"],
+                   "showVisitInfo" : true,
+                   "forDataAnalysis": true,
+                   "applyDateRangeFor": "visitStartDate",
+                   "visitAttributes": ["Visit Status", "Admission Status"],
+                   "visitTypesToFilter": ["IPD"]
+               }
+           },
+           "rowGroups": [
+               "Gender", "Date started"
+           ],
+           "columnGroups": [
+           
+           ],
+           "distinctGroups": [
+               "Patient Identifier"
+           ],
+            "showTotalRow":true,
+            "showTotalColumn":true
+       }
+   },
+   
+   "ipdStopVisit": {
+       "name": "IPD VISITS (Date Of Discharge/Gender)",
+       "type": "aggregation",
+       "config": {
+           "report":{
+               "type": "visits",
+               "config": {
+                   "conceptNamesToFilter":[ "Gender", "Date started"],
+                   "showVisitInfo" : true,
+                   "forDataAnalysis": true,
+                   "applyDateRangeFor": "dateOfDischarge",
+                   "visitAttributes": ["Visit Status", "Admission Status"],
+                    "visitTypesToFilter": ["IPD"]
+               }
+           },
+           "rowGroups": [
+               "Gender", "Date started"
+           ],
+           "columnGroups": [
+           
+           ],
+           "distinctGroups": [
+               "Patient Identifier"
+           ],
+            "showTotalRow":true,
+            "showTotalColumn":true
+       }
+   },
+  "IPDPatientsReport": {
+    "name": "IPD Patients Report",
+    "type": "ipdPatients",
+    "config": {
+      "addressAttributes": [
+        "address1",
+        "city_village"
+      ],
+      "patientAttributes": [
+        "caste",
+        "education"
+      ],
+      "conceptNames": [
+        "Height",
+        "Weight"
+      ],
+      "filterBy": "Date of Discharge"
+    }
+  },
+   "GenericLabOrderReportAggregation": {
+    "name": "Test Name vs Gender",
+    "type": "aggregation",
+    "config": {
+      "report": {
+        "type": "labOrders",
+        "config": {
+          "forDataAnalysis": true,
+          "showVisitInfo": true
+        }
+      },
+      "rowGroups": [
+        "Test Name"
+      ],
+      "columnGroups": [
+        "Gender",
+        "Age"
+      ],
+      "distinctGroups": [
+        "Test Name"
+      ],
+      "showTotalRow":true,
+      "showTotalColumn":true
+    }
+  },
+   "crossReport": {
+    "name": "Quarterly facility based HIV care/ART reporting form",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/cross_sectional.jrxml",
+       "dept":"CTC"
+    }
+  },
+   "cohortReport": {
+    "name": "Cohort Analysis",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/cohortReport.jrxml",
+      "dept":"CTC"
+    }
+  },
+    "viralLoadReport": {
+    "name": "Viral Load Report",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/viralLoad.jrxml",
+      "dept":"CTC"
+    }
+  },
+    "viralLoadDetailedReport": {
+    "name": "Viral Load Detailed Report",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/viralLoadDetailed.jrxml",
+      "dept":"CTC"
+    }
+  },
+   "pepfarIndicatorReport": {
+    "name": "Pepfar Indicator Report",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/pepfarIndicator.jrxml",
+      "dept":"CTC"
+    }
+  },
+   "tbRegister": {
+    "name": "TB 03 Register",
+    "extensionPointId": "org.bahmni.report.tb",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/tb_unit_register3.jrxml",
+      "dept":"TB"
+    }
+  },
+   "tbNotificationReport": {
+    "name": "TB 07 Quarterly case notification report of tuberculosis and TB/HIV",
+    "extensionPointId": "org.bahmni.report.tb",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/tb07.jrxml",
+      "dept":"TB"
+    }
+  },
+   "tbNotification12Report": {
+    "name": "TB 09 Quarterly report on the results of treatment of tuberculosis and TB/HIV patients notified in the quarter ending 12 months early",
+    "extensionPointId": "org.bahmni.report.tb",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/tb09.jrxml",
+      "dept":"TB"
+    }
+  }
+}

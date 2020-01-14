@@ -1,0 +1,650 @@
+{
+  "id": "bahmni.clinical",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.clinical.consultation.board",
+      "description": "Bahmni Clinical Consultation Page"
+    },
+    {
+      "id": "org.bahmni.clinical.conceptSetGroup.*",
+      "description": "Define conceptsets part of a conceptset group"
+    },
+    {
+      "id": "org.bahmni.clinical.orders",
+      "description": "Bahmni Orders Page"
+    },
+    {
+      "id": "org.bahmni.patient.search",
+      "description": "Bahmni Patient search, lookups Page"
+    }
+  ],
+  "contextModel": [
+    "patientUuid",
+    "visitUuid"
+  ],
+  "config": {
+    "enableRadiologyOrderOptions":["Urgent","NeedsPrint"],
+    "gothomisIntegrationStatus":false,
+    "quickPrints":true,
+    "networkConnectivity" : {
+      "showNetworkStatusMessage": true,
+      "networkStatusCheckInterval": 5000,
+      "locales" : [
+        { "locale" : "fr", "css" : "offline-language-french"},
+        { "locale" : "es", "css": "offline-language-spanish"},
+        { "locale" : "pt", "css": "offline-language-portuguese-brazil"}
+      ]
+    },
+    "diagnosisStatus": "Inactive",
+
+    "patientContext": {
+      "programAttributes": [
+        "ID_Number"
+      ],
+      "personAttributes": [
+        "pregnancyStatus",
+        "class",
+        "caste",
+        "FileNumber",
+        "EDD"
+
+      ],
+      "additionalPatientIdentifiers": [
+        "National ID"
+      ],
+      "preferredIdentifier": "Id_Number"
+    },
+    "program": {
+       "locationClinicMapping": {
+      "programTitles":[
+        {
+          "location": "CTC",
+          "clinicTitle": "CTC Clinic - Enrollment"
+
+        },
+        {
+          "location": "TB",
+          "clinicTitle": "TB Clinic - Enrollment"
+
+        },
+        {
+          "location": "RCH",
+          "clinicTitle": "RCH Clinic - Enrollment"
+
+        },
+        {
+          "location": "Antenatal",
+          "clinicTitle": "Antenatal Clinic - Enrollment"
+
+        },
+        {
+          "location": "Post Natal",
+          "clinicTitle": "Post Natal Clinic - Enrollment"
+
+        },
+		 {
+          "location": "MAT",
+          "clinicTitle": "MAT Clinic - Enrollment"
+
+        },
+        {
+          "location": "Child Care",
+          "clinicTitle": "Child Care Clinic - Enrollment"
+
+        }
+      ]},
+      "clinicProgramsMapping": {
+      "programs":[
+        {
+          "program": "HIV Care and Treatment",
+          "clinic":"CTC"
+        },
+        {
+          "program": "HIV Exposed Infant",
+          "clinic":"CTC"
+        },
+        {
+          "program": "NATIONAL TB AND LEPROSY PROGRAM",
+          "clinic":"TB"
+        },
+        {
+          "program": "RCH - Watoto",
+          "clinic":"Post Natal"
+        },
+        {
+          "program": "RCH - Watoto",
+          "clinic":"Child Care"
+        },
+        {
+          "program": "RCH - Wajawazito",
+          "clinic":"Antenatal"
+        },
+        {
+          "program": "RCH - Watoto",
+          "clinic":"RCH"
+        },
+		 {
+          "program": "RCH - Watoto",
+          "clinic":"RCH"
+        },
+        {
+          "program": "MAT",
+          "clinic":"MAT"
+        }
+      ]},
+      "ID_Number": {
+        "required": true
+      },
+      "DR-TB Registration Number": {
+        "required": true
+      },
+      "programSpecificAttributeTypesDefinition": [
+        {
+          "programName": "HIV Care and Treatment",
+          "attributeTypes": [
+            "ID_Number",
+            "Referred From",
+            "Transfer In",
+            "Name of Treatment Supporter",
+            "Tel No of Treatment Supporter",
+            "Name of Community Support Organisation",
+            "Date Joined Community Support Group",
+            "Drug Allergies",
+            "Prior ARV Exposure",
+            "TB Registration No",
+            "CBHS NUMBER",
+            "Date Diagnosed HIV+",
+            "Date Verified HIV Status",
+            "Date Ready to Start ARV",
+            "Date Start ARV",
+            "WHO Stage",
+            "CD4 Count",
+            "Breast Feeding",
+            "Pregnant"
+          ]
+        },
+        {
+          "programName": "RCH - Wajawazito",
+          "attributeTypes": [
+            "ANC number",
+            "Namba ya hati punguzo ya chandarua",
+            "ANC- Jina la mume/mwenza",
+            "ANC - Umri wa mume/mwenza",
+            "ANC - Elimu ya mume/mwenza",
+            "ANC - Kazi ya mume/mwenza",
+            "MIMBA YA NGAPI",
+            "AMEZAA MARA NGAPI",
+            "WATOTO WALIO HAI",
+            "ANC - Tarehe ya kwanza ya hedhi ya mara ya mwisho (LNMP)",
+            "TAREHE ANAYOTAZAMIWA KUJIFUNGUA (EDD)",
+            "UMRI CHIN YA MIAKA 20",
+            "MIAKA KUMI AU ZAIDI TOKEA MIMBA YA MWISHO",
+            "KUJIFUNGUA KWA KUPASULIWA",
+            "KUZAA MTOTO MFU/KIFO CHA MTOTO MCHANGA (Wk 1)",
+            "KUHARIBIKA KWA MIMBA MBILI AU ZAIDI",
+            "UGONJWA WA MOYO",
+            "KISUKARI",
+            "KIFUA KIKUU",
+            "MIMBA YA 5 AU ZAIDI",
+            "KIMO CHINI YA CM 150",
+            "KILEMA CHA NYONGA",
+            "MIMBA YA KWANZA ZAIDI YA MIAKA 35",
+            "KUZALISHWA KWA UPASUAJI AU VACUM",
+            "KUTOKA NA DAMU NYINGI BAADA YA KUJIFUNGUA",
+            "KONDO LA NYUMA KUKWAMA",
+            "DAMU GROUP",
+            "DAMU Rh",
+            "SYPHILIS SERO STATUS",
+            "mRDT",
+            "PMTCT"
+
+          ]
+        },
+         {
+          "programName": "RCH - Watoto",
+          "attributeTypes": [
+            "Under Five Number",
+            "RCH1 - Uzito (kilo)",
+            "RCH1 - Mahali alipozaliwa",
+            "RCH1 - Aina ya mhudumu aliyemzalisha"
+          ]
+        },
+          {
+          "programName": "MAT",
+          "attributeTypes": [
+            "MAT - ID",
+            "MAT - Idadi ya watoto",
+            "MAT - Makazi",
+            "MAT - Jina",
+            "MAT - Code yake",
+            "MAT - Namba ya simu"
+          ]
+        },
+        {
+          "programName": "NATIONAL TB AND LEPROSY PROGRAM",
+          "attributeTypes": [
+            "District Registration Number",
+            "Place of Work",
+            "Place of Work-Other",
+            "Reffered by",
+            "Reffered by-Other",
+            "DOT Option",
+            "Name of Treatment Supporter",
+            "Tel No of Treatment Supporter",
+            "Physical Address of Treatment Supporter",
+            "Name of Community Support Organisation",
+            "Classification by site",
+            "Site",
+            "Classification by History of Treatment",
+            "HIV Status",
+            "HIV Care registration number",
+            "CPT",
+            "CPT Start Date",
+            "ART drugs",
+            "ART Start Date"
+          ]
+        },
+        {
+          "programName": "HIV Exposed Infant",
+          "attributeTypes": [
+            "HIE Number",
+            "Name of Mother",
+            "ANC No of Mother",
+            "Infact NVP at Birth",
+            "ARV Drugs Taken by Mother During L&D",
+            "Number of Days Dispensed",
+            "Infact Feeding Practice Birth"
+          ]
+        }
+      ]
+    },
+    "obsIgnoreList": [
+      "REGISTRATION FEES",
+      "COMMENTS",
+      "Patient file"
+    ],
+    "otherInvestigationsMap": {
+      "Radiology": "Radiology Order",
+      "Endoscopy": "Endoscopy Order"
+    },
+    "allowConsultationWhenNoOpenVisit": false,
+    "defaultVisitType": "OPD",
+    "visitTypeForRetrospectiveEntries": "Special OPD",
+    "maxConceptSetLevels": 3,
+    "allowOnlyCodedDiagnosis": false,
+    "conceptSetUI": {
+      "Discussion Topics for Continues Health Education to CTC Client":{
+        "allowAddMore": true
+      },
+      "Vitals":{
+        "allowAddMore": true
+      },
+      "Chief Complaint Data": {
+        "autocomplete":true,
+        "codedConceptName":"Chief Complaint",
+        "nonCodedConceptName":"Non-Coded Chief Complaint",
+        "durationRequired": false,
+        "allowAddMore": true
+      },
+      "IPD OBS CHART": {
+		"allowAddMore": true  
+	  },
+      "CAUTION CARD": {
+         "allowAddMore": true
+      },
+       "PROGRESS NOTES": {
+         "allowAddMore": true
+      },
+      "Dose Given": {
+         "allowAddMore": true
+      },
+      "Fits": {
+         "allowAddMore": true
+      },
+      "All Observation Templates": {
+        "showPanelView": true
+      },
+      "TB - Adverse Effects":{
+        "allowAddMore": true
+      },
+      "Coded Adverse Effect - Suspected Drug":{
+        "dropdown":true
+      },
+      "TB - DOT Administration of Drugs":{
+        "dropdown":true
+      },
+      "TB - DOT - RHZE":{
+        "dropdown": true
+      },
+      "Suspected Drug":{
+        "autocomplete":true,
+        "codedConceptName":"Coded Adverse Effect - Suspected Drug",
+        "nonCodedConceptName":"Non Coded Adverse Suspected Drugs",
+        "durationRequired": false,
+        "allowAddMore": true
+      },
+      "Adverse Effects":{
+        "autocomplete":true,
+        "codedConceptName":"Adverse Effects - Type",
+        "nonCodedConceptName":"Non Coded Adverse Effect Type",
+        "durationRequired": false,
+        "allowAddMore": true
+      },
+      "Tuberculosis, Adverse Effects" :{
+        "multiSelect" : true,
+        "autocomplete" : true
+      },
+      "HTC - Rufaa ya Kwenda" : {
+        "multiSelect" : true
+      },
+      "Signs and Symptoms and OIs":{
+        "multiSelect" : true
+      },
+      "Referral To":{
+        "multiSelect" : true
+      },
+      "Baseline, Past TB treatment drug regimen" :{
+        "multiSelect" : true
+      },
+      "DR - Second-line drugs" :{
+        "multiSelect" : true
+      },
+      "Njia ya utumiaji (ROA)": {
+       "multiSelect":true
+      },
+      "Mpangilio wa kawaida wa kuishi (mwaka 1 uliyopita)":{
+        "multiSelect":true
+       },
+      "Mpangilio wa kuishi katika siku 30 zilizopita?":{
+        "multiSelect":true
+       },
+      "Je, unatumia na nani muda wako wa mapumziko?":{
+        "multiSelect":true
+       },
+      "MAT - Route":{
+        "multiSelect":true
+       },
+      
+      "Posture": {
+        "buttonSelect": true
+      },
+      "P/A Presenting Part": {
+        "multiSelect": true
+      },
+      "FHS": {
+        "buttonSelect": true
+      },
+      "P/S (Per Speculum) - Cervix": {
+        "grid": true
+      },
+      "Anaemia, Stopped Since When": {
+        "conciseText": true
+      },
+      "Examination Notes": {
+        "conciseText": true
+      },
+      "Set1": {
+        "allowAddMore": true
+      },
+      "TB - Previous Treated": {
+        "allowAddMore": true
+      },
+      "CTC - Why Eligible": {
+        "multiSelect": true
+      },
+      "Set2": {
+        "allowAddMore": true
+      },
+      "Coded3": {
+        "multiSelect": true
+      },
+      "Image": {
+        "allowAddMore": true
+      },
+      "TB - List of under 5 years who are household of bacleriogical confirmed TB cases": {
+        "allowAddMore":true
+      },
+      "TB - list 5 years household - outcome": {
+        "dropdown":true
+      },
+      "TB - Started": {
+        "dropdown": true
+      },
+      "Gynaecology, Gravida": {
+        "stepper": true
+      },
+      "Accepted Family Planning methods": {
+        "multiSelect": true
+      },
+      "Patient Joined Community Support Organisation":
+      {
+        "dropdown":true
+      },
+      "Prior ARV Exposure":
+      {
+        "dropdown":true
+      },
+      "Transfer In":
+      {
+        "dropdown":true
+      },
+      "TB - place of work":
+      {
+        "dropdown":true
+      },
+      "TB - Reffered by":
+      {
+        "dropdown":true
+      },
+      "TB - DOT option":
+      {
+        "dropdown":true
+      },
+      "TB - Classification by site":
+      {
+        "dropdown":true
+      },
+      "TB - HIV Status":
+      {
+        "dropdown":true
+      },
+      "TB - Classification by history of treatment":
+      {
+        "dropdown":true
+      },
+      "TB - CPT":
+      {
+        "dropdown":true
+      },
+      "TB - ART drugs":
+      {
+        "dropdown":true
+      },
+      "TB - DOT - Phase Type":
+      {
+        "dropdown":true
+      },
+      "TB - DOT - Type":
+      {
+        "dropdown":true
+      },
+      "CTC - Pregnant Y/N":
+      {
+        "dropdown":true
+      },
+      "HTC - Hali ya Ujauzito":
+      {
+        "dropdown":true
+      },
+      "HTC - Alikotoka Mteja":
+      {
+        "dropdown":true
+      },
+      "HTC - Aina ya Ushahuri Nasaha":
+      {
+        "dropdown":true
+      },
+      "HTC - Majibu ya hali ya Uambukizi wa VVU":
+      {
+        "dropdown":true
+      },
+      "HTC - Kushirikisha Majibu":
+      {
+        "dropdown":true
+      },
+      "HTC - Rufaa ya Kwenda":
+      {
+        "dropdown":true
+      },
+      "TB - Specimen Type":
+      {
+        "dropdown":true
+      },
+      "TB - Request and Report, HIV Status":
+      {
+        "dropdown":true
+      },
+      "HTC - Hali ya Uambukizi wa Kifua Kikuu":
+      {
+        "dropdown":true
+      },
+      "exp-infant - ARV drugs taken by mother":
+      {
+        "dropdown":true
+      },
+      "Exposed Infant - Visit Type":
+      {
+        "dropdown":true
+      },
+      "Exposed Infant - Infant Feeding Practice":
+      {
+        "dropdown":true
+      },
+      "exp-infant - Infant Feeding Practice Birth":
+      {
+        "dropdown":true
+      },
+      "ANC - Tarehe anayotazamia kujifungua (EDD)": {
+        "allowFutureDates" : true
+      },
+      "ANC -Tarehe ya kurudi": {
+        "allowFutureDates" : true
+      },
+      "RCH1 - Tarehe ya kurudi": {
+        "allowFutureDates" : true
+      },
+      "HTC - Tarehe ya Kuisha" : {
+        "allowFutureDates" : true
+      },
+      "Next Visit" : {
+        "allowFutureDates" : true,
+        "required": true
+      },
+      "ANC - Mapigo ya moyo ya mtoto" : {
+        "allowAddMore" : true
+      },
+      "ANC - Maji ya chupa (Liquor)" : {
+        "allowAddMore" : true
+      },
+      "ANC - Grafu ya uchungu" : {
+        "allowAddMore" : true
+      },
+      "ANC - Mimba zilizoharibika":
+      {
+        "allowAddMore": true
+      },
+      "Billing" : {
+        "required": true
+      },
+      "conceptSetUI": {
+        "TB - Adverse Effects": {
+          "isTabular": true
+        }
+      },
+      "defaults": {
+        "Number of living children": 1,
+        "Accepted Family Planning methods": [
+          "Condoms",
+          "Pills"
+        ],
+        "Pain management given": true,
+        "Safe Abortion, Remarks": "Remarks",
+        "Malaria, Death Date": "2015-12-01"
+      }
+    },
+    "visitPage": {
+      "observationDisplay": {
+        "conceptNames": []
+      }
+    },
+    "showObservation": {
+      "showObservationByVisitType": [
+        {
+          "visitType": "IPD",
+          "defaultObservationConceptName": [
+            "All IPD Observations"
+          ]
+        },
+        {
+          "visitType": "OPD",
+          "defaultObservationConceptName": [
+            "All OPD Observations"
+          ]
+        },
+        {
+          "visitType": "CTC",
+          "defaultObservationConceptName": [
+            "All CTC Observations"
+          ]
+        }, {
+          "visitType": "TB",
+          "defaultObservationConceptName": [
+            "All TB Observations"
+          ]
+        }
+		, {
+          "visitType": "MAT/ADDICTION",
+          "defaultObservationConceptName": [
+            "All MAT Observations"
+          ]
+        }
+		, {
+          "visitType": "DR TB",
+          "defaultObservationConceptName": [
+            "All DR Observations"
+          ]
+        }, {
+          "visitType": "Leprosy",
+          "defaultObservationConceptName": [
+            "All LEP Observations"
+          ]
+        },
+        {
+          "visitType": "RCH ANC",
+          "defaultObservationConceptName": [
+            "All ANC Observations"
+          ]
+        },
+         {
+          "visitType": "RCH PNC",
+          "defaultObservationConceptName": [
+            "All PNC Observations"
+          ]
+        },
+         {
+          "visitType": "RCH Under Five",
+          "defaultObservationConceptName": [
+            "All Under Five Observations"
+          ]
+        },
+         {
+          "visitType": "RCH - Family Planning",
+          "defaultObservationConceptName": [
+            "All Family Planning Observations"
+          ]
+        }
+      ]
+    }
+
+  }
+}

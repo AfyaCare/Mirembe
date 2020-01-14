@@ -1,0 +1,178 @@
+<div class="dashboard">
+    <header class="reg-header">
+        <ul class="top-nav fl">
+            <a class="back-btn" accesskey="h" href="../home/#/"><i class="fa fa-home"></i></a>
+        </ul>
+        <ul class="top-nav fl">
+            <a class="back-btn" accesskey="h" href="#/"><i class="fa fa-level-up"></i></a>
+        </ul>
+        <div class="reg-header-right fr">
+            <button class="btn-user-info fr">
+                <i class="fa fa-user-md fa-white small"></i>
+                <i class="fa fa-caret-down fa-white mini"></i>
+            </button>
+            <ul style="z-index:4;">
+                <li ng-show=currentUser.username>
+                    <a class="disabled">
+                        <i class="fa fa-user-md fa-white small"></i>
+                        <span ng-bind="currentUser.username"></span>
+                    </a>
+                </li>
+                <li>
+                    <i class="fa fa-key fa-white small"></i>
+                    <a ng-click="changePassword()"><span>{{'CHANGE_PASSWORD' | translate}}</span></a>
+                </li>
+                <li ng-show=currentUser.currentLocation>
+                    <a class="disabled">
+                        <i class="fa fa-map-marker fa-white small"></i>
+                        <span ng-bind="currentUser.currentLocation"></span>
+                    </a>
+                </li>
+                <li>
+                    <a log-out><i class="fa fa-power-off fa-white small"></i><span class="nav-link">{{'HEADER_LABEL_LOGOUT_KEY' | translate}}</span></a>
+                </li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+
+<div class="adt">
+    <div style="padding: 30px 10px 10px 10px">
+        <div class="box left" style="margin-right:5px;">
+            <div class="side-menu">
+                <div class="sidebar-inner slimscrollleft">
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="menu-title" style="font-weight:500;">Service</li>
+                            <li class="has_sub">
+                                <a href="#/settings/types" class="waves-effect"><span> Types </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/items" class="waves-effect"><span> Items </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">Items' price</li>
+
+                            <li class="has_sub">
+                                <a href="#/settings/periods" class="waves-effect"><span> Financial periods </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/versions" class="waves-effect" style="border-top:0;"><span> List versions </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/lists" class="waves-effect" style=""><span> Lists </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/settings/templates" class="waves-effect" style=""><span> Templates </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">Discount criteria</li>
+
+                            <li class="has_sub">
+                                <a href="#/settings/criteria" class="waves-effect active"><span> Criteria </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">General setting</li>
+
+                            <li class="has_sub">
+                                <a href="#/settings/features" class="waves-effect"><span> Features control </span> </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 14px;">
+            <div class="audit-log-filter" style="margin:0px 0 10px;">
+                <header style="height:15px; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                    <p>Criteria</p>
+                </header>
+                <article class="ward-details-container" style="padding:0px; padding-bottom:30px;">
+                    <table class="ward-details-content" style="margin-bottom:-1px;">
+                        <tr>
+                            <td style="border-right: 0;">
+                                <div class="collapsible-content" id="collapsibleContent-filter">
+                                    Collapsible filter content here!
+                                </div>
+                                <div class="collapsible-content" id="collapsibleContent-add" style="color:#6e6e6e;">
+                                    <form name="create_discount_criteria" ng-submit="createDiscountCriteria()">
+                                        <div class="vitals form-horizontal">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width:60px; padding-top:5px; font-weight: normal; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                                                        <span>Name</span>
+                                                    </label>
+                                                    <div class="field-value">
+                                                        <input type="text" class="concept-name" ng-model="criteria.name" style="border: 1px solid #bcbcbc;" required/>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="vitals form-horizontal">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width:60px; padding-top:0px; font-weight: normal; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                                                        <span>Description</span>
+                                                    </label>
+                                                    <div class="field-value">
+                                                        <textarea ng-model="criteria.description" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 35px; width:30%; border: 1px solid #bcbcbc;" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="vitals form-horizontal" style="padding-top:0; padding-bottom:8px;">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <input type="reset" class="grid-row-element" value="Clear"/>
+                                                    <input type="submit" class="grid-row-element" value="Save"/>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                            <td style="border-left:0; padding-right:2px;">
+                                <button id="btn-1" class="button btn-collapsible" style="margin-left:2px;" onclick="collapseContentAdd(this);" >Add <span><i class="fa fa-plus-circle"></i></span></button>
+                                <button id="btn-0" class="button btn-collapsible" onclick="collapseContentFilter(this);" >Filter <span><i class="fa fa-filter"></i></span></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="ward-details-content" ng-if="discountCriteriaList.length>0" style="color:#6e6e6e;">
+                        <thead>
+                        <tr>
+                            <th class="bed-detail-column">SNo.</th>
+                            <th class="bed-detail-column">Name</th>
+                            <th class="bed-detail-column">Description</th>
+                            <th class="bed-detail-column">Creator</th>
+                            <th class="bed-detail-column">Date created</th>
+                            <!--<th class="bed-detail-column">.</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="discountCriteria in discountCriteriaList">
+                            <td>{{$index+1}}</td>
+                            <td>{{discountCriteria.name}}</td>
+                            <td style="font-size:13px">{{discountCriteria.description}}</td>
+                            <td>{{discountCriteria.creator.person.firstName +" "+discountCriteria.creator.person.LastName}}</td>
+                            <td>{{discountCriteria.dateCreated}}</td>
+                            <!--<td>E</td>
+                            <td>D</td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="ward-details-content" ng-if="discountCriteriaList.length==0" style="color:#6e6e6e;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <p style="font-weight:400;">Ooooops! no data found.</p>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

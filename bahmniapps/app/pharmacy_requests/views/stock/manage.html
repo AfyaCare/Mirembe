@@ -1,0 +1,35 @@
+<main>
+    <section>
+        <h1 style="text-align: center">What action would you like to take?</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Drug</th>
+                <th>Order State(Main Store)</th>
+                <th>Order State(You)</th>
+                <th>Accept</th>
+                <th>Cancel</th>
+                <th>Reject</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="">
+                <td>{{ itemRequested.itemName }}</td>
+                <td>{{ itemRequested.orderStateMain }}</td>
+                <td>{{ itemRequested.orderStateYou }}</td>
+                <td>
+                    <button ng-disabled="itemRequested.orderStateMain.toUpperCase() !== 'Fulfilled'.toUpperCase()" ng-click="acceptRequest(itemRequestedUuid)" style="background: limegreen;">Accept</button>
+                </td>
+                <td>
+                    <button ng-disabled="itemRequested.orderStateMain.toUpperCase() !== 'new'.toUpperCase()" ng-click="cancelRequest(itemRequestedUuid)" style="color: red;">Cancel</button>
+                </td>
+                <td>
+                    <button ng-disabled="itemRequested.orderStateMain.toUpperCase() !== 'Fulfilled'.toUpperCase()" ng-click="rejectRequest(itemRequestedUuid)" style="background: red; color: white;">Reject</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+

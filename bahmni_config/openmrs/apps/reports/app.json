@@ -1,0 +1,15 @@
+{
+        "id": "bahmni.reports",
+        "description": "Bahmni Reports App",
+        "extensionPoints": [],
+        "config": {
+         "paperSize": "A3",
+        "enableReportQueue": true,
+        "facilityName": "Mirembe Hospital",
+        "HFRID": "104962-6",
+        "facilityOwnership": "Government",
+        "council": "Dodoma MC",
+        "region": "Dodoma",
+        "CTCID":"12321321"
+        }
+}

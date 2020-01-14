@@ -1,0 +1,40 @@
+<div class="revise-refill-modal-wrapper" aria-labelledby="dialog-label" data-ng-controller="ManageController">
+    <span class="ngdialog-start"></span>
+
+    <span class="ngdialog-close"></span>
+
+    <div class="drug-details">
+        <p><strong class="drug-name">Create Store</strong></p>
+        <div>
+            <section class="edit-drug-order">
+                <form name="addForm" bm-form>
+                    <div class="clearfix">
+                        <div class="form-field">
+                            <div class="field-value">
+                                <input class="enter-concept"
+                                       type="text"
+                                       ng-model="store.name"
+                                       placeholder="Enter Store Name"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    </br>
+    <div class="dialog-button-group">
+
+        <button id="modal-import-button" class="primary-button" ng-click="closeThisDialog(0)" >Close
+        </button>
+
+        <button class="secondary-button" ng-click="saveStore(store)" type="submit" >Save
+        </button>
+    </div>
+
+
+    <span class="ngdialog-end"></span>
+</div>
+
+

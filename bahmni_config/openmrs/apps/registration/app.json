@@ -1,0 +1,249 @@
+{
+  "id": "bahmni.registration",
+  "instanceOf": "bahmni.template.registration",
+  "description": "Bahmni Patient Registration App",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.registration.patient.search.result.action",
+      "description": "Bahmni Patient Search Result Action"
+    },
+    {
+      "id": "org.bahmni.registration.patient.next",
+      "description": "After Bahmni Patient Registration, forward url configuration"
+    }
+  ],
+  "contextModel": [
+    "patientUuid",
+    "activeVisitUuid"
+  ],
+  "config": {
+  "forwardUrlsForVisitTypes": [
+      {
+        "visitType": "VCT",
+        "forwardUrl": "../nurse/#/patient/{{patientUuid}}/fillform/All VCT Observation",
+        "translationKey": "Save & Start VCT Counselling",
+        "shortcutKey": "c"
+      },
+      {
+        "visitType": "MAT/ADDICTION",
+        "forwardUrl": "../registration/index.html#/search",
+        "translationKey": "Save & Start MAT/ADDICTION Visit",
+        "shortcutKey": "c"
+      }
+    ],
+    "patientInformation": {
+      "additionalPatientInformation": {
+        "title": "Other Vital Information",
+        "attributes": [
+          "Marital Status",
+          "education",
+          "occupation",
+          "FileNumber",
+          "Place of Birth",
+          "Name of Area leader/Neighbour",
+          "Tel No of Name of Area leader/Neighbour",
+          "Religion",
+          "New patient?"
+        ]
+      },
+      "nextOfKinInformation": {
+        "title": "Next of Kin",
+        "translationKey": "Next of Kin",
+        "attributes": [
+          "Name",
+          "Next of Kin Contact Number",
+          "Next of Kin Type",
+	  "Specify"
+        ]
+      },
+      "nationalIdentification": {
+        "title": "National Identifications",
+        "translationKey": "National Identifications",
+        "attributes": [
+          "National ID Type",
+          "ID"
+        ]
+      },
+      "crimanalCaseInformations": {
+        "title": "Criminal Case Information",
+        "translationKey": "Criminal Case Information",
+        "attributes": [
+          "Select Number",
+          "Add Number",
+          "Isanga - CATEGORY",
+          "Referring Court",
+          "Referring Prison",
+	  "Police Unique ID",
+          "Date",
+          "Offence charged"
+        ]
+      },
+      "hidden": {
+        "attributes": [
+          "primaryContact"
+        ]
+      },
+      "defaults": {
+        "class": "General",
+        "landHolding": 2
+      }
+    },
+    "addressHierarchy": {
+      "showAddressFieldsTopDown": false,
+      "strictAutocompleteFromLevel": "stateProvince"
+    },
+    "relationshipTypeMap": {
+      "Doctor": "provider",
+      "Parent": "patient"
+    },
+    "autoCompleteFields": [
+      "familyName",
+      "caste"
+    ],
+    "defaultIdentifierPrefix": "GAN",
+    "defaultVisitType": "OPD",
+    "searchByIdForwardUrl": "/patient/{{patientUuid}}",
+    "afterVisitSaveForwardUrl": "../registration",
+    "showMiddleName": true,
+    "showBirthTime": true,
+    "checkDuplicatePatient":true,
+    "hideRelationShipDuration": true,
+    "showTribeName": true,
+    "showCasteSameAsLastNameCheckbox": false,
+    "patientAttendanceMode": "room",
+    "assumedBirthDay": "01/07",
+    "printOptions": [
+      {
+        "translationKey": "REGISTRATION_PRINT_REG_CARD_KEY",
+        "templateUrl": "/bahmni_config/openmrs/apps/registration/registrationCardLayout/print.html",
+        "shortcutKey": "p"
+      },
+      {
+        "translationKey": "REGISTRATION_PRINT_WITH_BARCODE",
+        "templateUrl": "/bahmni_config/openmrs/apps/registration/registrationCardLayout/printWithBarcode.html",
+        "shortcutKey": "c"
+      }
+    ],
+    "providerInCharge": {
+      "required": true
+    },
+    "conceptSetUI": {
+      "EMR - Reason For Visit": {
+        "required": true,
+        "label": "Reason For Visit"
+      },
+      "FHS": {
+        "buttonSelect": true
+      },
+      "defaults": {
+        "FHS": "Present"
+      }
+    },
+    "fieldValidation": {
+      "primaryContact": {
+        "pattern": "[0-9]{8,10}",
+        "errorMessage": "Should be 12 characters starting with 91 (country code)"
+      },
+      "landHolding": {
+        "pattern": "[0-9]{0,3}",
+        "errorMessage": "Should be between 1 to 999 acres"
+      },
+      "familyName": {
+        "pattern": "[a-zA-Z'-]{0,}",
+        "errorMessage": "Should contain characters"
+      },
+      "givenName": {
+        "pattern": "[a-zA-Z'-]{0,}",
+        "errorMessage": "Should contain characters"
+      },
+      "middleName": {
+        "pattern": "[a-zA-Z'-]{0,}",
+        "errorMessage": "Should contain characters"
+      },
+      "address1": {
+        "pattern": "[a-zA-Z0-9]{3}",
+        "errorMessage": "Should contain 3 characters"
+      }
+    },
+    "patientSearch": {
+      "address": {
+        "label": "National Identifier",
+        "placeholder": "Passport/Driving/Voting/National",
+        "field": "address2"
+      },
+	  "programAttributes": {
+      "label": "Other Reg Number",
+      "placeholder": "Enter Reg Number",
+      "field": "ID_Number"
+      },
+      "customAttributes": {
+        "label": "File Number",
+        "placeholder": "Enter File Number",
+        "fields": [
+          "FileNumber"
+        ]
+      },
+	  "searchByPatientIdentifier": true
+    },
+      "doctorRoomsMapLoginLocation": {
+      "doctorRoomsMapLoginLocationDefinition": [
+        {
+          "loginLocationName": "Registration OPD",
+          "doctorRooms": [
+            {"display" :"Room A"},
+            {"display" :"Room B"},
+            {"display" :"Room C"},
+            {"display" :"Room D"},
+            {"display" :"Room E"},
+            {"display" :"Room F"},
+            {"display" :"Dental"},
+	    {"display" :"Eye Clinic"},
+	    {"display" :"Registration OPD"},
+	    {"display" :"Child and Adolescent psychiatry"},
+	    {"display" :"Community Psychiatry"},
+            {"display" :"Emergency Psychiatry"},
+            {"display" :"General Adult psychiatry 1"},
+            {"display" :"General Adult psychiatry 2"},
+            {"display" :"Neuro-psychiatry"},
+            {"display" :"Psychology"}
+          ]
+        },
+        {
+          "loginLocationName": "CTC",
+          "doctorRooms": [
+            {"display" :"CTC Room 1"},
+            {"display" :"CTC Room 2"}
+          ]
+        },
+        {
+          "loginLocationName": "Registration BIMA",
+          "doctorRooms": [
+            {"display" :"Bima 1"},
+            {"display" :"Bima 2"},
+            {"display" :"Bima 3"}
+          ]
+        },
+        {
+          "loginLocationName": "REGISTRATION Isanga",
+          "doctorRooms": [
+            {"display" :"Forensic Admission"}
+          ]
+        },
+        {
+          "loginLocationName": "Registration Itega",
+          "doctorRooms": [
+            {"display" :"Addiction psychiatry"},
+            {"display" :"MAT"}
+          ]
+        },
+        {
+          "loginLocationName": "VCT",
+          "doctorRooms": [
+            {"display" :"VCT"}
+          ]
+        }
+
+      ]
+    }
+}
+  }

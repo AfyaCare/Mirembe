@@ -1,0 +1,86 @@
+<main ng-controller="ManageStockController">
+    <section class="sidemenu">
+        <ul ng-include src="'views/menu/stock.html'"></ul></section>
+    <section class="main">
+        <h1 style="text-align: center">STOCK MANAGEMENT</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div>
+            <form>
+                <div class="form-field">
+                    <div class="field-value relative push-right">
+                        <label>Item</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="item.drug.name"
+                               ng-change="getItemByName(item.drug.name)"
+                               placeholder="Enter Item Name"/>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="val in items" ng-click="fillItemTextBox(val)">
+                                {{val.itemName}}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="field-value push-right">
+                        <label>Payment Category</label>
+                        <select ng-model="item.paymentCategoryUuid">
+                            <!--                            <option value="{{ substore.storeId }}" ng-selected="substore.sty" ng-repeat="substore in substores">{{ substore.name }}-->
+                            <!--                            </option>-->
+                            <!--                            <option ng-if="edit" value="{{ price.categoryId }}" ng-if="price.categoryId == price.paymentCategory ? 'selected' : ''" ng-repeat="price in priceCategories">{{ price.name }}-->
+                            <!--                            </option>-->
+                            <option value="{{ price.uuid }}" ng-repeat="price in priceCategories">{{ price.name }}
+                            </option>
+                        </select>
+                    </p>
+                    <p class="field-value">
+                        <label>Requesting Amount</label>
+                        <input class="enter-concept"
+                               type="number"
+                               ng-model="item.issuing_amount"
+                               placeholder="Amount"/>
+                    </p>
+
+                </div>
+                <br>
+                <button ng-click="saveItemRequested(item)">Request Items</button>
+                <!--                <button ng-show="edit" ng-click="updatePricing(dg, attrs)">Update Item</button>-->
+            </form>
+        </div>
+        <hr style="border-bottom-color: #bbb;">
+        <div>
+            <label>Start to typing to seach</label>
+            <input style="margin: 0.5em 1em; width: 400px" type="text" placeholder="Search by name, expiry_date, stock" ng-model="searchText">
+            <br>
+        </div>
+        <hr style="border-bottom-color: #bbb;">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Item</th>
+                <th>Category Name</th>
+                <th>Price Category</th>
+                <th>Requested Store</th>
+                <th>Quantity Requested</th>
+                <th>Quantity Issued</th>
+                <th>Order State(Main Store)</th>
+                <th>Order State(You)</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody ng-show="requests.length > 0 && requests.toString().toUpperCase() != 'empty'.toUpperCase()" ng-repeat="request in requests | filter:searchText ">
+            <tr ng-style="request.status.sourceState.toUpperCase() === 'Waiting confirmation'.toUpperCase() ? {color: 'red'} : {color: ''}">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ request.item.itemName }}</td>
+                <td>{{ request.item.categoryName }}</td>
+                <td>{{ request.requestedStore.name }}</td>
+                <td>{{ request.priceCategory.name }}</td>
+                <td>{{ request.quantityRequested }}</td>
+                <td>{{ request.quantityIssued }}</td>
+                <td>{{ request.status.destinationState }}</td>
+                <td>{{ request.status.sourceState }}</td>
+                <td><a ui-sref="stock-manage({id:request.uuid, item: {'itemName': request.item.itemName, 'orderStateMain': request.status.destinationState, 'orderStateYou':request.status.sourceState}})">Manage</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>

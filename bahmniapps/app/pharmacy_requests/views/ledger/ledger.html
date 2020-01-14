@@ -1,0 +1,137 @@
+<main ng-controller="LedgerController">
+    <section class="sidemenu">
+        <ul ng-include src="'views/menu/ledger.html'"></ul>
+    </section>
+    <section class="main">
+        <h1 style="text-align: center; text-transform: capitalize;">Ledgers</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div style="text-align: center">
+            <button ng-click="show = !show">Record Entry</button>
+        </div>
+        <hr style="border-bottom-color: #bbb;">
+        <form ng-show="show">
+            <!--                generic-->
+            <div class="form-field">
+                <div class="field-value relative push-right">
+                    <label>Ledger Type</label>
+                    <select ng-model="ledger.ledgerTypeID">
+                        <option value="{{ type.ledgerTypeId }}" ng-repeat="type in activeLedgerTypes">{{ type.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="field-value relative push-right">
+                    <label>Name</label>
+                    <input class="enter-concept"
+                           type="text"
+                           ng-model="ledger.drug.name"
+                           ng-change="getDrugByName(ledger.drug.name)"
+                           placeholder="Enter Item Name"/>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="val in items" ng-click="fillItemTextBox(val)">
+                            {{ val.itemName }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="field-value relative push-right">
+                    <label>Price Category</label>
+                    <select ng-model="ledger.categoryId">
+                        <option value="{{ price.categoryId }}" ng-repeat="price in priceCategories">{{ price.name }}
+                        </option>
+                    </select>
+                </div>
+                <p class="field-value push-right">
+                    <label>Batch NO</label>
+                    <input class="enter-concept"
+                           type="text"
+                           ng-model="ledger.batch"
+                           placeholder="Batch NO"/>
+                <p class="field-value push-right">
+                    <label>Invoice NO</label>
+                    <input class="enter-concept"
+                           type="text"
+                           ng-model="ledger.invoice"
+                           placeholder="Invoice NO"/>
+                </p>
+                <p class="field-value push-right">
+                    <label>Buying Price</label>
+                    <input class="enter-concept"
+                           type="text"
+                           ng-model="ledger.buyingPrice"
+                           placeholder="Buying Price"/>
+                </p>
+                <p class="field-value push-right">
+                    <label>Quantity</label>
+                    <input class="enter-concept"
+                           type="text"
+                           ng-model="ledger.quantity"
+                           placeholder="Quantity"/>
+                </p>
+                <p class="field-value push-right">
+                    <label>Date Moved</label>
+                    <input class="enter-concept"
+                           type="date"
+                           ng-model="ledger.date_moved"
+                           placeholder="Date Moved"/>
+                </p>
+                <p class="field-value push-right">
+                    <label>Expiry Date</label>
+                    <input class="enter-concept"
+                           type="date"
+                           ng-model="ledger.expiry_date"
+                           placeholder="Expiry Date"/>
+                </p>
+                <p class="field-value push-right">
+                    <label>Dosage Form</label>
+                    <select ng-model="ledger.dosageFormId">
+                        <option value="{{ dosage.conceptId }}" ng-repeat="dosage in dosageForms">{{ dosage.name }}
+                        </option>
+                    </select>
+                </p>
+                <p class="field-value">
+                    <label>Remarks</label>
+                    <textarea ng-model="ledger.remarks" class="enter-concept"></textarea>
+                </p>
+            </div>
+            <br>
+            <button ng-click="saveLedger(ledger)">Save Item</button>
+            <hr style="border-bottom-color: #bbb;">
+        </form>
+        <hr>
+        <input class="" style="width: 340px;" type="text" ng-model="search" placeholder="Search" >
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Batch NO</th>
+                <th>Date Moved</th>
+                <th>Item</th>
+                <th>Units</th>
+                <th>Price List</th>
+                <th>Ledger Type</th>
+                <th>Quantity</th>
+                <th>Buying Price</th>
+                <th>Expiry Date</th>
+<!--                <th>Action</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ledger in ledgers | filter:search">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ ledger.batchNo }}</td>
+                <td>{{ ledger.dateMoved }}</td>
+                <td>{{ ledger.item }}</td>
+                <td>{{ ledger.units }}</td>
+                <td>{{ ledger.paymentCategory }}</td>
+                <td>{{ ledger.ledgerType }}</td>
+                <td>{{ ledger.quantity }}</td>
+                <td>{{ ledger.buyingPrice }}</td>
+                <td>{{ ledger.expiryDate }}</td>
+<!--                <td>-->
+<!--                    <button ng-click="editLedger(ledger.uuid)">Edit</button>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>

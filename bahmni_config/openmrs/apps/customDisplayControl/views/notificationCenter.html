@@ -1,0 +1,15 @@
+<div>
+    <h2 class="section-title">{{config.title}}</h2>
+    <section class="dashboard-section">
+        <table class="visits dashboard-table" id="testTable" >
+            <tbody>
+            <tr id="eachVisit" ng-repeat="obsGroup in ::observations">
+                <td class="name" width="30%" style="color:red;" >{{obsGroup.name }}
+                </td>
+                <td class="value" width="70%" style="color:red;" >{{obsGroup.value}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+

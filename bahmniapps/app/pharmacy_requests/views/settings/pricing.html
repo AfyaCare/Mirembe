@@ -1,0 +1,81 @@
+<main ng-controller="SettingsController">
+    <section class="sidemenu">
+        <ul ng-include src="'views/menu/settings.html'"></ul>
+    </section>
+    <section class="main">
+        <h1 style="text-align: center; text-transform: capitalize;">Pricing</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div>
+            <form>
+                <div class="form-field">
+                    <div class="field-value relative push-right">
+                        <label>Name</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="price.item.name"
+                               ng-change="getItemByName(price.item.name)"
+                               placeholder="Enter Item Name"/>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="val in items" ng-click="fillItemTextBox(val)">
+                                {{val.itemName}}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="field-value push-right">
+                        <label>Price Category</label>
+                        <select ng-model="price.categoryId">
+                            <option ng-if="edit" value="{{ price.categoryId }}" ng-selected="price.priceCategory.categoryId" ng-repeat="price in priceCategories">{{ price.name }}
+                            </option>
+                            <option ng-if="!edit" value="{{ price.categoryId }}" ng-repeat="price in priceCategories">{{ price.name }}
+                            </option>
+                        </select>
+                    </p>
+                    <p class="field-value">
+                        <label>SellingPrice</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="price.selling"
+                               placeholder="Enter Selling Price"/>
+                    </p>
+
+                </div>
+                <br>
+                <button ng-click="savePricing(price)">Save Item</button>
+<!--                <button ng-show="edit" ng-click="updatePricing(dg, attrs)">Update Item</button>-->
+            </form>
+
+
+        </div>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Selling Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-show="sellingPrices.length >= 0" ng-repeat="item in sellingPrices">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.itemName }}</td>
+                <td>{{ item.priceCategory.name }}</td>
+                <td>{{ item.sellingPrice }}</td>
+                <td>
+                    <button ng-click="editPricing(item)">Edit</button>
+                </td>
+                <td ng-if="!item.retired">
+                    <button ng-click="deletePricing(item)" style="background: red; color: white">Retire</button>
+                </td>
+                <td ng-if="item.retired">
+                    <button ng-click="deletePricing(item)" style="background: green; color: white">Un-Retire</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>

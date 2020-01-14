@@ -1,0 +1,235 @@
+<div class="dashboard">
+    <header class="reg-header">
+        <ul class="top-nav fl">
+            <a class="back-btn" accesskey="h" href="../home/#/"><i class="fa fa-home"></i></a>
+        </ul>
+        <ul class="top-nav fl">
+            <a class="back-btn" accesskey="h" href="#/"><i class="fa fa-level-up"></i></a>
+        </ul>
+        <div class="reg-header-right fr">
+            <button class="btn-user-info fr">
+                <i class="fa fa-user-md fa-white small"></i>
+                <i class="fa fa-caret-down fa-white mini"></i>
+            </button>
+            <ul style="z-index:4;">
+                <li ng-show=currentUser.username>
+                    <a class="disabled">
+                        <i class="fa fa-user-md fa-white small"></i>
+                        <span ng-bind="currentUser.username"></span>
+                    </a>
+                </li>
+                <li>
+                    <i class="fa fa-key fa-white small"></i>
+                    <a ng-click="changePassword()"><span>{{'CHANGE_PASSWORD' | translate}}</span></a>
+                </li>
+                <li ng-show=currentUser.currentLocation>
+                    <a class="disabled">
+                        <i class="fa fa-map-marker fa-white small"></i>
+                        <span ng-bind="currentUser.currentLocation"></span>
+                    </a>
+                </li>
+                <li>
+                    <a log-out><i class="fa fa-power-off fa-white small"></i><span class="nav-link">{{'HEADER_LABEL_LOGOUT_KEY' | translate}}</span></a>
+                </li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+
+<div class="adt">
+    <div style="padding: 30px 10px 10px 10px">
+        <div class="box left" style="margin-right:5px;">
+            <div class="side-menu">
+                <div class="sidebar-inner slimscrollleft">
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="menu-title" style="font-weight:500;">Sales</li>
+                            <li class="has_sub">
+                                <a href="#/cashier/quotations" class="waves-effect active"><span> Quotations </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="#/cashier/orders" class="waves-effect"><span> Orders </span> </a>
+                            </li>
+
+                            <li class="menu-title" style="font-weight:500;">Payments</li>
+
+                            <li class="has_sub">
+                                <a href="#/cashier/gepg" class="waves-effect"><span> GePG </span> </a>
+                            </li>
+                            <!--li class="has_sub">
+                                <a href="#/cashier/reserve" class="waves-effect" style="border-top:0;"><span> Ca </span> </a>
+                            </li-->
+
+                            <li class="menu-title" style="font-weight:500;">Clients</li>
+
+                            <li class="has_sub">
+                                <a href="#/cashier/profile" class="waves-effect"><span> Profile </span> </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 14px;">
+            <div class="audit-log-filter" style="margin:0px 0 10px;">
+                <header style="height:15px;">
+                    <p>Quotations</p>
+                </header>
+                <article class="ward-details-container" style="padding:0px; padding-bottom:30px;">
+                    <table class="ward-details-content" style="margin-bottom:-1px;">
+                        <tr>
+                            <td style="border-right: 0;">
+                                <div class="collapsible-content" id="collapsibleContent-filter">
+                                    Collapsible filter content here!
+                                </div>
+                                <!--div class="collapsible-content" id="collapsibleContent-add" style="color:#6e6e6e;">
+                                    <form name="create_financial_period" ng-submit="createFinancialPeriod()">
+                                        <div class="vitals form-horizontal">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width:65px; padding-top:0px; font-weight: normal; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                                                        <span>Name</span>
+                                                    </label>
+                                                    <div class="field-value">
+                                                        <input type="text" class="concept-name" ng-model="period.name" style="color:#606060; border: 1px solid #bcbcbc;" required/>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="vitals form-horizontal">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width:65px; padding-top:0px; font-weight: normal; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                                                        <span>Start Date</span>
+                                                    </label>
+                                                    <div class="field-value">
+                                                        <input type="date" class="concept-name" ng-model="period.startDate" style="color:#606060; border: 1px solid #bcbcbc;" required/>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="vitals form-horizontal">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width:65px; padding-top:0px; font-weight: normal; font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+                                                        <span>End Date</span>
+                                                    </label>
+                                                    <div class="field-value">
+                                                        <input type="date" class="concept-name" ng-model="period.endDate" style="color:#606060; border: 1px solid #bcbcbc;" required/>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="vitals form-horizontal" style="padding-top:5px; padding-bottom:8px;">
+                                            <fieldset class="leaf-observation-node">
+                                                <div class="form-group">
+                                                    <input type="reset" class="grid-row-element" value="Clear"/>
+                                                    <input type="submit" class="grid-row-element" value="Save"/>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </form>
+                                </div-->
+                            </td>
+                            <td style="border-left:0; padding-right:2px;">
+                                <!--button id="btn-1" class="button btn-collapsible" style="margin-left:2px;" onclick="collapseContentAdd(this);" >Add <span><i class="fa fa-plus-circle"></i></span></button-->
+                                <button id="btn-0" class="button btn-collapsible" onclick="collapseContentFilter(this);" >Filter <span><i class="fa fa-filter"></i></span></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="ward-details-content ng-cloak" ng-if="quotationsList!=='empty'" style="color:#6e6e6e;">
+                        <thead>
+                        <tr>
+                            <th class="bed-detail-column" style="width:2%; font-size: 13px;"><span><i class="fa fa-plus-square"></i></span></th>
+                            <th class="bed-detail-column">SNo.</th>
+                            <th class="bed-detail-column">Date quoted</th>
+                            <th class="bed-detail-column">Client's Id</th>
+                            <th class="bed-detail-column">Name</th>
+                            <th class="bed-detail-column">Visit</th>
+                            <th class="bed-detail-column">Payment scheme</th>
+                            <th class="bed-detail-column">Quoted Amount (T)</th>
+                            <th class="bed-detail-column">Exemption (T)</th>
+                            <th class="bed-detail-column">Payable Amount (T)</th>
+                            <th class="bed-detail-column">Status</th>
+                            <th class="bed-detail-column">Creator</th>
+                            <!--<th class="bed-detail-column">.</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat-start="quotation in quotationsList">
+                            <td style="color:#8eb82a; font-size: 13px;"><span><i class="fa fa-plus-square"></i></span></td>
+                            <td>{{$index+1}}</td>
+                            <td>{{quotation.name}}</td>
+                            <td>{{quotation.dateOrdered}}</td>
+                            <td>{{quotation.patient.identifier}}</td>
+                            <td>{{quotation.patient.firstName +" "+ quotation.patient.middleName +" "+ quotation.patient.lastName}}</td>
+                            <td>{{quotation.visit.visitType.name +" . "+quotation.visit.dateStarted}}</td>
+                            <td>{{quotation.paymentCategory.name +" . "+quotation.paymentSubCategory.name}}</td>
+                            <td>{{quotation.totalQuotedAmount}}</td>
+                            <td></td>
+                            <!--td>{{quotation.totalDiscountedAmount}}</td-->
+                            <td>{{quotation.totalPayableAmount}}</td>
+                            <td>{{quotation.quoteStatus.name}}</td>
+                            <td>{{quotation.orderedBy.person.firstName +" "+quotation.orderedBy.person.LastName}}</td>
+                            <!--<td>E</td>
+                            <td>D</td> style="display: none;"-->
+                        </tr>
+                        <tr ng-repeat-end style="">
+                            <td colspan="11" style="font-size: 13px;">
+                                <table class="ng-cloak" style="color:#6e6e6e;" ng-whow="quotation.saleQuoteLineList.length>0">
+                                    <tbody>
+                                    <tr style="font-weight:500;">
+                                        <td style="border:1px solid #fcfcfc;">SNo.</td>
+                                        <td style="border:1px solid #fcfcfc;">Item Name</td>
+                                        <td style="border:1px solid #fcfcfc;">Quantity</td>
+                                        <td style="border:1px solid #fcfcfc;">Unit</td>
+                                        <td style="border:1px solid #fcfcfc;">Price per unit</td>
+                                        <td style="border:1px solid #fcfcfc;">Quoted Amount</td>
+                                        <td style="border:1px solid #fcfcfc;">Discount</td>
+                                        <td style="border:1px solid #fcfcfc;">Payable</td>
+                                        <td style="border:1px solid #fcfcfc;">Status</td>
+                                    </tr>
+
+                                    <tr ng-repeat="saleQuoteLine in quotation.saleQuoteLineList" style="border:1px solid #fcfcfc;">
+                                        <td style="border:1px solid #fcfcfc;">{{$index+1}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.item.name}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.quantity}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.unit}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.itemPrice.sellingPrice}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.quotedAmount}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.discount.approvedDiscountAmount}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.payableAmount}}</td>
+                                        <td style="border:1px solid #fcfcfc;">{{saleQuoteLine.quoteStatus.name}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table style="color:#6e6e6e; border:0px solid #ffffff;" ng-show="quotation.saleQuoteLineList.length<=0">
+                                    <tr style="border:0px solid #ffffff;">
+                                        <td style="border:0px solid #ffffff; text-align: center;">
+                                            <span> No lines for this quotation.</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="ward-details-content ng-cloak" ng-if="quotationsList=='empty' || quotationsList=='failed'" style="color:#6e6e6e;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <p style="font-weight:400;">Ooooops! no quotations found.</p>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

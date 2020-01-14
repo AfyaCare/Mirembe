@@ -1,0 +1,35 @@
+<main ng-controller="StoreController">
+    <section>
+        <h1 style="text-align: center; text-transform: capitalize;">{{ parentStore.name }} Management</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div style="text-align: center">
+            <button ng-click="createSubStore()">create substore</button>
+        </div>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Retired</th>
+                <th>Edit</th>
+                <th>Retire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="store in subStores">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ store.name }}</td>
+                <td>{{ store.retired === true ? "Retired" : "Active" }}</td>
+                <td>
+                    <button ng-click="editSubStore(store)">Edit</button>
+                </td>
+                <td>
+                    <button ng-click="deleteSubStore(store)" style="background: red; color: white">Retire</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+

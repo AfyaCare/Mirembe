@@ -1,0 +1,61 @@
+{
+  "id": "bahmni.homepage",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.home.dashboard",
+      "description": "Bahmni Home Page"
+    }
+  ],
+  "config": {
+    "locationClinicMapping": {
+      "locations": [
+        {
+          "location": "CTC",
+          "clinicName": "CTC Clinic",
+          "app": "program"
+
+        },
+        {
+          "location": "TB",
+          "clinicName": "TB Clinic",
+          "app": "program"
+
+        },
+
+         {
+          "location": "CTC Room 1",
+          "clinicName": "CTC Clinic",
+          "app": "program"
+
+        },
+         {
+          "location": "MAT",
+          "clinicName": "MAT Enrollment",
+          "app": "program"
+
+        },
+         {
+          "location": "CTC Room 2",
+          "clinicName": "CTC Clinic",
+          "app": "program"
+
+        },
+        {
+          "location": "DNT",
+          "clinicName": "Dental Clinic",
+
+          "app": "clinic"
+
+        },
+        {
+          "location": "VCT",
+          "clinicName": "Client Transfer",
+          "app": "clinic"
+
+        }
+
+        
+      ]
+    }
+  }
+}

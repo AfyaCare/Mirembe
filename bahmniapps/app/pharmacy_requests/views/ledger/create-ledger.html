@@ -1,0 +1,77 @@
+<div class="revise-refill-modal-wrapper" aria-labelledby="dialog-label" data-ng-controller="LedgerController">
+    <span class="ngdialog-start"></span>
+
+    <span class="ngdialog-close"></span>
+
+    <div class="adt">
+        <div class="audit-log-filter">
+            <!--            <header>-->
+            <!--                <p>Ledger</p>-->
+            <!--            </header>-->
+            <article id="startFrom">
+                <div>
+                    <p>
+                        <label for="startFrom">Item Name</label>
+                        <input class="disposition-action" type="text" ng-model="ledger.drug">
+                    </p>
+                    <p>
+                        <label for="startFrom">Quantity</label>
+                        <input class="disposition-action" type="text" ng-model="ledger.quantity">
+                    </p>
+                    <p>
+                        <label for="startFrom">Batch NO.</label>
+                        <input class="disposition-action" type="text" ng-model="ledger.batch">
+                    </p>
+                    <p>
+                        <label for="startFrom">Invoice NO.</label>
+                        <input class="disposition-action" type="text" ng-model="ledger.invoice">
+                    </p>
+                    <p>
+                        <label for="startFrom">Received Date.</label>
+                        <input class="disposition-action" type="date" ng-model="ledger.received_date">
+                    </p>
+                    <p>
+                        <label for="startFrom">Expiry Date.</label>
+                        <input class="disposition-action" type="date" ng-model="ledger.expiry_date">
+                    </p>
+                    <div>
+                        <p>
+                            <label for="startFrom">Price List</label>
+                            <select ng-model="ledger.pricelist" class="disposition-action">
+                                <option value="">Bima</option>
+                                <option value="">CTC</option>
+                                <option value="">Cash</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                <div class="disposition-action">
+                    <p>
+                        <label>Leger Type</label>
+                        <select ng-model="ledger.type" class="disposition-action">
+                            <option value="">Received from MSD(+ve)</option>
+                        </select>
+<!--                        <select id="itemCategory" ng-model="item.category" class="disposition-action" ng-model="option"-->
+<!--                                ng-options="o for o in items" ng-click="onItemCategorySelected(item.category)"></select>-->
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    </br>
+    <div class="dialog-button-group">
+
+        <button id="modal-import-button" class="primary-button" ng-click="closeThisDialog(0)">Close
+        </button>
+
+        <button class="secondary-button" ng-click="saveLedger(ledger)" type="submit">Save
+        </button>
+    </div>
+
+
+    <span class="ngdialog-end"></span>
+</div>
+
+

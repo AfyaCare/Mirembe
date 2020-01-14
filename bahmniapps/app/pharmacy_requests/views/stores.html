@@ -1,0 +1,25 @@
+<main>
+    <section>
+        <h1 style="text-align: center">Stores</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Dispensing Unit</th>
+                <th>Stock in Hand</th>
+                <th>Parent Store</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="store in allStores">
+            <tr class="">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ store.name }}</td>
+                <td>{{ store.stock_in_hand }}</td>
+                <td>{{ store.parent }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+

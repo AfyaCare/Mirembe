@@ -1,0 +1,81 @@
+<main ng-controller="IssueController">
+    <section style="padding: 1em 3em;">
+        <h1 style="text-align: center">Possible Batches for {{ itemName }} - {{ store }}</h1>
+<!--        <hr style="border-bottom-color: #bbb;">-->
+<!--        <div>-->
+<!--            <form>-->
+<!--                <div class="form-field">-->
+<!--                    <div class="field-value relative push-right">-->
+<!--                        <label>Item</label>-->
+<!--                        <input class="enter-concept"-->
+<!--                               type="text"-->
+<!--                               ng-model="item.drug.name"-->
+<!--                               ng-change="getItemByName(item.drug.name)"-->
+<!--                               placeholder="Enter Item Name"/>-->
+<!--                        <ul class="list-group">-->
+<!--                            <li class="list-group-item" ng-repeat="val in items" ng-click="fillItemTextBox(val)">-->
+<!--                                {{val.itemName}}-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <p class="field-value push-right">-->
+<!--                        <label>Store</label>-->
+<!--                        <select ng-model="item.storeId">-->
+<!--                            <option value="{{ substore.storeId }}" ng-repeat="substore in substores">{{ substore.name }}-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </p>-->
+<!--                    <p class="field-value push-right">-->
+<!--                        <label>Payment Category</label>-->
+<!--                        <select ng-model="item.paymentCategoryUuid">-->
+<!--                            <option value="{{ price.uuid }}" ng-repeat="price in priceCategories">{{ price.name }}-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </p>-->
+<!--                    <p class="field-value">-->
+<!--                        <label>Issuing Amount</label>-->
+<!--                        <input class="enter-concept"-->
+<!--                               type="number"-->
+<!--                               ng-model="item.issuing_amount"-->
+<!--                               placeholder="Amount"/>-->
+<!--                    </p>-->
+
+<!--                </div>-->
+<!--                <br>-->
+<!--                <button ng-click="saveItemIssued(item)">Issue Items</button>-->
+<!--            </form>-->
+<!--        </div>-->
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Store</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Batch NO</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="request in possibleBatches">
+            <tr ng-style="request.status.sourceState.toUpperCase() == 'waiting'.toUpperCase() ? {color: 'red'} : {color: ''}">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ request.item.itemName }}</td>
+                <td>{{ request.item.categoryName }}</td>
+                <td>{{ request.quantity }}</td>
+                <td>{{ request.batchNo }}</td>
+                <td>{{ request.expiryDate }}</td>
+                <td>{{ request.itemStatus }}</td>
+                <td>
+                    <button ng-click="addToIssueList(request.batchNo)" style="background: limegreen; color: white">Add to Issue</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+            <button ng-click="issueSelectedItems()">Process Selected Items</button>
+    </section>
+</main>
+

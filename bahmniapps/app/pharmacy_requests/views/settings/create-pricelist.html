@@ -1,0 +1,50 @@
+<div class="revise-refill-modal-wrapper" aria-labelledby="dialog-label" data-ng-controller="SettingsController">
+    <span class="ngdialog-start"></span>
+
+    <span class="ngdialog-close"></span>
+
+    <div class="drug-details">
+        <p><strong class="drug-name">Create New Pricelist</strong></p>
+        <div>
+            <section class="edit-drug-order">
+                <form name="addForm" bm-form>
+                    <div class="clearfix">
+                        <div class="form-field">
+                            <div class="field-value">
+                                <input class="enter-concept"
+                                       type="text"
+                                       ng-model="pricelist.name"
+                                       placeholder="Enter Price list"/>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="clearfix">-->
+<!--                        <div class="form-field">-->
+<!--                            <div class="field-value">-->
+<!--                                <label>Is this default?</label>-->
+<!--                                <input class="enter-concept"-->
+<!--                                       type="checkbox"-->
+<!--                                       ng-model="pricelist.defaulted"/> Yes-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </form>
+            </section>
+        </div>
+    </div>
+
+    </br>
+    <div class="dialog-button-group">
+
+        <button id="modal-import-button" class="primary-button" ng-click="closeThisDialog(0)" >Close
+        </button>
+
+        <button class="secondary-button" ng-click="savePriceList(pricelist)" type="submit" >Save
+        </button>
+    </div>
+
+
+    <span class="ngdialog-end"></span>
+</div>
+
+

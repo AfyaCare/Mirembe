@@ -1,0 +1,9 @@
+{
+  "id": " bahmni.billing",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.billing.dashboard",
+      "description": "Billing module for AfyaCare"
+    }
+  ]
+}

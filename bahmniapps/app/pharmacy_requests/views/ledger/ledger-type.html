@@ -1,0 +1,43 @@
+<main ng-controller="LedgerController">
+    <section class="sidemenu">
+        <ul ng-include src="'views/menu/ledger.html'"></ul>
+    </section>
+    <section class="main">
+        <h1 style="text-align: center; text-transform: capitalize;">Ledger Types</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div style="text-align: center">
+            <button ng-click="createLedgerType()">Add Ledger Type</button>
+        </div>
+        <hr style="border-bottom-color: #bbb;">
+        <hr>
+        <input class="" style="width: 340px;" type="text" ng-model="search" placeholder="Search" >
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Operation</th>
+                <th>Edit</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-if="ledgerTypes.length > 0 && ledgerTypes != 'empty'" ng-repeat="ledger in ledgerTypes | filter:search">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ ledger.name }}</td>
+                <td>{{ ledger.operation }}</td>
+                <td>
+                    <button ng-click="editLedgerType(ledger)">Edit</button>
+                </td>
+                <td ng-if="!ledger.retired">
+                    <button ng-click="activateLedgerType(ledger, 1)" style="background: red; color: white">Deactivate</button>
+                </td>
+                <td ng-if="ledger.retired">
+                    <button ng-click="activateLedgerType(ledger, 0)" style="background: green; color: white">Activate</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>

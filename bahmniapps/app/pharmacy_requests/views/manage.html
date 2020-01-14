@@ -1,0 +1,31 @@
+<main ng-controller="ManageController">
+    <section>
+        <h1 style="text-align: center">Store Management</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div style="text-align: center">
+            <button ng-click="createStore()">Create Store</button>
+        </div>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Retired</th>
+                <th>Edit</th>
+                <th>Retire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="store in allStores">
+                <td>{{ $index + 1 }}</td>
+                <td><a ui-sref="store({uuid: store.uuid})">{{ store.name }}</a></td>
+                <td>{{ store.retired === true ? "Retired" : "Active" }}</td>
+                <td><button ng-click="editStore(store)">Edit</button></td>
+                <td><button ng-click="deleteStore(store)" style="background: red; color: white">Retire</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+

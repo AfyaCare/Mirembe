@@ -1,0 +1,1303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-06-11T11:54:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="8b1e487b-cb26-4f47-914e-0a97c4e58b01">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#DBDBDB"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#C5C7C9"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="uperTableData" uuid="6adb0e34-57cf-4b72-82b3-a10f539db597">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="viralDB"/>
+		<queryString language="SQL">
+			<![CDATA[select  'Eligible Client for HVL' as 'indicator',
+
+ ifnull(sum(if(tAll.PatientID !="" ,1,0)),0) as 'Total',
+
+       ifnull(sum(if(tAll.PatientID !="" and tAll.Gender='M',1,0)),0) as 'M,Total',
+
+        ifnull(sum(if(tAll.PatientID !="" and tAll.AgeToDate<1  and tAll.Gender='M',1,0)),0) as 'M.<1 year',
+
+         ifnull(sum(if(tAll.PatientID !="" and tAll.AgeToDate>=1 and tAll.AgeToDate<=4 and tAll.Gender='M',1,0)),0) as 'M,1-4 year',
+
+         ifnull(sum(if(tAll.PatientID !="" and tAll.AgeToDate>=5 and tAll.AgeToDate<=14 and tAll.Gender='M',1,0)),0) as 'M,5-14 year',
+
+          ifnull(sum(if(tAll.PatientID !="" and  tAll.AgeToDate>=15 and tAll.Gender='M',1,0)),0) as 'M,>=15 year',
+
+             ifnull(sum(if(tAll.PatientID !="" and tAll.Gender='F',1,0)),0) as 'F,Total',
+
+        ifnull(sum(if(tAll.PatientID !="" and tAll.AgeToDate<1  and tAll.Gender='F',1,0)),0) as 'F.<1 year',
+
+         ifnull(sum(if(tAll.PatientID !="" and tAll.AgeToDate>=1 and tAll.AgeToDate<=4 and tAll.Gender='F',1,0)),0) as 'F,1-4 year',
+
+         ifnull(sum(if(tAll.PatientID !="" and tAll.AgeToDate>=5 and tAll.AgeToDate<=14 and tAll.Gender='F',1,0)),0) as 'F,5-14 year',
+
+          ifnull(sum(if(tAll.PatientID !="" and  tAll.AgeToDate>=15 and tAll.Gender='F',1,0)),0) as 'F,>=15 year'
+
+       from
+
+(SELECT tperiod.PatientID as PatientID,
+
+tperiod.Gender as Gender, tperiod.AgeToDate as AgeToDate FROM openmrs.tbltempvariables tvar
+
+join openmrs.tbltempvariablesperiod tperiod on tperiod.PatientID= tvar.PatientID and DateLastSampleTaken is null 
+
+where (TIMESTAMPDIFF(MONTH, DateLastSampleTaken, current_date())>=6 AND OnARVsOnMostRecentVisitDateDuringPeriod=1 AND ViralLoadEverTested=0) 
+
+ OR (TIMESTAMPDIFF(MONTH, DateLastSampleTaken, current_date())>12 AND ViralLoadEverTested=1
+
+ AND OnARVsOnMostRecentVisitDateDuringPeriod=1)) as tAll
+
+union all
+
+select  'Number of Sample Taken' as 'indicator',
+
+ ifnull(sum(if(samp.DateLastSampleTaken is not null ,1,0)),0) as 'Total',
+
+       ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='M',1,0)),0) as 'M,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='M',1,0)),0) as 'M.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='M',1,0)),0) as 'M,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='M',1,0)),0) as 'M,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='M',1,0)),0) as 'M,>=15 year',
+
+             ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='F',1,0)),0) as 'F,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='F',1,0)),0) as 'F.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='F',1,0)),0) as 'F,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='F',1,0)),0) as 'F,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='F',1,0)),0) as 'F,>=15 year'
+
+       from
+
+(SELECT tperiod.DateLastSampleTaken as DateLastSampleTaken,
+
+tperiod.Gender as Gender, tperiod.AgeToDate as AgeToDate FROM openmrs.tbltempvariables tvar
+
+join openmrs.tbltempvariablesperiod tperiod on tperiod.PatientID= tvar.PatientID
+
+where tperiod.DateLastSampleTaken>'2017-04-16 00:00:00' ) as samp]]>
+		</queryString>
+		<field name="indicator" class="java.lang.String"/>
+		<field name="Total" class="java.math.BigDecimal"/>
+		<field name="M,Total" class="java.math.BigDecimal"/>
+		<field name="M.&lt;1 year" class="java.math.BigDecimal"/>
+		<field name="M,1-4 year" class="java.math.BigDecimal"/>
+		<field name="M,5-14 year" class="java.math.BigDecimal"/>
+		<field name="M,&gt;=15 year" class="java.math.BigDecimal"/>
+		<field name="F,Total" class="java.math.BigDecimal"/>
+		<field name="F.&lt;1 year" class="java.math.BigDecimal"/>
+		<field name="F,1-4 year" class="java.math.BigDecimal"/>
+		<field name="F,5-14 year" class="java.math.BigDecimal"/>
+		<field name="F,&gt;=15 year" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="secondTable Data" uuid="9a100ee4-041b-455c-a0a8-8b314b746bef">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="viralDB"/>
+		<queryString language="SQL">
+			<![CDATA[select   'a.' as 'opt',	'<1000 c/mil' as 'indicator',
+
+ ifnull(sum(if(samp.DateLastSampleTaken is not null ,1,0)),0) as 'Total',
+
+       ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='M',1,0)),0) as 'M,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='M',1,0)),0) as 'M.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='M',1,0)),0) as 'M,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='M',1,0)),0) as 'M,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='M',1,0)),0) as 'M,>=15 year',
+
+             ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='F',1,0)),0) as 'F,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='F',1,0)),0) as 'F.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='F',1,0)),0) as 'F,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='F',1,0)),0) as 'F,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='F',1,0)),0) as 'F,>=15 year'
+
+       from
+
+(SELECT tperiod.DateLastSampleTaken as DateLastSampleTaken,
+
+tperiod.Gender as Gender, tperiod.AgeToDate as AgeToDate FROM openmrs.tbltempvariables tvar
+
+join openmrs.tbltempvariablesperiod tperiod on tperiod.PatientID= tvar.PatientID
+
+where tperiod.ViralLoadResultDuringPeriod<1000 ) as samp
+
+union all
+
+select  'b.' as 'opt','>1000 c/mil' as 'indicator',
+
+ ifnull(sum(if(samp.DateLastSampleTaken is not null ,1,0)),0) as 'Total',
+
+       ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='M',1,0)),0) as 'M,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='M',1,0)),0) as 'M.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='M',1,0)),0) as 'M,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='M',1,0)),0) as 'M,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='M',1,0)),0) as 'M,>=15 year',
+
+             ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='F',1,0)),0) as 'F,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='F',1,0)),0) as 'F.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='F',1,0)),0) as 'F,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='F',1,0)),0) as 'F,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='F',1,0)),0) as 'F,>=15 year'
+
+       from
+
+(SELECT tperiod.DateLastSampleTaken as DateLastSampleTaken,
+
+tperiod.Gender as Gender, tperiod.AgeToDate as AgeToDate FROM openmrs.tbltempvariables tvar
+
+join openmrs.tbltempvariablesperiod tperiod on tperiod.PatientID= tvar.PatientID
+
+where tperiod.ViralLoadResultDuringPeriod>1000 ) as samp
+
+union all
+
+select  'c.' as 'opt','Total' as 'indicator',
+
+ ifnull(sum(if(samp.DateLastSampleTaken is not null ,1,0)),0) as 'Total',
+
+       ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='M',1,0)),0) as 'M,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='M',1,0)),0) as 'M.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='M',1,0)),0) as 'M,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='M',1,0)),0) as 'M,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='M',1,0)),0) as 'M,>=15 year',
+
+             ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='F',1,0)),0) as 'F,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='F',1,0)),0) as 'F.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='F',1,0)),0) as 'F,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='F',1,0)),0) as 'F,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='F',1,0)),0) as 'F,>=15 year'
+
+       from
+
+(SELECT tperiod.DateLastSampleTaken as DateLastSampleTaken,
+
+tperiod.Gender as Gender, tperiod.AgeToDate as AgeToDate FROM openmrs.tbltempvariables tvar
+
+join openmrs.tbltempvariablesperiod tperiod on tperiod.PatientID= tvar.PatientID
+
+where tperiod.ViralLoadResultDuringPeriod is not null) as samp]]>
+		</queryString>
+		<field name="opt" class="java.lang.String"/>
+		<field name="indicator" class="java.lang.String"/>
+		<field name="Total" class="java.math.BigDecimal"/>
+		<field name="M,Total" class="java.math.BigDecimal"/>
+		<field name="M.&lt;1 year" class="java.math.BigDecimal"/>
+		<field name="M,1-4 year" class="java.math.BigDecimal"/>
+		<field name="M,5-14 year" class="java.math.BigDecimal"/>
+		<field name="M,&gt;=15 year" class="java.math.BigDecimal"/>
+		<field name="F,Total" class="java.math.BigDecimal"/>
+		<field name="F.&lt;1 year" class="java.math.BigDecimal"/>
+		<field name="F,1-4 year" class="java.math.BigDecimal"/>
+		<field name="F,5-14 year" class="java.math.BigDecimal"/>
+		<field name="F,&gt;=15 year" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="lastTableData" uuid="b89b47e6-355c-42d6-9d6f-2e0f7d9a39ac">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="viralDB"/>
+		<queryString language="SQL">
+			<![CDATA[select  'Number of CLient Switched to 2nd Line' as 'indicator',
+
+ ifnull(sum(if(samp.DateLastSampleTaken is not null ,1,0)),0) as 'Total',
+
+       ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='M',1,0)),0) as 'M,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='M',1,0)),0) as 'M.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='M',1,0)),0) as 'M,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='M',1,0)),0) as 'M,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='M',1,0)),0) as 'M,>=15 year',
+
+             ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.Gender='F',1,0)),0) as 'F,Total',
+
+        ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate<1  and samp.Gender='F',1,0)),0) as 'F.<1 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=1 and samp.AgeToDate<=4 and samp.Gender='F',1,0)),0) as 'F,1-4 year',
+
+         ifnull(sum(if(samp.DateLastSampleTaken is not null and samp.AgeToDate>=5 and samp.AgeToDate<=14 and samp.Gender='F',1,0)),0) as 'F,5-14 year',
+
+          ifnull(sum(if(samp.DateLastSampleTaken is not null and  samp.AgeToDate>=15 and samp.Gender='F',1,0)),0) as 'F,>=15 year'
+
+       from
+
+(SELECT tperiod.DateLastSampleTaken as DateLastSampleTaken,
+
+tperiod.Gender as Gender, tperiod.AgeToDate as AgeToDate FROM openmrs.tbltempvariables tvar
+
+join openmrs.tbltempvariablesperiod tperiod on tperiod.PatientID= tvar.PatientID
+
+where tperiod.ARVRegimensBeforePeriod='CTC - ARV Regimens - First Line Adult' and  tperiod.ARVRegimensDuringPeriod='CTC - ARV Regimens - Second Line Adult') as samp]]>
+		</queryString>
+		<field name="indicator" class="java.lang.String"/>
+		<field name="Total" class="java.math.BigDecimal"/>
+		<field name="M,Total" class="java.math.BigDecimal"/>
+		<field name="M.&lt;1 year" class="java.math.BigDecimal"/>
+		<field name="M,1-4 year" class="java.math.BigDecimal"/>
+		<field name="M,5-14 year" class="java.math.BigDecimal"/>
+		<field name="M,&gt;=15 year" class="java.math.BigDecimal"/>
+		<field name="F,Total" class="java.math.BigDecimal"/>
+		<field name="F.&lt;1 year" class="java.math.BigDecimal"/>
+		<field name="F,1-4 year" class="java.math.BigDecimal"/>
+		<field name="F,5-14 year" class="java.math.BigDecimal"/>
+		<field name="F,&gt;=15 year" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="start_date" class="java.util.Date">
+		<parameterDescription><![CDATA[Start Date]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format(new Date().getTime())]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Second_date" class="java.util.Date">
+		<parameterDescription><![CDATA[Second Date]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format(new Date().getTime())]]></defaultValueExpression>
+	</parameter>
+	<parameter name="quaterValue" class="java.lang.Integer"/>
+	<parameter name="CTCID" class="java.lang.String"/>
+	<parameter name="HFRID" class="java.lang.String"/>
+	<parameter name="TypeOfService" class="java.lang.String"/>
+	<parameter name="reportingPeriod" class="java.lang.String"/>
+	<parameter name="dateCompletion" class="java.lang.String"/>
+	<parameter name="faciltyName" class="java.lang.String"/>
+	<parameter name="facilityOwnership" class="java.lang.String"/>
+	<parameter name="council" class="java.lang.String"/>
+	<parameter name="personReporting" class="java.lang.String"/>
+	<parameter name="region" class="java.lang.String"/>
+	<parameter name="designation" class="java.lang.String"/>
+	<parameter name="follow_up_period" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT empty_func(),  call_storedP( $P{start_date} ,  $P{Second_date}  ), prefix FROM openmrs.idgen_seq_id_gen order by id desc limit 1]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="172" splitType="Stretch">
+			<staticText>
+				<reportElement x="56" y="-16" width="495" height="15" uuid="878ad2c7-897a-4382-afea-81540fc88197">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[THE UNITED REPUBLIC OF TAZANIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="0" width="495" height="15" uuid="f99a3e61-a546-4281-a606-b73aa60fc65b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTRY OF HEALTH, COMMUNITY DEVELOMENT, GENDER, ELDERLY AND CHILDREN]]></text>
+			</staticText>
+			<image>
+				<reportElement x="20" y="-16" width="54" height="56" uuid="52799437-781a-4174-8363-82db7e122372"/>
+				<imageExpression><![CDATA["/var/www/bahmni_config/openmrs/apps/reports/sql/tanzania.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="56" y="12" width="495" height="15" uuid="b02a82d8-e01d-4dac-b6a0-74d7dfcbceb0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NATIONAL CARE AND TREATMENT PROGRAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="26" width="495" height="15" uuid="920fecf0-fc18-4814-9067-7b7438c0fb18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quarterly Facility-based VRL reporting form]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="50" width="554" height="121" uuid="7e48bba9-6267-4e83-890a-10e4190c6001">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="141" width="555" height="2" uuid="bc00f4cc-8f0c-4a18-be03-5722cd1f8108"/>
+			</line>
+			<staticText>
+				<reportElement x="24" y="53" width="37" height="20" uuid="9c63a0c6-e28c-45a4-906f-60e62c2056fc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CTC ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="95" width="135" height="20" uuid="ec8c6395-a9bf-43e3-818b-01546d1cd7d0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facility Registered Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="53" width="85" height="20" uuid="bb008cb8-9dc9-4064-af66-6ef6a42ffe61">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type of Service:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="315" y="94" width="158" height="20" uuid="69caae27-452d-4c42-b9b0-cf090a85ac99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{facilityOwnership}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="377" y="74" width="139" height="20" uuid="d1c16de9-2961-4837-9460-b920d013f8ff"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="95" width="89" height="20" uuid="cb7e9600-c430-4295-932f-7fa4cea47921"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{faciltyName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="111" y="74" width="112" height="19" uuid="abbb990c-3678-48f7-b3b9-d637074d22f0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="67" y="114" width="73" height="20" uuid="0a2b4c6b-76ca-4994-aea6-b6356273eb2a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{council}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="53" width="104" height="20" uuid="87a2f465-bdc1-4aef-b806-d5ee2213fb2b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{HFRID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="73" width="86" height="20" uuid="7677bf94-85d6-4a29-8bb8-421775665168"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporting Period:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="114" width="45" height="20" uuid="59bb6a6b-a4f0-4325-98c2-9eac2141b220"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Region:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="53" width="38" height="20" uuid="b61b7e49-7032-4287-98ca-3b423f2b2b80"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HFR ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="94" width="58" height="20" uuid="6dc2b45d-1d84-4427-bcb2-d8b611b1bfc2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ownership:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="456" y="53" width="97" height="20" uuid="3856bc54-68e0-4c11-8fe7-1a9cf58bc395">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TypeOfService}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="224" y="73" width="153" height="20" uuid="c44d4a20-8f0e-40f1-8736-b52bd3199d7a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Completion of Form:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="53" width="100" height="20" uuid="e78ca5aa-d8c4-4cf7-a15a-8a25e6cc1703"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CTCID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="113" width="110" height="20" uuid="1efacdf5-dd2f-43a5-aa06-79c2a87c6465"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{region}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="114" width="42" height="20" uuid="e9d982f2-48a3-4dc9-8290-3e59580c3fda">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Council:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="143" width="170" height="28" uuid="c2f0d28e-042a-4b17-8e2c-1be48266c95a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{personReporting}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="143" width="114" height="28" uuid="5fc9acdf-7702-435c-8655-7a6f15ed6133">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="143" width="80" height="28" uuid="84f45d8c-caf3-4bcb-9b42-db3121c9478b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="143" width="114" height="28" uuid="13f57828-5367-4607-a13b-daa3522b12e8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="141" width="188" height="30" uuid="7f4acb24-a7cf-4e0a-9e14-0ed98171d0f3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name of the Person Reporting]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="82" splitType="Stretch">
+			<componentElement>
+				<reportElement x="-1" y="22" width="556" height="60" uuid="767c5576-99d9-4b5f-82c9-8f5e5c69a352">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="uperTableData" uuid="825e1c94-0ec3-46cb-8092-2893a3087475">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="198" uuid="fbb58908-ce16-462a-b1df-7424db486080">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="198" height="30" uuid="478e9b92-49a7-4627-a589-cc07f146128a"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph lineSpacing="AtLeast" lineSpacingSize="1.0" firstLineIndent="3" leftIndent="3" rightIndent="1"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{indicator}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="dbd4c5b9-3de3-48ef-93ad-6f9d38fc379a">
+						<jr:columnHeader style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="96fb6506-83ee-4f38-865a-0c6450b69cb6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="1199c0a1-694e-43aa-a255-21b789cb9492">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="fecee747-bdf0-4028-a2ab-65e8ea75393e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="8d0abeb9-e50c-4a88-9e1d-f5ff1d5334a5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{M,Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="19a9ac5a-6df0-457b-96de-a0d69ba6f3b5">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="6e52bf3d-c3ad-4964-b37d-21d0f0adb5c8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[<1 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="da8ab466-e744-4f39-9912-514f63d19276"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M.<1 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="b3b8e603-8030-41da-a2d1-c033faa81625">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="94957656-33f3-457b-a92c-def594caf2b5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[1-4 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="32" height="30" uuid="990910d8-34df-4903-9f51-ddee6a259c5a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,1-4 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="b69fac62-f344-4952-a29c-08641b3d29f1">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="2a8f5774-9eb0-45b8-970d-2f431ac5afa3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[5-14 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="a2d11398-2e84-4cf2-b801-1447f83e1f15"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,5-14 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="557e4e56-6031-498b-af3b-d66e28357161">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="60259aca-a0fb-495b-a106-659ec3ea5296"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[>=15 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="21e3753c-7d8e-4bba-a656-31643c2e86ec"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,>=15 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="55501b54-2481-40e9-b39d-72ffbfd98435">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="1d6b37fc-ed4d-419d-a8f1-f67ef91b2a50"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="abe105c3-9704-457a-8b1b-f916b3b68eaf"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="52f70023-6b24-4445-b36f-d487a5c4110e">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="21cd05fb-6ac9-404c-87d4-ab961cb48196"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[<1 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="243c6702-3c7e-49ff-82b8-47b71559a3ea"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F.<1 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="05790e62-96e6-411c-8072-e210b825a370">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="c254309e-2502-40db-90f9-f1f779c165a3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[1-4 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="810ac39b-04b6-4dc1-b583-af8b5c6d3d66"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,1-4 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="4a898789-6e71-457f-bade-7143e72a4776">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="32" height="30" uuid="5858ff69-2356-4440-9d6a-6c23379947e7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[5-14 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="d9386726-c941-434a-98da-23e8f38909b3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,5-14 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="30" uuid="986b195d-db26-41fb-b5f0-f9cb15d0bbab">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="30" uuid="2c355a50-09f0-4c57-b1e1-ca397d37bcd6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[>=15 year]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="30" height="30" uuid="e5574fea-724b-4d34-b627-1c691cebe9b9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,>=15 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="-1" y="0" width="198" height="22" isPrintInFirstWholeBand="true" uuid="ca2597ad-f696-479b-a13d-68d4d76f539e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<printWhenExpression><![CDATA[($V{REPORT_COUNT})<2]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineColor="#B0A6A5"/>
+					<topPen lineWidth="1.0" lineColor="#9C9C9C"/>
+					<leftPen lineWidth="1.0" lineColor="#A6A6A6"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indicator]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="197" y="0" width="40" height="22" isPrintInFirstWholeBand="true" uuid="9c01547b-751b-45bf-8e10-8e6f765bb4f0"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#B8B6B6"/>
+					<rightPen lineWidth="1.0" lineColor="#A3A0A0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" isPrintRepeatedValues="false" x="237" y="0" width="160" height="22" isPrintInFirstWholeBand="true" uuid="677da9bd-3b37-4e3a-b36b-9b6a8c95921b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<rightPen lineWidth="1.0" lineColor="#ABABAB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Males]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="397" y="0" width="157" height="22" isPrintInFirstWholeBand="true" uuid="8c499445-dd2f-49a1-9ed4-303103b008b2">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<rightPen lineWidth="1.0" lineColor="#ABABAB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Females]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="128" splitType="Stretch">
+			<componentElement>
+				<reportElement x="55" y="1" width="499" height="34" uuid="0cb88ee4-034c-4290-8e71-d2a744cda041">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="secondTable Data" uuid="5be62aeb-d2d9-4b92-bbc0-e9f79b1fbd61">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="40" uuid="87064d71-7ea4-4603-881a-f0e6d24908d7">
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField>
+								<reportElement x="0" y="0" width="40" height="33" uuid="2f66ca0d-252d-439f-be2e-ae2a99a972e3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{opt}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="102" uuid="59ae373d-e6c3-4769-92f7-492cad6274d4">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="100" height="33" uuid="624aaea4-dcba-4f37-be9e-594dff60a697"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph lineSpacingSize="1.0" firstLineIndent="3" leftIndent="3" rightIndent="1"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{indicator}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="d0467f73-0a7b-4380-bb19-04c204cc8ca2">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="33" uuid="6211ed77-7dc8-4036-8499-241d8a2348a1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="0c07f64d-f62e-412a-a955-9585b617a156">
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="33" uuid="36b6d0c9-3e34-4f8b-8d49-fd4860976f47"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="31" uuid="13e976ee-46f1-49ac-bff9-46a724c2944f">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="31" height="33" uuid="fe23f984-63e5-4398-9851-ea65810b7e71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M.<1 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="33" uuid="87dd3e61-ba4f-4e15-b4d2-4d23240bb88d">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="33" height="33" uuid="e4373e8e-35a0-47ce-a98b-6b201cd48987"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,1-4 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="31" uuid="ed52abb5-1c05-4b0f-a0b5-8eaf6946a75f">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="31" height="33" uuid="f38099a3-77e8-4cb5-9fa5-6f775fe7d9c6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,5-14 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="33" uuid="68c0c752-8174-4f2c-a092-4ac0ef2272a7">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="33" height="33" uuid="812c28af-d97a-4992-b9a2-670b813f6f10"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,>=15 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="83f2f373-76c5-40d3-8612-f87843ad847a">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="33" uuid="f9b168f6-791e-40fa-964d-fbeb41a294ac"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="33" uuid="54c17bc0-b7a9-49e1-876c-2857e5b90874">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="33" height="33" uuid="3ad3907e-de5d-40a2-8198-707332bd2dc8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F.<1 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="31" uuid="7f3d91d4-a5d3-41b9-9165-127c15fdfdc3">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="31" height="33" uuid="0ae8118c-d034-4de6-8eea-b273d16dc14c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,1-4 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="33" uuid="5124e401-d06c-4959-911a-89aacf2fe6bf">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="33" height="33" uuid="14eb48bd-a193-41e2-9b63-14bf840cf931"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,5-14 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="30" uuid="a5afd4c4-cd9f-4b3d-9009-7d3779d53894">
+						<jr:detailCell style="Table 1_TD" height="33">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="30" height="33" uuid="fab5cc3d-d6fc-4253-9574-0b3b20a783d8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,>=15 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="1" width="55" height="99" uuid="0ea12c4c-01b3-4f9c-ac76-4a1860345277">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineColor="#A19797"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A19797"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#A19797"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#A19797"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#A19797"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Result Received at
+the Facility]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="-1" y="100" width="560" height="26" uuid="bf137ab9-9007-42f5-95c8-48c170209237">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="lastTableData" uuid="aa37cb31-190a-435e-9b5f-bc5a7ee621cf">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="198" uuid="53826c70-b4bc-48f6-a16a-c492b051f8bd">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="198" height="30" uuid="a1fdc703-ce86-4594-965b-17553156fb63"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="false"/>
+									<paragraph lineSpacingSize="1.0" firstLineIndent="3" leftIndent="3" rightIndent="1"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{indicator}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="27a65864-dded-4d0f-89f7-fac585921acb">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="e1f604e6-e426-4975-bd83-cdc4f2253904"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="9c1eb9b1-e0b5-4cc7-a514-4923e2fa7e02">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="84052b04-616f-4221-af52-58e602085bae"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="6dd024ef-68e3-4395-b11c-6eb38c76e1e5">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="87539171-3bf1-4b1a-bb91-0a008f6ce038"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M.<1 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="9c2a81c9-6f4b-4698-98dc-d7a04e82e2ca">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="638efc0f-2935-4970-8e9d-67c26c7d821a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,1-4 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="40d4f639-4f21-4420-91a3-01ea11ad90a9">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="5b873fab-c755-4453-bf4e-4e76a6e92a30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,5-14 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="fce99f0c-6f43-41dc-9052-92524a26fcdb">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="c4630699-a466-4a7c-9e31-9e810b29719c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,>=15 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="8e299997-bb63-4a58-a619-bbabfbb7af10">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="295d8de7-415a-431d-88dd-c7613ccb070a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="cb649204-421f-4eb0-8eb4-0b61b4bf7c3d">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="cc65dcde-9e0b-4d36-8896-c67158598512"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F.<1 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="b5ec1792-462a-4ca7-842c-5add2f9104da">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="ad0ef61a-f73a-4edf-869d-5af4ac463d2c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,1-4 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="32" uuid="69ba603d-964d-4153-8cde-0f02071f3e82">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="32" height="30" uuid="f53dc9f5-61ce-436f-91c4-7b593011a504"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,5-14 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="30" uuid="500c582e-a74b-4729-912e-3fa9695d630a">
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="30" height="30" uuid="ad25d7e2-4f6d-4f36-9f0b-aa2ac7ae32f7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,>=15 year}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="286" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="146" width="355" height="30" uuid="bd9312ca-f823-4d3c-9537-8213f09ac17e"/>
+				<text><![CDATA[Name of Facility / HUB Focal Person: _______________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="146" width="195" height="30" uuid="90bc8aeb-9c61-4c7d-bda8-31fda9d03910"/>
+				<text><![CDATA[Signature: ______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="174" width="100" height="30" uuid="42c637a2-b6d2-4951-abeb-751f9f2fd71d"/>
+				<text><![CDATA[Date: ___/___/____]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="183" width="201" height="30" uuid="8cb1bccf-a726-4943-8491-3685d9fd2c0f"/>
+				<text><![CDATA[Phone Number: ______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="208" width="302" height="30" uuid="bdb13147-b7bd-4e29-abbf-671992842cd0"/>
+				<text><![CDATA[Name of Reviewing Person: _______________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="248" width="100" height="30" uuid="25c03f1b-150f-437b-9bec-2db79f8d50fd"/>
+				<text><![CDATA[Date: ___/___/____]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="246" width="204" height="30" uuid="b2617c84-b82d-4eb0-ab13-ca71e61df1f0"/>
+				<text><![CDATA[Phone Number: ______________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-3" y="0" width="566" height="137" uuid="ac8c3e6f-82e2-4682-afc4-8a1d574fbf2c"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#BDB5B5"/>
+					<leftPen lineWidth="1.0" lineColor="#BDB5B5"/>
+					<bottomPen lineWidth="1.0" lineColor="#BDB5B5"/>
+					<rightPen lineWidth="1.0" lineColor="#BDB5B5"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Coment Box:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,41 @@
+<div class="revise-refill-modal-wrapper" aria-labelledby="dialog-label" data-ng-controller="IssueController">
+    <span class="ngdialog-start"></span>
+
+    <span class="ngdialog-close"></span>
+
+    <div class="adt">
+        <div class="audit-log-filter">
+            <article id="startFrom">
+                <div>
+                    <p>
+                        <label for="startFrom">Amount approved</label>
+                        <input class="disposition-action" type="number" ng-model="issue.amount">
+                    </p>
+                </div>
+                <div class="disposition-action">
+                    <p>
+                        <label>Remarks</label>
+                        <br>
+                        <textarea class="disposition-action" ng-model="issue.remarks"></textarea>
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    </br>
+    <div class="dialog-button-group">
+
+        <button id="modal-import-button" class="primary-button" ng-click="closeThisDialog(0)">Close
+        </button>
+
+        <button class="secondary-button" ng-click="saveIssue(ledger)" type="submit">Save
+        </button>
+    </div>
+
+
+    <span class="ngdialog-end"></span>
+</div>
+
+

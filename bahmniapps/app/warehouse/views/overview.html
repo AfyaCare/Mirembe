@@ -1,0 +1,46 @@
+<style>
+    .container {
+        float: right;
+    }
+    #navigation {
+        width: 25%;
+        float: left;
+    }
+</style>
+<div style="padding:30px">
+    <div id="navigation" style="float:left;">
+        <ul class="top-level">
+            <li><a href="../warehouse/#/overview">Pharmacy Overview</a></li>
+            <li><a href="../warehouse/#/products">Add Product</a></li>
+            <li><a href="../warehouse/#/activateProducts">Activate/Retire Product</a></li>
+            <li><a href="../warehouse/#/price">Add Price</a></li>
+            <li><a href="../warehouse/#/physical_invent">Physical Inventory</a></li>
+            <li><a href="../warehouse/#/out_of_stock">Out of Stock</a></li>
+            <li><a href="../warehouse/#/expired_stock">Expired Stock</a></li>
+        </ul>
+    </div>
+    <br>
+    <h1 style="padding-top: 1rem">Quick View</h1>
+    <table style="margin: 1rem 0">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Total Value (Tsh)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Physical Inventory</td>
+            <td>{{ pyhsicalInventoryQuantity }}</td>
+            <td>{{ pyhsicalInventoryValue | currency:"" }}</td>
+        </tr>
+        <tr>
+            <td>Available Stock</td>
+            <td>{{ stockQuantity }}</td>
+            <td>{{ stockValue | currency:"" }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>

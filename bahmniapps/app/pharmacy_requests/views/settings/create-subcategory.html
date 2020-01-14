@@ -1,0 +1,57 @@
+<div class="revise-refill-modal-wrapper" aria-labelledby="dialog-label" data-ng-controller="SettingsController">
+    <span class="ngdialog-start"></span>
+
+    <span class="ngdialog-close"></span>
+
+    <div class="drug-details">
+        <p><strong class="drug-name">Create New SUB-Category</strong></p>
+        <div>
+            <section class="edit-drug-order">
+                <form name="addForm" bm-form>
+                    <div class="clearfix">
+                        <div class="form-field">
+                            <div class="field-value">
+                                <label>Select Category</label>
+                                <select ng-model="subcategory.category" ng-change="getCategorySubCats(subcategory.category)">
+                                    <option ng-repeat="category in allCategories" value="{{ category.uuid }}">{{
+                                        category.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    drugs-->
+                    <div ng-show="cat.name.toUpperCase() === 'drugs'.toUpperCase()">
+                        <p style="color: red;">Not supported</p>
+                    </div>
+
+                    <div class="clearfix" ng-show="cat.name.toUpperCase() === 'non drugs'.toUpperCase()">
+                        <div class="form-field">
+                            <div class="field-value">
+                                <input class="enter-concept"
+                                       type="text"
+                                       ng-model="subcategory.name"
+                                       placeholder="Enter Category"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    </br>
+    <div class="dialog-button-group">
+
+        <button id="modal-import-button" class="primary-button" ng-click="closeThisDialog(0)" >Close
+        </button>
+
+        <button class="secondary-button" ng-click="saveSubCategory(subcategory)" type="submit" >Save
+        </button>
+    </div>
+
+
+    <span class="ngdialog-end"></span>
+</div>
+
+

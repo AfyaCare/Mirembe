@@ -1,0 +1,1777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-06-11T17:36:45 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tb09" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="52b01a91-f7e5-4691-b01b-801eed123634">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localFocus"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#E3E3E3"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#D3D3D3"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Dataset1" uuid="22dfa8e4-f22b-448b-bbce-dc69e3d36552">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localFocus"/>
+		<parameter name="start_date" class="java.lang.String"/>
+		<parameter name="end_date" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select  'New positive' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and rc.DOTOption='Health Facility DOT' and 
+ (vc.Smear='Positive' or vc.Xpert='Positive')) as tperiod
+ 
+ 
+ 
+ union all
+ 
+ 
+ 
+ 
+ select  'New smear negative' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' and rc.DOTOption='Health Facility DOT' and vc.Smear='Negative') as tperiod
+ 
+ 
+ union all 
+ 
+  
+ select  'New extra pulmonary' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and rc.DOTOption='Health Facility DOT' and rc.ClassificationBySite='Extra-pulmonary') as tperiod
+ 
+
+ 
+  union all 
+ 
+  
+ select  'Total' as 'indicator',
+ count(*) as 'Total',
+           ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and rc.DOTOption='Health Facility DOT' ) as tperiod
+ 
+ 
+ union all
+ 
+ 
+ /*Home Based DOT*/
+ 
+ select  'New positive' as 'indicator',
+ count(*) as 'Total',
+		ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and   rc.DOTOption='Home-based DOT' and 
+ (vc.Smear='Positive' or vc.Xpert='Positive')) as tperiod
+ 
+ 
+ 
+ union all
+ 
+ 
+ 
+ 
+ select  'New smear negative' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and  rc.DOTOption='Home-based DOT' and 
+ vc.Smear='Negative') as tperiod
+ 
+ 
+ union all 
+ 
+  
+ select  'New extra pulmonary' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and  rc.DOTOption='Home-based DOT' and 
+  rc.ClassificationBySite='Extra-pulmonary') as tperiod
+ 
+
+ 
+  union all 
+ 
+  
+ select  'Total' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and  rc.DOTOption='Home-based DOT' ) as tperiod
+ 
+ 
+ union all
+ 
+ 
+  /*Total New Cases*/
+ 
+ select  'New positive' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='New'  and  (vc.Smear='Positive' or vc.Xpert='Positive')) as tperiod
+ 
+ 
+ 
+ union all
+ 
+ 
+ 
+ 
+ select  'New smear negative' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='New'  and vc.Smear='Negative') as tperiod
+ 
+ 
+ union all 
+ 
+  
+ select  'New extra pulmonary' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='New' 
+ and rc.ClassificationBySite='Extra-pulmonary') as tperiod
+ 
+
+ 
+  union all 
+ 
+  
+ select  'Total' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='New' ) as tperiod
+ 
+ union all 
+ 
+ 
+   /* Previously treated*/
+
+ select  'Relapse' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='Relapse' ) as tperiod
+ 
+ 
+ 
+ union all
+ 
+ 
+ 
+ 
+select  'Treatment Failure' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='Failure') as tperiod
+ 
+ 
+ union all 
+
+ 
+ 
+select  'Lost to follow up' as 'indicator',
+ count(*) as 'Total',
+      ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='Lost to follow up') as tperiod
+ 
+ 
+ 
+ union all 
+
+ 
+ 
+select  'Other' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+( SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where   rc.ClassificationByHistoryOfTreatment='Others(Specify below)') as tperiod
+ 
+ 
+  
+ union all 
+
+ 
+ 
+select  'Total' as 'indicator',
+ count(*) as 'Total',
+		ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment!='New') as tperiod
+ 
+ 
+ 
+ union all
+ 
+ 
+/*TB/HIV*/
+select  'New positive' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New'  and rc.HIVStatus='Positive' and
+ (vc.Smear='Positive' or vc.Xpert='Positive')) as tperiod
+ 
+ 
+ 
+ union all
+ 
+ 
+ 
+ 
+ select  'New smear negative' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' and rc.HIVStatus='Positive'  and vc.Smear='Negative') as tperiod
+ 
+ 
+ union all 
+ 
+  
+ select  'New extra pulmonary' as 'indicator',
+ count(*) as 'Total',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+      	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment='New' 
+ and rc.HIVStatus='Positive'  and rc.ClassificationBySite='Extra-pulmonary') as tperiod
+ 
+
+ 
+  union all 
+ 
+  
+ select  'Previous Treated' as 'indicator',
+ count(*) as 'Total',
+           ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,Number Notified',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,Number Notified',
+	  ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='M',1,0)),0) as 'M,Cured',
+      ifnull(sum(if( outcome_concept_id =1068 and tperiod.Gender='F',1,0)),0) as 'F,Cured',
+	ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='M',1,0)),0) as 'M,Treatment Completed',
+      ifnull(sum(if( outcome_concept_id =2242 and tperiod.Gender='F',1,0)),0) as 'F,Treatment Completed',
+      	ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='M',1,0)),0) as 'M, Treatment Failed',
+      ifnull(sum(if( outcome_concept_id =2243  and tperiod.Gender='F',1,0)),0) as 'F, Treatment Failed',
+	ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='M',1,0)),0) as 'M,Died',
+      ifnull(sum(if(  outcome_concept_id =3949 and tperiod.Gender='F',1,0)),0) as 'F,Died',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='M',1,0)),0) as 'M,Lost to follow Up',
+      ifnull(sum(if(  outcome_concept_id =3950 and tperiod.Gender='F',1,0)),0) as 'F,Lost to follow Up',
+	  ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='M',1,0)),0) as 'M,Not evaluated',
+      ifnull(sum(if(  outcome_concept_id is null and tperiod.Gender='F',1,0)),0) as 'F,Not evaluated'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus, pp.date_completed,pp.outcome_concept_id from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+join patient_identifier pi on pi.identifier=vc.PatientID
+join patient_program pp on pp.patient_id=pi.patient_id
+ where  rc.ClassificationByHistoryOfTreatment!='New' 
+ and  rc.HIVStatus='Positive' ) as tperiod]]>
+		</queryString>
+		<field name="indicator" class="java.lang.String"/>
+		<field name="Total" class="java.lang.Long"/>
+		<field name="M,Number Notified" class="java.math.BigDecimal"/>
+		<field name="F,Number Notified" class="java.math.BigDecimal"/>
+		<field name="M,Cured" class="java.math.BigDecimal"/>
+		<field name="F,Cured" class="java.math.BigDecimal"/>
+		<field name="M,Treatment Completed" class="java.math.BigDecimal"/>
+		<field name="F,Treatment Completed" class="java.math.BigDecimal"/>
+		<field name="M, Treatment Failed" class="java.math.BigDecimal"/>
+		<field name="F, Treatment Failed" class="java.math.BigDecimal"/>
+		<field name="M,Died" class="java.math.BigDecimal"/>
+		<field name="F,Died" class="java.math.BigDecimal"/>
+		<field name="M,Lost to follow Up" class="java.math.BigDecimal"/>
+		<field name="F,Lost to follow Up" class="java.math.BigDecimal"/>
+		<field name="M,Not evaluated" class="java.math.BigDecimal"/>
+		<field name="F,Not evaluated" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="Dataset2" uuid="74f32249-c3d5-454d-8826-517578965427">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localFocus"/>
+		<parameter name="start_date" class="java.lang.String"/>
+		<parameter name="end_date" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select  'New positive' as 'indicator',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,No. Of all TB patients',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,No. Of all TB patients',
+	  ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='M',1,0)),0) as 'M,No. tested for HIV',
+      ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='F',1,0)),0) as 'F,No. tested for HIV',
+	ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='M',1,0)),0) as 'M, No. HIV positive',
+      ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='F',1,0)),0) as 'F, No. HIV positive',
+      	ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='M',1,0)),0) as 'M, No Referred to CTC',
+      ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='F',1,0)),0) as 'F, No Referred to CTC',
+	ifnull(sum(if( RefferedBy ='CTC' and tperiod.Gender='M',1,0)),0) as 'M,No Referred from CTC',
+      ifnull(sum(if(  RefferedBy ='CTC' and tperiod.Gender='F',1,0)),0) as 'F,No Referred from CTC',
+      ifnull(sum(if( HIVCareRegistrationNumber is not null and tperiod.Gender='M',1,0)),0) as 'M,No Registered for HIV care',
+      ifnull(sum(if(  HIVCareRegistrationNumber is not null and tperiod.Gender='F',1,0)),0) as 'F,No Registered for HIV care',
+	  ifnull(sum(if(  ARTDrugs ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started ART',
+      ifnull(sum(if(  ARTDrugs ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started ART',
+	  ifnull(sum(if(  CPT ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started CPT',
+      ifnull(sum(if(  CPT ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started CPT'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+ where  rc.ClassificationByHistoryOfTreatment='New' and
+ (vc.Smear='Positive' or vc.Xpert='Positive')) as tperiod
+ 
+ 
+ union all 
+ 
+ 
+ select  'New smear negative' as 'indicator',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,No. Of all TB patients',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,No. Of all TB patients',
+	  ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='M',1,0)),0) as 'M,No. tested for HIV',
+      ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='F',1,0)),0) as 'F,No. tested for HIV',
+	ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='M',1,0)),0) as 'M, No. HIV positive',
+      ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='F',1,0)),0) as 'F, No. HIV positive',
+      	ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='M',1,0)),0) as 'M, No Referred to CTC',
+      ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='F',1,0)),0) as 'F, No Referred to CTC',
+	ifnull(sum(if( RefferedBy ='CTC' and tperiod.Gender='M',1,0)),0) as 'M,No Referred from CTC',
+      ifnull(sum(if(  RefferedBy ='CTC' and tperiod.Gender='F',1,0)),0) as 'F,No Referred from CTC',
+      ifnull(sum(if( HIVCareRegistrationNumber is not null and tperiod.Gender='M',1,0)),0) as 'M,No Registered for HIV care',
+      ifnull(sum(if(  HIVCareRegistrationNumber is not null and tperiod.Gender='F',1,0)),0) as 'F,No Registered for HIV care',
+	  ifnull(sum(if(  ARTDrugs ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started ART',
+      ifnull(sum(if(  ARTDrugs ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started ART',
+	  ifnull(sum(if(  CPT ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started CPT',
+      ifnull(sum(if(  CPT ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started CPT'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+ where  rc.ClassificationByHistoryOfTreatment='New' and
+ vc.Smear='Negative' ) as tperiod
+ 
+
+ 
+ union all 
+ 
+ 
+ select  'New extra pulmonary' as 'indicator',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,No. Of all TB patients',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,No. Of all TB patients',
+	  ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='M',1,0)),0) as 'M,No. tested for HIV',
+      ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='F',1,0)),0) as 'F,No. tested for HIV',
+	ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='M',1,0)),0) as 'M, No. HIV positive',
+      ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='F',1,0)),0) as 'F, No. HIV positive',
+      	ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='M',1,0)),0) as 'M, No Referred to CTC',
+      ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='F',1,0)),0) as 'F, No Referred to CTC',
+	ifnull(sum(if( RefferedBy ='CTC' and tperiod.Gender='M',1,0)),0) as 'M,No Referred from CTC',
+      ifnull(sum(if(  RefferedBy ='CTC' and tperiod.Gender='F',1,0)),0) as 'F,No Referred from CTC',
+      ifnull(sum(if( HIVCareRegistrationNumber is not null and tperiod.Gender='M',1,0)),0) as 'M,No Registered for HIV care',
+      ifnull(sum(if(  HIVCareRegistrationNumber is not null and tperiod.Gender='F',1,0)),0) as 'F,No Registered for HIV care',
+	  ifnull(sum(if(  ARTDrugs ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started ART',
+      ifnull(sum(if(  ARTDrugs ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started ART',
+	  ifnull(sum(if(  CPT ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started CPT',
+      ifnull(sum(if(  CPT ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started CPT'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+ where  rc.ClassificationByHistoryOfTreatment='New' and
+ rc.ClassificationBySite='Extra-pulmonary' ) as tperiod
+ 
+ 
+ 
+  union all 
+ 
+ 
+ select  'Previous treated' as 'indicator',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,No. Of all TB patients',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,No. Of all TB patients',
+	  ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='M',1,0)),0) as 'M,No. tested for HIV',
+      ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='F',1,0)),0) as 'F,No. tested for HIV',
+	ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='M',1,0)),0) as 'M, No. HIV positive',
+      ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='F',1,0)),0) as 'F, No. HIV positive',
+      	ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='M',1,0)),0) as 'M, No Referred to CTC',
+      ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='F',1,0)),0) as 'F, No Referred to CTC',
+	ifnull(sum(if( RefferedBy ='CTC' and tperiod.Gender='M',1,0)),0) as 'M,No Referred from CTC',
+      ifnull(sum(if(  RefferedBy ='CTC' and tperiod.Gender='F',1,0)),0) as 'F,No Referred from CTC',
+      ifnull(sum(if( HIVCareRegistrationNumber is not null and tperiod.Gender='M',1,0)),0) as 'M,No Registered for HIV care',
+      ifnull(sum(if(  HIVCareRegistrationNumber is not null and tperiod.Gender='F',1,0)),0) as 'F,No Registered for HIV care',
+	  ifnull(sum(if(  ARTDrugs ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started ART',
+      ifnull(sum(if(  ARTDrugs ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started ART',
+	  ifnull(sum(if(  CPT ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started CPT',
+      ifnull(sum(if(  CPT ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started CPT'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}
+ where  rc.ClassificationByHistoryOfTreatment!='New'  ) as tperiod
+
+
+union all
+
+select  'Total' as 'indicator',
+       ifnull(sum(if( tperiod.Gender='M',1,0)),0) as 'M,No. Of all TB patients',
+	  ifnull(sum(if(tperiod.Gender='F',1,0)),0) as 'F,No. Of all TB patients',
+	  ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='M',1,0)),0) as 'M,No. tested for HIV',
+      ifnull(sum(if( tperiod.HIVStatus !='Unknown' and tperiod.Gender='F',1,0)),0) as 'F,No. tested for HIV',
+	ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='M',1,0)),0) as 'M, No. HIV positive',
+      ifnull(sum(if( tperiod.HIVStatus ='Positive' and tperiod.Gender='F',1,0)),0) as 'F, No. HIV positive',
+      	ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='M',1,0)),0) as 'M, No Referred to CTC',
+      ifnull(sum(if(  HIVStatus ='Positive' and HIVCareRegistrationNumber is null and tperiod.Gender='F',1,0)),0) as 'F, No Referred to CTC',
+	ifnull(sum(if( RefferedBy ='CTC' and tperiod.Gender='M',1,0)),0) as 'M,No Referred from CTC',
+      ifnull(sum(if(  RefferedBy ='CTC' and tperiod.Gender='F',1,0)),0) as 'F,No Referred from CTC',
+      ifnull(sum(if( HIVCareRegistrationNumber is not null and tperiod.Gender='M',1,0)),0) as 'M,No Registered for HIV care',
+      ifnull(sum(if(  HIVCareRegistrationNumber is not null and tperiod.Gender='F',1,0)),0) as 'F,No Registered for HIV care',
+	  ifnull(sum(if(  ARTDrugs ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started ART',
+      ifnull(sum(if(  ARTDrugs ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started ART',
+	  ifnull(sum(if(  CPT ='true' and tperiod.Gender='M',1,0)),0) as 'M,Number started CPT',
+      ifnull(sum(if(  CPT ='true' and  tperiod.Gender='F',1,0)),0) as 'F,Number started CPT'
+       from
+(SELECT distinct(rc.PatientID),vc.AgeToDate,vc.Gender, rc.HIVCareRegistrationNumber, rc.RefferedBy,
+ rc.ARTDrugs,rc.CPT, rc.HIVStatus from tbltbregcard  rc 
+join tbltbvisitcard vc on rc.PatientID=vc.PatientID and vc.EnrollmentDate between $P{start_date} and $P{end_date}) as tperiod]]>
+		</queryString>
+		<field name="indicator" class="java.lang.String"/>
+		<field name="M,No. Of all TB patients" class="java.math.BigDecimal"/>
+		<field name="F,No. Of all TB patients" class="java.math.BigDecimal"/>
+		<field name="M,No. tested for HIV" class="java.math.BigDecimal"/>
+		<field name="F,No. tested for HIV" class="java.math.BigDecimal"/>
+		<field name="M, No. HIV positive" class="java.math.BigDecimal"/>
+		<field name="F, No. HIV positive" class="java.math.BigDecimal"/>
+		<field name="M, No Referred to CTC" class="java.math.BigDecimal"/>
+		<field name="F, No Referred to CTC" class="java.math.BigDecimal"/>
+		<field name="M,No Referred from CTC" class="java.math.BigDecimal"/>
+		<field name="F,No Referred from CTC" class="java.math.BigDecimal"/>
+		<field name="M,No Registered for HIV care" class="java.math.BigDecimal"/>
+		<field name="F,No Registered for HIV care" class="java.math.BigDecimal"/>
+		<field name="M,Number started ART" class="java.math.BigDecimal"/>
+		<field name="F,Number started ART" class="java.math.BigDecimal"/>
+		<field name="M,Number started CPT" class="java.math.BigDecimal"/>
+		<field name="F,Number started CPT" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="start_date" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="end_date" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT  hf_name,hfrId FROM openmrs.hf_register where status=1;]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="215" splitType="Stretch">
+			<staticText>
+				<reportElement x="287" y="20" width="230" height="20" uuid="9974fd66-779a-40c5-87a8-913be3d61d79"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[National TB/Leprosy Programme]]></text>
+			</staticText>
+			<image>
+				<reportElement x="370" y="40" width="40" height="50" uuid="60daae0f-6247-4e16-babb-10aada7edec0"/>
+				<imageExpression><![CDATA["/var/www/bahmni_config/openmrs/apps/reports/sql/tanzania.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="10" y="91" width="780" height="30" uuid="cc0c4710-771b-41e8-a85c-56dcbef42acc"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quarterly report on the results of treatment of tuberculosis and TB/HIV patients notified in the quarter ending 12 months earli]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="122" width="56" height="18" uuid="c39f54e7-ddcc-4c5f-934b-a0f6fd80496a"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[District:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="122" width="179" height="18" uuid="a12a2653-34b3-49ca-a9dc-4d963e2bbefd"/>
+				<text><![CDATA[_________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="140" width="139" height="18" uuid="0e3a3e9a-8174-4c62-bd95-9b027383dde5"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Notifications during quarter:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="140" width="179" height="18" uuid="386dcfaa-6216-497f-86a3-0bc21d27972e"/>
+				<text><![CDATA[_____________________________]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="76" y="160" width="100" height="21" uuid="c85502a8-1f30-4a10-aa88-78b66cbd3def"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="160" width="80" height="18" uuid="263c3563-df4f-40cc-8629-f0650c53b6cf"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date prepared:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="185" width="110" height="18" uuid="a434a5fa-55f0-4223-bc97-b73b3d531993"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date received by RTLC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="182" width="179" height="18" uuid="4d0cf402-c0c9-4644-bf18-09a09b55db0a"/>
+				<text><![CDATA[_________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="186" width="108" height="18" uuid="a3afaa50-63fa-45d7-9633-b71f2ca7905a"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date received by TLCU:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="671" y="186" width="124" height="18" uuid="ea79bd02-dd6e-4d8f-9571-abad13554a1d"/>
+				<text><![CDATA[____/___/20___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="558" y="166" width="50" height="18" uuid="5b97dfe4-d844-412a-8960-3c9fb9b5a97e"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="608" y="166" width="179" height="18" uuid="4f38fd4f-3783-4b2f-881f-fbeaa1d34107"/>
+				<text><![CDATA[_________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="557" y="140" width="71" height="18" uuid="6170b939-17a5-4734-87fe-f0aff7931bdc"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Name of DTLC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="626" y="140" width="179" height="18" uuid="1ee0b95e-8d6e-4c8d-af58-d1634965807b"/>
+				<text><![CDATA[_________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="626" y="120" width="179" height="18" uuid="c9f07df0-f3e6-4b9c-aa97-3d1d5a194096"/>
+				<text><![CDATA[_________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="557" y="120" width="71" height="18" uuid="08bc296b-c26f-4321-9ea0-2c6c4a5e9cef"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[District code:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="2" width="550" height="18" uuid="ae10b801-d4ad-49ef-bead-17246d96d77b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTRY OF HEALTH, COMMUNITY DEVELOMENT, GENDER, ELDERLY AND CHILDREN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="271" splitType="Stretch">
+			<componentElement>
+				<reportElement positionType="Float" x="0" y="28" width="805" height="92" uuid="466a9639-450e-43a0-9af5-569c7459e11a">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="d28a9e4a-fbed-41da-bc5a-38a6d6f9cd0c">
+						<datasetParameter name="start_date">
+							<datasetParameterExpression><![CDATA[$P{start_date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="end_date">
+							<datasetParameterExpression><![CDATA[$P{end_date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="150" uuid="f0bcff13-3902-4ad0-9064-1b7881412746">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="60" uuid="0b1381c3-8842-40ab-9a1f-1b092b8e523f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[indicator]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="150" height="30" uuid="53d6f5d7-7894-4eba-99dd-856e90e45725"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph firstLineIndent="3" leftIndent="3" rightIndent="1"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{indicator}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="48" uuid="c34935f4-01fa-4ea3-b22e-966d7574c360">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="48" height="60" uuid="ad879812-d84b-4e87-b68c-fa4f50d2a085"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="48" height="30" uuid="f58f2777-3960-4a51-9eb3-da9a0ad76311"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="42" uuid="d82893b4-a18d-457e-9944-1437aa88c2d1">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="42" height="60" uuid="bc252d26-d13e-42ef-81c7-184f8f131568"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Number Notified]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="42" height="30" uuid="a23ec7f2-9bd8-4189-a0a5-788fb3aa6655"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Number Notified}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="44" uuid="2d2303fe-92fb-4352-9c46-ffa8ca0cc5e7">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="44" height="60" uuid="38868a64-0df4-470c-9ba1-0408d9606958"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Number Notified]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="44" height="30" uuid="066fa1a6-dafa-476c-aa29-496ee8773f6c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Number Notified}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="36" uuid="269eff94-1a54-4ec7-bca2-d010594b3cb3">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="36" height="60" uuid="5669f592-7d04-402c-9cb7-87c44984fde3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Cured]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="36" height="30" uuid="24bc047b-951b-44a0-8215-87c29cb66f32"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Cured}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="30" uuid="f43fcb76-ed06-4fc1-a55b-bc8d148af523">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="60" uuid="0796826a-d502-4ba6-8e2e-69354f83c8dd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Cured]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="30" height="30" uuid="b739b286-12a8-4e1a-8419-720c4eb74439"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Cured}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="b51fbaa0-7dac-4d04-a4df-bfa80790d4e1">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="60" uuid="462b7b82-f008-4c94-be4a-926483316b35"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Treatment Completed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="50" height="30" uuid="0fa7c222-55dc-4319-89d0-387fa722b86a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Treatment Completed}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="e0fa16fb-f77e-4c25-accc-acbba5734537">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="60" uuid="14d2d13f-fcff-412f-9810-c47e71541735"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Treatment Completed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="50" height="30" uuid="10638447-c008-416d-b9ac-d4aad706aa35"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Treatment Completed}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="45c76884-1e74-4d3a-80bd-959871394027">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="60" uuid="97c8afe4-89f5-4537-93ed-4bb57f277229"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M, Treatment Failed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="50" height="30" uuid="467904d5-edd5-4621-950b-cec7d61b7ddd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M, Treatment Failed}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="ad1f8317-7567-422d-9b6b-6c20c437b0f0">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="60" uuid="172ed12c-b76f-4b63-a95b-144f14d2c303"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F, Treatment Failed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="50" height="30" uuid="c3f01a1c-ef3d-4e81-847b-990e33ca1c3d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F, Treatment Failed}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="34" uuid="dcbab38a-149b-48a6-94cd-6e556cd50916">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="34" height="60" uuid="8231479c-80e4-49ca-89f4-dd5b3f00ff44"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Died]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="34" height="30" uuid="4f033647-e529-42b3-9713-2ba90c1acad1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Died}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="42" uuid="3e4eb129-a76c-4427-9380-9354db3bdba6">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="42" height="60" uuid="819df980-f913-455a-a7c9-5a3a3d5e6a95"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Died]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="42" height="30" uuid="40277f92-bbbf-494a-8b95-e276e16157b3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Died}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="93a68d27-5612-4064-a4b9-93f49e659b66">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="60" uuid="ec31be45-9a11-4646-8c22-d787c6c9a0a2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Lost to follow Up]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="6bfbb168-829e-4319-a217-f9edd322d851"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Lost to follow Up}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="2ee56a44-abf5-430b-9191-681ecec5794c">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="60" uuid="d9812bfb-f26f-466a-aad9-a9827cba7ceb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Lost to follow Up]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="fe5ce7c5-4fc7-41bf-8874-6b10401937c3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Lost to follow Up}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="d255b4c1-dde5-400f-8585-32f99b34ee57">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="60" uuid="8a19b3c8-05dd-47e0-9f7c-24db18c35177"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Not evaluated]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="50" height="30" uuid="59ce5d10-0eb5-4a3e-85e3-97b573802adb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Not evaluated}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="49" uuid="bdb4d694-9c09-40b1-8eee-0fb8b8ccb6dd">
+						<jr:columnHeader style="Table_CH" height="60">
+							<staticText>
+								<reportElement x="0" y="0" width="49" height="60" uuid="21729855-3ca4-4b77-a0f9-ab89523a33cb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Not evaluated]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="49" height="30" uuid="a23e06c3-5c23-4791-933a-3d217506f8c5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Not evaluated}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement key="" x="2" y="4" width="448" height="20" uuid="690e0f3a-aceb-4d15-aebe-46606ab9b29e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Facility Based DOT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="136" width="448" height="20" uuid="02929177-a844-460b-a5f3-2361ecd9c24a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[b) Status of TB/HIV cases registered 12 months earlier]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement positionType="Float" x="2" y="159" width="803" height="103" uuid="80dcddc4-50d7-49a9-86aa-d7cfe442504f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset2" uuid="16667529-ed2f-4765-b33a-ae1a51f9dd92">
+						<datasetParameter name="start_date">
+							<datasetParameterExpression><![CDATA[$P{start_date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="end_date">
+							<datasetParameterExpression><![CDATA[$P{end_date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="160" uuid="5bd4e26f-0fe2-448f-9fca-8b0f03cc9da6">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="160" height="67" uuid="43050845-f8d2-4051-b27e-5aa73dc646be"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Indicators]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="160" height="30" uuid="dd108498-e8ba-45b9-a072-9b5b5c2ebf07"/>
+								<textElement verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph firstLineIndent="3" leftIndent="3" rightIndent="1"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{indicator}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="43" uuid="d683c612-013c-4870-8ee9-4e9122c743fc">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="43" height="67" uuid="53bfc6a2-1a20-49ea-b7de-f582ea379223"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,No. Of all TB patients]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="43" height="30" uuid="106f49be-040c-4088-b82c-6af0abf0d007"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,No. Of all TB patients}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="42" uuid="fc189808-75b6-4249-94cf-0ea025d71cf3">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="42" height="67" uuid="371afad2-eb45-4925-8111-4dd9685cab1d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,No. Of all TB patients]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="42" height="30" uuid="fad6d6a8-7da2-4b14-b4a3-9f6a6376eb0e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,No. Of all TB patients}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="7138bc22-89f1-408d-8dc4-0da09edd7d1a">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="e53a8da1-fd8a-477e-a302-4b6c16ac5041"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,No. tested for HIV]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="db382e41-e601-4e94-83f2-7f2f4fbb2213"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,No. tested for HIV}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="006733fd-0821-4772-b637-f32ed578aae7">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="075b3cda-2ae4-4999-941f-ae0658b53ebd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,No. tested for HIV]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="45fc0461-0575-4600-b746-404116f35a97"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,No. tested for HIV}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="3c9b5b42-5296-4bcc-bc5f-9f13c721418d">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="db1dc60b-6d34-4483-951d-e93594e3185a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M, No. HIV positive]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="2258b591-f772-4012-a517-d0d577d2930b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M, No. HIV positive}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="fc41bfb8-b77a-4eeb-bdf7-e2ff789a7016">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="04827cf6-8df2-419b-85fb-c081dfc9b796"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F, No. HIV positive]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="53b69104-627e-4e4c-8281-fa4bae5f4684"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F, No. HIV positive}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="d7df6e46-ecd8-4639-a329-6c3541d4dc0c">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="67" uuid="7760affb-28af-4e7f-9f6b-3b486e244300"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M, No Referred to CTC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="50" height="30" uuid="3371309a-6d96-4d81-8b57-d6dad6369041"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M, No Referred to CTC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="2dfac155-3df7-4f69-8f58-29feb58705fb">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="cac6b022-0a7f-4b03-817d-1236d67549b6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F, No Referred to CTC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="21980265-fe27-4acc-b92b-5a1a90f0f44b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F, No Referred to CTC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="b89622c1-987f-4a5b-8dff-28e52394ec65">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="311ed99d-2d54-4a78-b614-aba33bbb4b24"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,No Referred from CTC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="947999c8-eace-4a06-b0c3-68a6125f8174"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,No Referred from CTC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="24ba929e-fba7-4fe2-b6e7-fb0854a8d519">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="2fec4bec-43e4-4ecd-bef5-bf26aebb1548"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,No Referred from CTC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="5a85a999-eed8-4179-a100-c0900d7e5c5a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,No Referred from CTC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="ce42e1ef-7d76-40d7-8874-d7ec27f6513b">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="734c5220-9e61-448f-bc28-587fa9c25e65"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,No Registered for HIV care]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="e5cd8149-f279-4a48-8de0-c8351fa46c67"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,No Registered for HIV care}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="6039dbdb-63f5-49f8-b8e6-078364e861de">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="e0b7cd1a-d2a8-4c8f-bc4d-0101f8369526"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,No Registered for HIV care]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="afad26d8-2c83-40e5-a1af-a90e280872d5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,No Registered for HIV care}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="1453f3eb-0f50-465a-be66-8b1adb365d76">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="2729ea0b-3ab5-4cf7-ad8c-e5ece5fe93d8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Number started ART]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="a647b129-e2b0-4130-a4d5-2fceda5a390e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Number started ART}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="88fb854a-26ad-4718-97c1-ff04e865b68d">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="67" uuid="cf454b9e-45c8-4f8c-8c21-e4af7db54160"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Number started ART]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="40" height="30" uuid="29243d28-dddf-404b-a6b0-0d4c35e90475"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Number started ART}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="33" uuid="c5fafb61-eed8-451f-ba1d-707d5ac50cbf">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="33" height="67" uuid="a52dad39-b372-4fdf-bda1-574385b84f13"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[M,Number started CPT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="33" height="30" uuid="c2fcc96b-a061-44a3-b276-194d70481234"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{M,Number started CPT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="3659f237-53fc-4e69-a560-35c3ec4e8e23">
+						<jr:columnHeader style="Table 1_CH" height="67">
+							<staticText>
+								<reportElement x="0" y="0" width="35" height="67" uuid="55906490-927f-4ad6-af8a-e8e77c974875"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[F,Number started CPT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField pattern="#,##0.###;#,##0.###-">
+								<reportElement x="0" y="0" width="35" height="30" uuid="7a86ac09-5456-4584-98d2-5323485da0b5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F,Number started CPT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="0" width="666" height="100" uuid="18b4a9ac-7ec3-45bf-acba-ea252fe6e962"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[*Others: All cases that do not fit the above definitions such as; who were previously treated but with unknown outcome of the previous treatment or who have returned to treatment with smear-negative PTB or EPTB
+** Previous treated cases include; relapse, treatment failed, lost to follow up and Others
+I certify I have checked this report and find it correct.
+Name ..............................................................................................................................
+Signature of RTLC.....................
+Date:......................../ .................../ 20......]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

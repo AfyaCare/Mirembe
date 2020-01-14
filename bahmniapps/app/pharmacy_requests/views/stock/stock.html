@@ -1,0 +1,34 @@
+<main ng-controller="ManageStockController">
+    <section class="sidemenu">
+        <ul ng-include src="'views/menu/stock.html'"></ul></section>
+    <section class="main">
+        <h1 style="text-align: center">OVERVIEW</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div>
+            <label>Start to typing to seach</label>
+            <input style="margin: 0.5em 1em; width: 400px" type="text" placeholder="Search by name, expiry_date, stock" ng-model="searchText">
+            <br>
+        </div>
+        <hr style="border-bottom-color: #bbb;">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Item</th>
+                <th>Category Name</th>
+                <th>Price Category</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody ng-show="stocks.length > 0 && stocks.toString().toUpperCase() != 'failed'.toUpperCase()" ng-repeat="stock in stocks | filter:searchText ">
+            <tr ng-style="request.status.sourceState.toUpperCase() === 'Waiting confirmation'.toUpperCase() ? {color: 'red'} : {color: ''}">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ stock.item.itemName }}</td>
+                <td>{{ stock.item.categoryName }}</td>
+                <td>{{ stock.priceCategoryId.name }}</td>
+                <td>{{ stock.quantity }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>

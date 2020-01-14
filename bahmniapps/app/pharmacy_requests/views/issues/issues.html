@@ -1,0 +1,96 @@
+<main ng-controller="IssueController">
+    <section style="padding: 1em 3em;">
+        <h1 style="text-align: center">Item Issuing</h1>
+        <hr style="border-bottom-color: #bbb;">
+        <div>
+            <form>
+                <div class="form-field">
+                    <div class="field-value relative push-right">
+                        <label>Item</label>
+                        <input class="enter-concept"
+                               type="text"
+                               ng-model="item.drug.name"
+                               ng-change="getItemByName(item.drug.name)"
+                               placeholder="Enter Item Name"/>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="val in items" ng-click="fillItemTextBox(val)">
+                                {{val.itemName}}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="field-value push-right">
+                        <label>Store</label>
+                        <select ng-model="item.storeId">
+<!--                            <option value="{{ substore.storeId }}" ng-selected="substore.sty" ng-repeat="substore in substores">{{ substore.name }}-->
+<!--                            </option>-->
+<!--                            <option ng-if="edit" value="{{ price.categoryId }}" ng-if="price.categoryId == price.paymentCategory ? 'selected' : ''" ng-repeat="price in priceCategories">{{ price.name }}-->
+<!--                            </option>-->
+                            <option value="{{ substore.storeId }}" ng-repeat="substore in substores">{{ substore.name }}
+                            </option>
+                        </select>
+                    </p>
+                    <p class="field-value push-right">
+                        <label>Payment Category</label>
+                        <select ng-model="item.paymentCategoryUuid">
+<!--                            <option value="{{ substore.storeId }}" ng-selected="substore.sty" ng-repeat="substore in substores">{{ substore.name }}-->
+<!--                            </option>-->
+<!--                            <option ng-if="edit" value="{{ price.categoryId }}" ng-if="price.categoryId == price.paymentCategory ? 'selected' : ''" ng-repeat="price in priceCategories">{{ price.name }}-->
+<!--                            </option>-->
+                            <option value="{{ price.uuid }}" ng-repeat="price in priceCategories">{{ price.name }}
+                            </option>
+                        </select>
+                    </p>
+                    <p class="field-value">
+                        <label>Issuing Amount</label>
+                        <input class="enter-concept"
+                               type="number"
+                               ng-model="item.issuing_amount"
+                               placeholder="Amount"/>
+                    </p>
+
+                </div>
+                <br>
+                <button ng-click="saveItemIssued(item)">Issue Items</button>
+                <!--                <button ng-show="edit" ng-click="updatePricing(dg, attrs)">Update Item</button>-->
+            </form>
+        </div>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Price Category</th>
+                <th>Dispensing Unit</th>
+<!--                <th>Event</th>-->
+                <th>Requesting Status</th>
+                <th>Quantity Requested</th>
+                <th>Quantity Issued</th>
+                <th>Date of Request</th>
+                <th>Date of Issue</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="request in requests">
+            <tr ng-style="request.status.sourceState.toUpperCase() == 'waiting'.toUpperCase() ? {color: 'red'} : {color: ''}">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ request.item.itemName }}</td>
+                <td>{{ request.item.categoryName }}</td>
+                <td>{{ request.priceCategory.name }}</td>
+                <td>{{ request.requestingStore.name }}</td>
+                <td>{{ request.status.sourceState }}</td>
+                <td>{{ request.quantityRequested }}</td>
+                <td>{{ request.quantityIssued }}</td>
+                <td>{{ request.requestDate | date:medium }}</td>
+                <td>{{ request.issueDate | date:medium }}</td>
+                <td>
+                    <a ui-sref="product-issue({'request_uuid': request.uuid, 'item': {'name': request.item.itemName, 'store': request.requestingStore.name} })">Start Issuing</a>
+<!--                    <button ng-click="goToPossibleBatches(request.uuid)" style="background: limegreen; color: white">Issue</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+

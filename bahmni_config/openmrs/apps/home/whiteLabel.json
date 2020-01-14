@@ -1,0 +1,15 @@
+{
+  "homePage": {
+    "logo": "/bahmni_config/openmrs/images/labLogo.png",
+    "header_text": "<b>WELCOME TO<br />MIREMBE MENTAL HEALTH HOSPITAL",
+    "title_text": " "
+  },
+  "loginPage": {
+    "logo": "/bahmni_config/openmrs/images/labLogo.png",
+    "showHeaderText": false,
+    "showTitleText": false
+  },
+  "helpLink": {
+    "url": "https://bahmni.atlassian.net/wiki/display/BAH/Bahmni+Home"
+  }
+}

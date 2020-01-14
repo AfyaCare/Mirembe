@@ -1,0 +1,360 @@
+{
+    "opdReports":{
+        "id": "bahmni.reports.opd",
+        "extensionPointId": "org.bahmni.reports.dashboard",
+        "type": "link",
+        "extensionParams": {
+        },
+        "label": "OPD Reports",
+        "url": "#/dashboard/deptreports?dept=opd",
+        "icon": "icon-bahmni-reports",
+        "order": 1,
+        "requiredPrivilege": "app:admin"
+    },
+     "ipdReports":{
+        "id": "bahmni.reports.ipd",
+        "extensionPointId": "org.bahmni.reports.dashboard",
+        "type": "link",
+        "extensionParams": {
+        },
+        "label": "IPD Reports",
+       "url": "#/dashboard/deptreports?dept=ipd",
+        "icon": "icon-bahmni-reports",
+        "order": 1,
+        "requiredPrivilege": "app:admin"
+    },
+     "ctcReports":{
+        "id": "bahmni.reports.ctc",
+        "extensionPointId": "org.bahmni.reports.dashboard",
+        "type": "link",
+        "extensionParams": {
+        },
+        "label": "CTC Reports",
+        "url": "#/dashboard/deptreports?dept=ctc",
+        "icon": "icon-bahmni-reports",
+        "order": 1,
+        "requiredPrivilege": "app:admin"
+    },
+     "tbReports":{
+        "id": "bahmni.reports.tb",
+        "extensionPointId": "org.bahmni.reports.dashboard",
+        "type": "link",
+        "extensionParams": {
+        },
+        "label": "TB Reports",
+        "url": "#/dashboard/deptreports?dept=tb",
+        "icon": "icon-bahmni-reports",
+        "order": 1,
+        "requiredPrivilege": "app:admin"
+    },
+     "laboratoryReports":{
+        "id": "bahmni.reports.laboratory",
+        "extensionPointId": "org.bahmni.reports.dashboard",
+        "type": "link",
+        "extensionParams": {
+        },
+        "label": "Laboratory Reports",
+        "url": "#/dashboard/deptreports?dept=lab",
+        "icon": "icon-bahmni-reports",
+        "order": 1,
+        "requiredPrivilege": "app:admin"
+    },
+     "phamarcyReports":{
+        "id": "bahmni.reports.phamarcy",
+        "extensionPointId": "org.bahmni.reports.dashboard",
+        "type": "link",
+        "extensionParams": {
+        },
+        "label": "Phamarcy Reports",
+        "url": "#/dashboard/deptreports?dept=phamarcy",
+        "icon": "icon-bahmni-reports",
+        "order": 1,
+        "requiredPrivilege": "app:admin"
+    },
+      "htcgenericreport": {
+    "name": "VCT Registered Clients",
+    "extensionPointId": "org.bahmni.report.opd",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/htcService.sql"
+    }
+  },
+  "toCTC": {
+    "name": "Clients Sent to CTC",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/sentToCTC.sql"
+    }},
+  
+   "crossReport": {
+    "name": "Quarterly facility based HIV care/ART reporting form",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/cross_sectional.jrxml",
+       "dept":"CTC"
+    }
+  },
+   "cohortReport": {
+    "name": "Cohort Analysis",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/cohortReport.jrxml",
+      "dept":"CTC"
+    }
+  },
+    "viralLoadReport": {
+    "name": "Viral Load Report",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/viralLoad.jrxml",
+      "dept":"CTC"
+    }
+  },
+    "viralLoadDetailedReport": {
+    "name": "Viral Load Detailed Report",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/viralLoadDetailed.jrxml",
+      "dept":"CTC"
+    }
+  },
+   "pepfarIndicatorReport": {
+    "name": "Pepfar Indicator Report",
+    "extensionPointId": "org.bahmni.report.ctc",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/pepfarIndicator.jrxml",
+      "dept":"CTC"
+    }
+  },
+   "tbRegister": {
+    "name": "TB 03 Register",
+    "extensionPointId": "org.bahmni.report.tb",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/tb_unit_register3.jrxml",
+      "dept":"TB"
+    }
+  },
+   "tbNotificationReport": {
+    "name": "TB 07 Quarterly case notification report of tuberculosis and TB/HIV",
+    "extensionPointId": "org.bahmni.report.tb",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/tb07.jrxml",
+      "dept":"TB"
+    }
+  },
+   "tbNotification12Report": {
+    "name": "TB 09 Quarterly report on the results of treatment of tuberculosis and TB/HIV patients notified in the quarter ending 12 months early",
+    "extensionPointId": "org.bahmni.report.tb",
+    "type": "customDesign",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/design/tb09.jrxml",
+      "dept":"TB"
+    }
+  },
+   "DHIS2OPDReport": {
+    "name": "OPD Diagnosis DHIS2 Report",
+    "extensionPointId": "org.bahmni.report.opd",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/dhis_opd_report.sql"
+    }
+  },
+  "DHIS2IPDReport": {
+    "name": "IPD Diagnosis DHIS2 Report",
+    "extensionPointId": "org.bahmni.report.ipd",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/dhis_ipd_report.sql"
+    }
+  },
+  "admittedPatient": {
+    "name": "Admitted Patient",
+    "extensionPointId": "org.bahmni.report.ipd",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/admittedPatient.sql"
+    }
+  },
+  "dischargePatient": {
+    "name": "Discharge Patient",
+    "extensionPointId": "org.bahmni.report.ipd",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/discharge.sql"
+    }
+  },
+  "referraledOutTest": {
+    "name": "Lab Test Referraled Out",
+    "extensionPointId": "org.bahmni.report.lab",
+    "type": "ElisGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/referred_out_tests_elis.sql"
+    }
+  },
+  "htcgenericreport": {
+    "name": "VCT Registered Clients",
+    "extensionPointId": "org.bahmni.report.vct",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/htcService.sql"
+    }
+  },
+  "vctToCTC": {
+    "name": "Clients Sent to CTC",
+    "extensionPointId": "org.bahmni.report.vct",
+    "type": "MRSGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/sentToCTC.sql"
+    }
+  },
+  "erpData": {
+    "name": "ERP",
+    "extensionPointId": "org.bahmni.report.phamarcy",
+    "type": "ERPGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/erp.sql"
+    }
+  },
+  "genericLaboratoryServices": {
+    "name": "Laboratory Services",
+    "extensionPointId": "org.bahmni.report.lab",
+    "type": "ElisGeneric",
+    "config": {
+      "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/testCount.sql"
+    }
+  },
+  "OPD/IPDVisitCount": {
+    "name": "OPD/IPD Visit Count",
+    "extensionPointId": "org.bahmni.report.opd",
+    "type": "IpdOpdVisitCount"
+  },
+   "IPD DETAILED":{
+    "name": "IPD DETAILED",
+    "extensionPointId": "org.bahmni.report.ipd",
+    "type": "visits",
+    "config": {
+        "forDataAnalysis": true,
+        "patientAttributes": ["caste", "class", "education", "occupation", "primaryContact"],
+        "visitAttributes": ["Visit Status", "Admission Status"],
+        "patientAddresses": ["address3", "city_village"],
+        "applyDateRangeFor": "visitStartDate",
+        "visitTypesToFilter": ["IPD"],
+        "excludeColumns": ["Patient Name", "Patient Id", "Visit Id"],
+        "additionalPatientIdentifiers": ["National Id"]
+    }
+},
+ "ipdStartedVisit": {
+       "name": "IPD VISITS (Started visits Date/Gender)",
+       "extensionPointId": "org.bahmni.report.ipd",
+       "type": "aggregation",
+       "config": {
+           "report":{
+               "type": "visits",
+               "config": {
+                   "conceptNamesToFilter":[ "Gender", "Date started"],
+                   "showVisitInfo" : true,
+                   "forDataAnalysis": true,
+                   "applyDateRangeFor": "visitStartDate",
+                   "visitAttributes": ["Visit Status", "Admission Status"],
+                   "visitTypesToFilter": ["IPD"]
+               }
+           },
+           "rowGroups": [
+               "Gender", "Date started"
+           ],
+           "columnGroups": [
+           
+           ],
+           "distinctGroups": [
+               "Patient Identifier"
+           ],
+            "showTotalRow":true,
+            "showTotalColumn":true
+       }
+   },
+   
+   "ipdStopVisit": {
+       "name": "IPD VISITS (Date Of Discharge/Gender)",
+       "extensionPointId": "org.bahmni.report.ipd",
+       "type": "aggregation",
+       "config": {
+           "report":{
+               "type": "visits",
+               "config": {
+                   "conceptNamesToFilter":[ "Gender", "Date started"],
+                   "showVisitInfo" : true,
+                   "forDataAnalysis": true,
+                   "applyDateRangeFor": "dateOfDischarge",
+                   "visitAttributes": ["Visit Status", "Admission Status"],
+                    "visitTypesToFilter": ["IPD"]
+               }
+           },
+           "rowGroups": [
+               "Gender", "Date started"
+           ],
+           "columnGroups": [
+           
+           ],
+           "distinctGroups": [
+               "Patient Identifier"
+           ],
+            "showTotalRow":true,
+            "showTotalColumn":true
+       }
+   },
+  "IPDPatientsReport": {
+    "name": "IPD Patients Report",
+     "extensionPointId": "org.bahmni.report.ipd",
+    "type": "ipdPatients",
+    "config": {
+      "addressAttributes": [
+        "address1",
+        "city_village"
+      ],
+      "patientAttributes": [
+        "caste",
+        "education"
+      ],
+      "conceptNames": [
+        "Height",
+        "Weight"
+      ],
+      "filterBy": "Date of Discharge"
+    }
+  },
+   "GenericLabOrderReportAggregation": {
+    "name": "Test Name vs Gender",
+     "extensionPointId": "org.bahmni.report.lab",
+    "type": "aggregation",
+    "config": {
+      "report": {
+        "type": "labOrders",
+        "config": {
+          "forDataAnalysis": true,
+          "showVisitInfo": true
+        }
+      },
+      "rowGroups": [
+        "Test Name"
+      ],
+      "columnGroups": [
+        "Gender",
+        "Age"
+      ],
+      "distinctGroups": [
+        "Test Name"
+      ],
+      "showTotalRow":true,
+      "showTotalColumn":true
+    }
+  }
+}
+

@@ -1,0 +1,445 @@
+'use strict';
+
+var Bahmni = Bahmni || {};
+Bahmni.Common = Bahmni.Common || {};
+
+(function () {
+    var hostUrl = localStorage.getItem('host') ? ("https://" + localStorage.getItem('host')) : "";
+    var offlineRootDir = localStorage.getItem('offlineRootDir') || "";
+    var RESTWS = hostUrl + "/openmrs/ws/rest";
+    var RESTWS_V1 = hostUrl + "/openmrs/ws/rest/v1";
+    var BAHMNI_CORE = RESTWS_V1 + "/bahmnicore";
+    var EMRAPI = RESTWS + "/emrapi";
+    var BACTERIOLOGY = RESTWS_V1;
+    var BASE_URL = hostUrl + "/bahmni_config/openmrs/apps/";
+    var CUSTOM_URL = hostUrl + "/implementation_config/openmrs/apps/";
+    var CUSTOM_LOCALE_URL = hostUrl + "/bahmni_config/openmrs/i18n/";
+    var BILLING_URL = RESTWS_V1+"/billing/";
+	var PHARMACY = RESTWS_V1 + "/pharmacy";
+    var syncButtonConfiguration = {
+        delay: 1000,
+        repeat: 1
+    };
+
+    var serverErrorMessages = [{
+        serverMessage: "Cannot have more than one active order for the same orderable and care setting at same time",
+        clientMessage: "One or more drugs you are trying to order are already active. Please change the start date of the conflicting drug or remove them from the new prescription."
+    },
+        {
+            serverMessage: "[Order.cannot.have.more.than.one]",
+            clientMessage: "One or more drugs you are trying to order are already active. Please change the start date of the conflicting drug or remove them from the new prescription."
+        }
+    ];
+
+    var offlineErrorMessages = {
+        networkError: "The network connectivity is bad and not able to connect to the server. Please ensure minimum network condition to sync the device",
+        openmrsServerError: "OpenMRS is down and the device not able to communicate to the server. Please make sure the server is up before Syncing the device",
+        openmrsServerDownError: "OpenMRS is down and the device not able to communicate to the server. Please ensure the server is up for the first time login and setup.",
+        networkErrorForFirstTimeLogin: "The device is not connected to the internet. Please ensure minimal connectivity for the first time login and setup."
+    };
+
+    var syncStatusMessages = {
+        syncFailed: "Sync Failed, Press sync button to try again",
+        syncSuccess: "Data Synced Successfully",
+        syncPending: "Sync Pending, Press Sync button to Sync"
+    };
+
+    var representation = "custom:(uuid,name,names,conceptClass," +
+        "setMembers:(uuid,name,names,conceptClass," +
+        "setMembers:(uuid,name,names,conceptClass," +
+        "setMembers:(uuid,name,names,conceptClass))))";
+
+    var unAuthenticatedReferenceDataMap = {
+        "/openmrs/ws/rest/v1/location?tags=Login+Location&s=byTags&v=default": "LoginLocations",
+        "/openmrs/ws/rest/v1/bahmnicore/sql/globalproperty?property=locale.allowed.list": "LocaleList"
+    };
+
+    var authenticatedReferenceDataMap = {
+        "/openmrs/ws/rest/v1/idgen/identifiertype": "IdentifierTypes",
+        "/openmrs/module/addresshierarchy/ajax/getOrderedAddressHierarchyLevels.form": "AddressHierarchyLevels",
+        "/openmrs/ws/rest/v1/bahmnicore/sql/globalproperty?property=mrs.genders": "Genders",
+        "/openmrs/ws/rest/v1/bahmnicore/sql/globalproperty?property=bahmni.encountersession.duration": "encounterSessionDuration",
+        "/openmrs/ws/rest/v1/bahmnicore/sql/globalproperty?property=bahmni.relationshipTypeMap": "RelationshipTypeMap",
+        "/openmrs/ws/rest/v1/bahmnicore/config/bahmniencounter?callerContext=REGISTRATION_CONCEPTS": "RegistrationConcepts",
+        "/openmrs/ws/rest/v1/relationshiptype?v=custom:(aIsToB,bIsToA,uuid)": "RelationshipType",
+        "/openmrs/ws/rest/v1/personattributetype?v=custom:(uuid,name,sortWeight,description,format,concept)": "PersonAttributeType",
+        "/openmrs/ws/rest/v1/entitymapping?mappingType=loginlocation_visittype&s=byEntityAndMappingType": "LoginLocationToVisitTypeMapping",
+        "/openmrs/ws/rest/v1/bahmnicore/config/patient": "PatientConfig",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=Consultation+Note&v=custom:(uuid,name,answers)": "ConsultationNote",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=Lab+Order+Notes&v=custom:(uuid,name)": "LabOrderNotes",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=Impression&v=custom:(uuid,name)": "RadiologyImpressionConfig",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=All_Tests_and_Panels&v=custom:(uuid,name:(uuid,name),setMembers:(uuid,name:(uuid,name)))": "AllTestsAndPanelsConcept",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=Dosage+Frequency&v=custom:(uuid,name,answers)": "DosageFrequencyConfig",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=Dosage+Instructions&v=custom:(uuid,name,answers)": "DosageInstructionConfig",
+        "/openmrs/ws/rest/v1/bahmnicore/sql/globalproperty?property=bahmni.encounterType.default": "DefaultEncounterType",
+        "/openmrs/ws/rest/v1/concept?s=byFullySpecifiedName&name=Stopped+Order+Reason&v=custom:(uuid,name,answers)": "StoppedOrderReasonConfig",
+        "/openmrs/ws/rest/v1/ordertype": "OrderType",
+        "/openmrs/ws/rest/v1/bahmnicore/config/drugOrders": "DrugOrderConfig",
+        "/openmrs/ws/rest/v1/bahmnicore/sql/globalproperty?property=drugOrder.drugOther": "NonCodedDrugConcept"
+    };
+
+    authenticatedReferenceDataMap["/openmrs/ws/rest/v1/entitymapping?mappingType=location_encountertype&s=byEntityAndMappingType&entityUuid=" + (localStorage.getItem("LoginInformation") ? JSON.parse(localStorage.getItem("LoginInformation")).currentLocation.uuid : "")] = "LoginLocationToEncounterTypeMapping";
+
+    Bahmni.Common.Constants = {
+        hostURL: hostUrl,
+        dateFormat: "dd/mm/yyyy",
+        dateDisplayFormat: "DD-MMM-YYYY",
+        timeDisplayFormat: "hh:mm",
+        emrapiDiagnosisUrl: EMRAPI + "/diagnosis",
+        bahmniDiagnosisUrl: BAHMNI_CORE + "/diagnosis/search",
+        bahmniDeleteDiagnosisUrl: BAHMNI_CORE + "/diagnosis/delete",
+        diseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplates",
+        AllDiseaseTemplateUrl: BAHMNI_CORE + "/diseaseTemplate",
+        emrapiConceptUrl: EMRAPI + "/concept",
+        encounterConfigurationUrl: BAHMNI_CORE + "/config/bahmniencounter",
+        patientConfigurationUrl: BAHMNI_CORE + "/config/patient",
+        drugOrderConfigurationUrl: BAHMNI_CORE + "/config/drugOrders",
+        emrEncounterUrl: EMRAPI + "/encounter",
+        encounterUrl: RESTWS_V1 + "/encounter",
+        locationUrl: RESTWS_V1 + "/location",
+        bahmniVisitLocationUrl: BAHMNI_CORE + "/visitLocation",
+        bahmniOrderUrl: BAHMNI_CORE + "/orders",
+        bahmniDrugOrderUrl: BAHMNI_CORE + "/drugOrders",
+        bahmniDispositionByVisitUrl: BAHMNI_CORE + "/disposition/visit",
+        bahmniDispositionByPatientUrl: BAHMNI_CORE + "/disposition/patient",
+        bahmniSearchUrl: BAHMNI_CORE + "/search",
+        bahmniLabOrderResultsUrl: BAHMNI_CORE + "/labOrderResults",
+        bahmniEncounterUrl: BAHMNI_CORE + "/bahmniencounter",
+        conceptUrl: RESTWS_V1 + "/concept",
+        bahmniConceptAnswerUrl: RESTWS_V1 + "/bahmniconceptanswer",
+        conceptSearchByFullNameUrl: RESTWS_V1 + "/concept?s=byFullySpecifiedName",
+        visitUrl: RESTWS_V1 + "/visit",
+        endVisitUrl: BAHMNI_CORE + "/visit/endVisit",
+        endVisitAndCreateEncounterUrl: BAHMNI_CORE + "/visit/endVisitAndCreateEncounter",
+        visitTypeUrl: RESTWS_V1 + "/visittype",
+        patientImageUrlByPatientUuid: RESTWS_V1 + "/patientImage?patientUuid=",
+        labResultUploadedFileNameUrl: "/uploaded_results/",
+        visitSummaryUrl: BAHMNI_CORE + "/visit/summary",
+        encounterModifierUrl: BAHMNI_CORE + "/bahmniencountermodifier",
+        openmrsUrl: hostUrl + "/openmrs",
+        loggingUrl: hostUrl + "/log/",
+        reports: "/bahmni_config/openmrs/apps/reports/reports.json",
+        reportRequest: "/openmrs/ws/rest/v1/Dhis_posting/postingData",
+        previewReports: "/bahmnireports/report",
+        idgenConfigurationURL: RESTWS_V1 + "/idgen/identifiertype",
+        bahmniRESTBaseURL: BAHMNI_CORE + "",
+        observationsUrl: BAHMNI_CORE + "/observations",
+        obsRelationshipUrl: BAHMNI_CORE + "/obsrelationships",
+        encounterImportUrl: BAHMNI_CORE + "/admin/upload/encounter",
+        programImportUrl: BAHMNI_CORE + "/admin/upload/program",
+        conceptImportUrl: BAHMNI_CORE + "/admin/upload/concept",
+        conceptSetImportUrl: BAHMNI_CORE + "/admin/upload/conceptset",
+        drugImportUrl: BAHMNI_CORE + "/admin/upload/drug",
+        labResultsImportUrl: BAHMNI_CORE + "/admin/upload/labResults",
+        referenceTermsImportUrl: BAHMNI_CORE + "/admin/upload/referenceterms",
+        relationshipImportUrl: BAHMNI_CORE + "/admin/upload/relationship",
+        conceptSetExportUrl: BAHMNI_CORE + "/admin/export/conceptset?conceptName=:conceptName",
+        patientImportUrl: BAHMNI_CORE + "/admin/upload/patient",
+        adminImportStatusUrl: BAHMNI_CORE + "/admin/upload/status",
+        programUrl: RESTWS_V1 + "/program",
+        programEnrollPatientUrl: RESTWS_V1 + "/bahmniprogramenrollment",
+        programStateDeletionUrl: RESTWS_V1 + "/programenrollment",
+        programEnrollmentDefaultInformation: "default",
+        programEnrollmentFullInformation: "full",
+        programAttributeTypes: RESTWS_V1 + "/programattributetype",
+        relationshipTypesUrl: RESTWS_V1 + "/relationshiptype",
+        personAttributeTypeUrl: RESTWS_V1 + "/personattributetype",
+        doctorsRoom: RESTWS_V1 + "/SaveDoctorRoom/DoctorRoom",
+        diseaseSummaryPivotUrl: BAHMNI_CORE + "/diseaseSummaryData",
+        allTestsAndPanelsConceptName: 'All_Tests_and_Panels',
+        dosageFrequencyConceptName: 'Dosage Frequency',
+        dosageInstructionConceptName: 'Dosage Instructions',
+        stoppedOrderReasonConceptName: 'Stopped Order Reason',
+        consultationNoteConceptName: 'Consultation Note',
+        diagnosisConceptSet: 'Diagnosis Concept Set',
+        radiologyOrderType: 'Radiology Order',
+        radiologyResultConceptName: "Radiology Result",
+        investigationEncounterType: "INVESTIGATION",
+        validationNotesEncounterType: "VALIDATION NOTES",
+        labOrderNotesConcept: "Lab Order Notes",
+        impressionConcept: "Impression",
+        qualifiedByRelationshipType: "qualified-by",
+        dispositionConcept: "Disposition",
+        proposedWardsConcept: "Ward Set",
+        dispositionGroupConcept: "Disposition Set",
+        dispositionNoteConcept: "Disposition Note",
+        ward_saveConcept: "ward save",
+        ruledOutDiagnosisConceptName: 'Ruled Out Diagnosis',
+        emrapiConceptMappingSource: "org.openmrs.module.emrapi",
+        abbreviationConceptMappingSource: "Abbreviation",
+        includeAllObservations: false,
+        openmrsObsUrl: RESTWS_V1 + "/obs",
+        openmrsObsRepresentation: "custom:(uuid,obsDatetime,value:(uuid,name:(uuid,name)))",
+        admissionCode: 'ADMIT',
+        dischargeCode: 'DISCHARGE',
+        transferCode: 'TRANSFER',
+        undoDischargeCode: 'UNDO_DISCHARGE',
+        vitalsConceptName: "Vitals",
+        heightConceptName: "HEIGHT",
+        weightConceptName: "WEIGHT",
+        bmiConceptName: "BMI", // TODO : shruthi : revove this when this logic moved to server side
+        bmiStatusConceptName: "BMI STATUS", // TODO : shruthi : revove this when this logic moved to server side
+        abnormalObservationConceptName: "IS_ABNORMAL",
+        documentsPath: '/document_images',
+        documentsConceptName: 'Document',
+        miscConceptClassName: 'Misc',
+        abnormalConceptClassName: 'Abnormal',
+        unknownConceptClassName: 'Unknown',
+        durationConceptClassName: 'Duration',
+        conceptDetailsClassName: 'Concept Details',
+        admissionEncounterTypeName: 'ADMISSION',
+        dischargeEncounterTypeName: 'DISCHARGE',
+        imageClassName: 'Image',
+        videoClassName: 'Video',
+        locationCookieName: 'bahmni.user.location',
+        retrospectiveEntryEncounterDateCookieName: 'bahmni.clinical.retrospectiveEncounterDate',
+        JSESSIONID: "JSESSIONID",
+        rootScopeRetrospectiveEntry: 'retrospectiveEntry.encounterDate',
+        patientFileConceptName: 'Patient file',
+        serverErrorMessages: serverErrorMessages,
+        currentUser: 'bahmni.user',
+        retrospectivePrivilege: 'app:clinical:retrospective',
+        locationPickerPrivilege: 'app:clinical:locationpicker',
+        onBehalfOfPrivilege: 'app:clinical:onbehalf',
+        nutritionalConceptName: 'Nutritional Values',
+        messageForNoObservation: "No observations captured for this visit.",
+        messageForNoDisposition: "NO_DISPOSTIONS_AVAILABLE_MESSAGE_KEY",
+        messageForNoFulfillment: "No observations captured for this order.",
+        reportsUrl: "/bahmnireports",
+        uploadReportTemplateUrl: "/bahmnireports/upload",
+        ruledOutdiagnosisStatus: "Ruled Out Diagnosis",
+        registartionConsultationPrivilege: 'app:common:registration_consultation_link',
+        manageIdentifierSequencePrivilege: "Manage Identifier Sequence",
+        closeVisitPrivilege: 'app:common:closeVisit',
+        deleteDiagnosisPrivilege: 'app:clinical:deleteDiagnosis',
+        viewPatientsPrivilege: 'View Patients',
+        editPatientsPrivilege: 'Edit Patients',
+        addVisitsPrivilege: 'Add Visits',
+        deleteVisitsPrivilege: 'Delete Visits',
+        grantProviderAccess: "app:clinical:grantProviderAccess",
+        grantProviderAccessDataCookieName: "app:clinical:grantProviderAccessData",
+        globalPropertyUrl: BAHMNI_CORE + "/sql/globalproperty",
+        passwordPolicyUrl: BAHMNI_CORE + "/globalProperty/passwordPolicyProperties",
+        fulfillmentConfiguration: "fulfillment",
+        fulfillmentFormSuffix: " Fulfillment Form",
+        noNavigationLinksMessage: "No navigation links available.",
+        conceptSetRepresentationForOrderFulfillmentConfig: representation,
+        entityMappingUrl: RESTWS_V1 + "/entitymapping",
+        encounterTypeUrl: RESTWS_V1 + "/encountertype",
+        defaultExtensionName: "default",
+        orderSetMemberAttributeTypeUrl: RESTWS_V1 + "/ordersetmemberattributetype",
+        orderSetUrl: RESTWS_V1 + "/bahmniorderset",
+        primaryOrderSetMemberAttributeTypeName: "Primary",
+        bahmniBacteriologyResultsUrl: BACTERIOLOGY + "/specimen",
+        bedFromVisit: RESTWS_V1 + "/beds",
+        ordersUrl: RESTWS_V1 + "/order",
+        formDataUrl: RESTWS_V1 + "/obs",
+        providerUrl: RESTWS_V1 + "/provider",
+        drugUrl: RESTWS_V1 + "/drug",
+        getDrud: RESTWS_V1 + "/get_item/getDrug",
+        localDrugStockUrl: RESTWS_V1 + "/emr/getDrugStatus",
+        gothomisDrugStockUrl: RESTWS_V1 + "/emr/getDrugStockStatus",
+        getItems_all: RESTWS_V1 + "/get_item/all",
+        editItems: RESTWS_V1 + "/get_item/editItem",
+        getItems_unfiltered: RESTWS_V1 + "/get_item/getItems_unfiltered",
+        getLedgers: RESTWS_V1 + "/ledger_entry/all",
+        insertLedger_entry: RESTWS_V1 + "/ledger_entry/insertLedger_entry",
+        selectLedger_entry: RESTWS_V1 + "/ledger_entry/selectLedger_entry",
+        updateLedger_entry: RESTWS_V1 + "/ledger_entry/updateLedger_entry",
+        getTotalQuantityPhysicalInventory: RESTWS_V1 + "/physicalInv/total_quantity",
+        getTotalValuePhysicalInventory: RESTWS_V1 + "/physicalInv/physical_value",
+        getTotalQuantityStock: RESTWS_V1 + "/physicalInv/total_stock",
+        getTotalValueStock: RESTWS_V1 + "/physicalInv/stock_value",
+        getExpiredStock: RESTWS_V1 + "/ledger_entry/all_item",
+        // getTotalQuantityExpiredStock: RESTWS_V1 + "/physicalInv/expire_quantity",
+        // getTotalValueExpiredStock: RESTWS_V1 + "/physicalInv/expire_value",
+        getAllPhysicalInventory: RESTWS_V1 + "/physicalInv/all",
+        insertPhysical: RESTWS_V1 + "/physicalInv/insertPhysical",
+        selectPhysical: RESTWS_V1 + "/physicalInv/selectPhysical",
+        updatePhysical: RESTWS_V1 + "/physicalInv/updatePhysical",
+        getAllPrices: RESTWS_V1 + "/price/all",
+        selectPrice: RESTWS_V1 + "/price/selectPrice",
+        insertPrice: RESTWS_V1 + "/price/insertPrice",
+        updatePriceItem: RESTWS_V1 + "/price/updatePriceItem",
+        insertPriceList: RESTWS_V1 + "/pricelist/insertPriceList",
+        selectPriceLists: RESTWS_V1 + "/pricelist/selectPriceLists",
+        cancelOrderLine: RESTWS_V1 + "/salesOrders/cancelOrderLine",
+        cancelOrder: RESTWS_V1 + "/salesOrders/cancelOrder",
+        cancelControlNumberRequest: RESTWS_V1 + "/billing/cancelBillRequest",
+        reconciliationRequest: RESTWS_V1 + "/receiveResponse/get_reconciliation_data",
+        getReconciledOrders: RESTWS_V1 + "/receiveResponse/get_concile",
+        getSalesOrders_line: RESTWS_V1 + "/salesOrders/getSalesOrders_line",
+        getSalesOrders_line_other: RESTWS_V1 + "/salesOrders/getSalesOrders_line_other",
+        requestControlNumber: RESTWS_V1 + "/billing/sendBillRequest",
+        paymentConfirmed: RESTWS_V1 + "/salesOrders/paymentConfirmed",
+        outOfStockUrl: RESTWS_V1 + "/get_item/get_OutOfStockDrugs",
+        updateStatusad: RESTWS_V1 + "/activateDeactivate/updateStatus",
+        getSalesOrders: RESTWS_V1 + "/salesOrders/getSalesOrders",
+        createItem: RESTWS_V1 + "/get_item/createItem",
+        getAddItems: RESTWS_V1 + "/get_item/getAddItems",
+        getCancelledorders: RESTWS_V1 + "/salesOrders/getCancelledorders",
+        getPaidorders: RESTWS_V1 + "/salesOrders/getPaidorders",
+        getDiscountOrders: RESTWS_V1 + "/salesOrders/getDiscountOrders",
+        saveDiscount: RESTWS_V1 + "/salesOrders/saveDiscount",
+        lab_rad_billOrdersUrl: RESTWS_V1 + "/RadiologyLabOrders/billOrders",
+        drugBillingUrl: RESTWS_V1 + "/newOrders/drugBilling",
+        submitLabOrder: RESTWS_V1 + "/emr/submitLabOrder",
+        sendConsultationFeeOrder: RESTWS_V1 + "/emr/createConsultationQuotation_new",
+        updateBillingCategory: RESTWS_V1 + "/emr/updatePatientBillingCategory",
+        submitDisposition: RESTWS_V1 + "/emr/submitDisposition",
+        submitDrugOrder: RESTWS_V1 + "/emr/submitDrugOrder",
+		getLoginFullName: RESTWS_V1 + "/bahmniuser/fetchUser",
+        orderTypeUrl: RESTWS_V1 + "/ordertype",
+        userUrl: RESTWS_V1 + "/user",
+        passwordUrl: RESTWS_V1 + "/password",
+        formUrl: RESTWS_V1 + "/form",
+        latestPublishedForms: RESTWS_V1 + "/bahmniie/form/latestPublishedForms",
+        sqlUrl: BAHMNI_CORE + "/sql",
+        patientAttributeDateFieldFormat: "org.openmrs.util.AttributableDate",
+        platform: "user.platform",
+        RESTWS_V1: RESTWS_V1,
+        baseUrl: BASE_URL,
+        customUrl: CUSTOM_URL,
+        customLocaleUrl: CUSTOM_LOCALE_URL,
+        addressEventLogServiceUrl: hostUrl + "/event-log-service/rest/eventlog/getAddressHierarchyEvents",
+        eventLogServiceUrl: hostUrl + "/event-log-service/rest/eventlog/events",
+        eventLogServiceConceptUrl: hostUrl + "/event-log-service/rest/eventlog/concepts",
+        offlineMetadataUrl: hostUrl + "/offlineMetadata.json",
+        faviconUrl: hostUrl + "/bahmni/favicon.ico",
+        platformType: {
+            chrome: 'other',
+            android: 'other',
+            chromeApp: 'other',
+            other: 'other'
+        },
+        numericDataType: "Numeric",
+        encryptionType: {
+            SHA3: 'SHA3'
+        },
+        hospital_details: {
+            name: "Mirembe Hospital",
+            district: "Dodoma"
+        },
+        LoginInformation: 'LoginInformation',
+        // orderSetSpecialUnits:["mg/kg","mg/m2"],
+        ServerDateTimeFormat: 'YYYY-MM-DDTHH:mm:ssZZ',
+        calculateDose: BAHMNI_CORE + "/calculateDose",
+        unAuthenticatedReferenceDataMap: unAuthenticatedReferenceDataMap,
+        authenticatedReferenceDataMap: authenticatedReferenceDataMap,
+        offlineRootDir: offlineRootDir,
+        dischargeUrl: BAHMNI_CORE + "/discharge",
+        newOfflineVisitUuid: "newOfflineVisitUuid",
+        offlineErrorMessages: offlineErrorMessages,
+        syncButtonConfiguration: syncButtonConfiguration,
+        syncStatusMessages: syncStatusMessages,
+        uuidRegex: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+        offlineBahmniEncounterUrl: "/openmrs/ws/rest/v1/bahmnicore/bahmniencounter/",
+        eventlogFilterUrl: hostUrl + "/openmrs/ws/rest/v1/eventlog/filter",
+        bahmniConnectMetaDataDb: "metaData",
+        serverDateTimeUrl: "/cgi-bin/systemdate",
+        loginText: "/bahmni_config/openmrs/apps/home/whiteLabel.json",
+        auditLogUrl: BAHMNI_CORE + "/auditlog",
+        conditionUrl: EMRAPI + '/condition',
+        conditionHistoryUrl: EMRAPI + '/conditionhistory',
+        followUpConditionConcept: 'Follow-up Condition',
+        localeLangs: "/bahmni_config/openmrs/apps/home/locale_languages.json",
+        appointmentServiceUrl: RESTWS_V1 + "/appointmentService",
+        insuranceValidatorServiceUrl: RESTWS_V1 + "/nhif/verification",
+        normalNHIFVisit: "1",
+        // providerUrl: RESTWS_V1 + "/provider",
+        patientDuplicateDetection: RESTWS_V1 + "/emr/checkDuplicatePatients",
+        registrationEncounterType: "REG",
+        consultationEncounterType: "Consultation",
+        updateDeliveryOrder: RESTWS_V1 + "/emr/updateSingleDeliveryOrder",
+        emrAccessRequest: RESTWS_V1 + "/emr/emrAccessRequest",
+        gothomisUserId: RESTWS_V1 + "/emr/getProviderUserID",
+        gothomisLogOut: RESTWS_V1 + "/emr/logOutGothomis",
+        createDrug: RESTWS_V1 + "/emr/createDrug",
+        setItemPrice: RESTWS_V1 + "/emr/setPrice",
+        getItemUrl: RESTWS_V1 + "/emr/getItem",
+        createLabTest: RESTWS_V1 + "/emr/createLabTest",
+        createNewConcept: RESTWS_V1 + "/emr/addConcept",
+        getItemsByCategory: RESTWS_V1 + "/emr/getAllItemsByConceptClass",
+
+	//Pharamcy module API endpoints by Denis Rwelamila (UCC)
+        searchGenericByName: PHARMACY + "/item/drug/generic/name/search",
+        getMainStore: PHARMACY + "/store/name",
+        createNewStore: PHARMACY + "/store/new",
+        createNewSubStore: PHARMACY + "/store/substore/new",
+        getStoreByUIID: PHARMACY + "/store/", //{uuid}
+        getStoreByName: PHARMACY + "/store/substore/name", //{name}
+        getStoreBySubName: PHARMACY + "/store/substore/name/search/", //{name}/search
+        getStoreSubStore: PHARMACY + "/store/", //{uuid}/substores
+        updateSubStore: PHARMACY + "/store/substore/", //{uuid}/update
+        getAllStores: PHARMACY + "/store/all",
+        getAllSubStores: PHARMACY + "/store/substore/all",
+        getAllCategories: PHARMACY + "/category/all",
+        createCategory: PHARMACY + "/category/new",
+        getCategory: PHARMACY + "/category/",//{{ uuid }}/read
+        updateCategory: PHARMACY + "/category/", //{uuid}/update
+        getCategorySubCats: PHARMACY + "/category/",//{{uuid}}/read/full
+        createSubCategory: PHARMACY + "/category/subcategory/new",
+        getSubCategoryByUUID: PHARMACY + "/category/subcategory/", //{uuid}/read
+        getSubCategoryByUUIDWithCategory: PHARMACY + "/category/subcategory/", //{uuid}/read/full
+        getSubCategoryByName: PHARMACY + "/category/subcategory/name",
+        getSubCategoryBySubName: PHARMACY + "/category/subcategory/name/search",
+        getAllSubCategories: PHARMACY + "/category/subcategory/all/full",
+        createGenericDrug: PHARMACY + "/item/drug/generic/new",
+        updateGenericDrug: PHARMACY + "/item/drug/generic/", //{uuid}/update
+        getGenericDrugs: PHARMACY + "/item/drug/generic/all",
+        createSubcategoryAttributeType: PHARMACY + "/category/subcategory/", //{uuid}/attributetype/new,
+        createSubcategoryAttributeTypes: PHARMACY + "/category/subcategory/", //{uuid}/attributetype/new,
+        getAllSubCategoriesWithTheirAttributeTypes: PHARMACY + "/category/", //{uuid}/subcategory/all/attributetypes
+        getSubCategoryWithTheirAttributeTypes: PHARMACY + "/category/subcategory/",// {uuid}/attributetypes
+        getDosageForm: PHARMACY + '/item/dosageform/all',
+        saveActualDrug: PHARMACY + '/item/drug/new',
+        saveActualNonDrug: PHARMACY + '/item/nondrug/new',
+        getNonDrugDetails: PHARMACY + '/item/nondrug/', //{uuid}/read,
+        getAllItems: PHARMACY + '/item/all',
+        getItemDetails: PHARMACY + '/item/', //{uuid}/read,
+        createPriceCategory: PHARMACY + '/price/category/new',
+        getPriceCategories: PHARMACY + '/price/category/all',
+        getPriceCategory: PHARMACY + '/price/category/',//{uuid}/read,
+        getAllLedgers: PHARMACY + '/ledger/all',
+        createLedgerType: PHARMACY + '/ledger/type/new',
+        getLedgerType: PHARMACY + '/ledger/type/', //{uuid}/read,
+        getAllLedgerTypes: PHARMACY + '/ledger/type/all',
+        createNewLedgerEntry: PHARMACY + '/ledger/entry/new',
+        searchDrugsByName: PHARMACY + '/item/drug/name/search',
+        searchItemsByName: PHARMACY + '/item/all/name/search',
+        createSellingPricing: PHARMACY + '/item/', //{uuid}/price/new
+        getAllSellingPrices: PHARMACY + '/item/price/all',
+        createLedger: PHARMACY + '/ledger/entry/new',
+        getLedger: PHARMACY + '/ledger/', //{uuid}/read
+        requestNewStock: PHARMACY + '/stock/item/requests/new',
+        getAllRequestedStock: PHARMACY + '/stock/item/requests/main/all',
+        getAllRequestsPerDispensingPoint: PHARMACY + '/stock/item/requests/all',
+        getAllPossibleBatches: PHARMACY + '/stock/item/request/',//{uuid}/possiblebatches
+        processRequestedIssue: PHARMACY + '/stock/item/request/', //{uuid}/issue
+        actOnIssuedRequest: PHARMACY + '/stock/item/request/', //{uuid}/reject
+        actOnIssuedRequestMainStore: PHARMACY + '/stock/item/request/main', //{uuid}/reject
+        getAllStock: PHARMACY + '/stock/item/status/all',
+		
+    //Billing module API endpoints by Eric Mwailunga (UCC)
+        getAllServiceTypes: BILLING_URL+ "servicetype/read/all",
+        getServiceTypesMap: BILLING_URL +"servicetype/map",
+
+        createDiscountCriteria: BILLING_URL+ "discountcriteria/new",
+        getDiscountCriteriaList: BILLING_URL+ "discountcriteria/read/all",
+
+        createFinancialPeriod: BILLING_URL+ "financialperiod/new",
+        getFinancialPeriodsList: BILLING_URL+ "financialperiod/read/all",
+
+        createPriceListVersion: BILLING_URL+ "listversion/new",
+        getPriceListVersions: BILLING_URL+ "listversion/read/all",
+
+        getAllQuotationsByDates: BILLING_URL + "quotation/read/dates",
+
+        getAllOrdersByDates: BILLING_URL + "order/read/dates",
+
+        getPriceTemplateForServices: BILLING_URL + "template",
+        uploadPriceTemplateForServices: BILLING_URL + "template/upload",
+
+        createSaleQuotation: BILLING_URL + "salequotation/new"
+    };
+})();
